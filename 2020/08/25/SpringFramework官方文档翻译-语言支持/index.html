@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="语言支持1. KotlinKotlin是一种静态类型语言，它以 JVM(和其他平台)为目标，允许编写简洁优雅的 code，同时提供非常好的互通性与用 Java 编写的现有 libraries。 Spring Framework 为 Kotlin 提供 first-class 支持，让开发人员可以编写 Kotlin applications，就好像 Spring Framework 是本机 Kotl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringFramework官方文档翻译-语言支持">
+<meta property="og:url" content="http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="语言支持1. KotlinKotlin是一种静态类型语言，它以 JVM(和其他平台)为目标，允许编写简洁优雅的 code，同时提供非常好的互通性与用 Java 编写的现有 libraries。 Spring Framework 为 Kotlin 提供 first-class 支持，让开发人员可以编写 Kotlin applications，就好像 Spring Framework 是本机 Kotl">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-25T00:44:16.000Z">
+<meta property="article:modified_time" content="2020-08-25T00:54:44.077Z">
+<meta property="article:author" content="Route-nice">
+<meta property="article:tag" content="SpringFramework">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>SpringFramework官方文档翻译-语言支持 | Hexo</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8b3aabf954a120e5a2920d31f3600013";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Route-nice">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringFramework官方文档翻译-语言支持
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-25 08:44:16 / 修改时间：08:54:44" itemprop="dateCreated datePublished" datetime="2020-08-25T08:44:16+08:00">2020-08-25</time>
+            </span>
+
+          
+            <span id="/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/" class="post-meta-item leancloud_visitors" data-flag-title="SpringFramework官方文档翻译-语言支持" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/25/SpringFramework官方文档翻译-语言支持/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="语言支持"><a href="#语言支持" class="headerlink" title="语言支持"></a>语言支持</h1><h2 id="1-Kotlin"><a href="#1-Kotlin" class="headerlink" title="1. Kotlin"></a>1. Kotlin</h2><p><a target="_blank" rel="noopener" href="https://kotlinlang.org/">Kotlin</a>是一种静态类型语言，它以 JVM(和其他平台)为目标，允许编写简洁优雅的 code，同时提供非常好的<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/java-interop.html">互通性</a>与用 Java 编写的现有 libraries。</p>
+<p>Spring Framework 为 Kotlin 提供 first-class 支持，让开发人员可以编写 Kotlin applications，就好像 Spring Framework 是本机 Kotlin framework 一样。</p>
+<p>了解 Spring 和 Kotlin 的最简单方法是遵循<a target="_blank" rel="noopener" href="https://spring.io/guides/tutorials/spring-boot-kotlin/">这个全面的教程</a>。如果您需要支持，请随意加入<a target="_blank" rel="noopener" href="http://slack.kotlinlang.org/">Kotlin Slack</a>的#spring channel 或在<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/tagged/spring+kotlin">堆栈溢出</a>上使用<code>spring</code>和<code>kotlin</code>作为标记提问。</p>
+<a id="more"></a>
+
+<h3 id="1-1-要求"><a href="#1-1-要求" class="headerlink" title="1.1. 要求"></a>1.1. 要求</h3><p>Spring Framework 支持 Kotlin 1.1 并且需要<a target="_blank" rel="noopener" href="https://bintray.com/bintray/jcenter/org.jetbrains.kotlin%3Akotlin-stdlib">kotlin-stdlib</a>(或其中一个变体，例如<a target="_blank" rel="noopener" href="https://bintray.com/bintray/jcenter/org.jetbrains.kotlin%3Akotlin-stdlib-jre8">kotlin-stdlib-jre8</a>用于 Kotlin 1.1 或<a target="_blank" rel="noopener" href="https://bintray.com/bintray/jcenter/org.jetbrains.kotlin%3Akotlin-stdlib-jdk8">kotlin-stdlib-jdk8</a>用于 Kotlin 1.2)和<a target="_blank" rel="noopener" href="https://bintray.com/bintray/jcenter/org.jetbrains.kotlin%3Akotlin-reflect">kotlin-reflect</a>出现在 classpath 上。如果您在<a target="_blank" rel="noopener" href="https://start.spring.io/#!language=kotlin">start.spring.io</a>上引导 Kotlin 项目，则默认提供它们。</p>
+<h3 id="1-2-Extensions"><a href="#1-2-Extensions" class="headerlink" title="1.2. Extensions"></a>1.2. Extensions</h3><p>Kotlin <a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/extensions.html">extensions</a>提供了扩展现有 classes 并具有附加功能的能力。 Spring Framework Kotlin API 使用这些 extensions 为现有的 Spring API 添加新的 Kotlin-specific 便利。</p>
+<p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.1.3.RELEASE/kdoc-api/spring-framework/">Spring Framework KDoc API</a> lists 和文档都可用 Kotlin extensions 和 DSL。</p>
+<blockquote>
+<p>请记住，需要导入 Kotlin extensions 才能使用。这意味着，例如，只有在导入<code>org.springframework.context.support.registerBean</code>时，<code>GenericApplicationContext.registerBean</code> Kotlin 扩展才可用。也就是说，类似于静态导入，IDE 应该在大多数情况下自动建议 import。</p>
+</blockquote>
+<p>例如，<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/inline-functions.html#reified-type-parameters">Kotlin reified 类型参数</a>为 JVM <a target="_blank" rel="noopener" href="https://docs.oracle.com/javase/tutorial/java/generics/erasure.html">泛型类型擦除</a>提供了一种解决方法，而 Spring Framework 提供了一些 extensions 来利用此 feature。这允许更好的 Kotlin API <code>RestTemplate</code>，来自 Spring WebFlux 的新<code>WebClient</code>，以及各种其他 API。</p>
+<blockquote>
+<p>其他 libraries，例如 Reactor 和 Spring Data，也为其 API 提供 Kotlin extensions，从而提供更好的 Kotlin 开发体验。</p>
+</blockquote>
+<p>要在 Java 中检索<code>User</code> objects 列表，通常会编写以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Flux&lt;User&gt; users  &#x3D; client.get().retrieve().bodyToFlux(User.class)</span><br></pre></td></tr></table></figure>
+
+<p>使用 Kotlin 和 Spring Framework extensions，您可以编写以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val users &#x3D; client.get().retrieve().bodyToFlux&lt;User&gt;()</span><br><span class="line">&#x2F;&#x2F; or (both are equivalent)</span><br><span class="line">val users : Flux&lt;User&gt; &#x3D; client.get().retrieve().bodyToFlux()</span><br></pre></td></tr></table></figure>
+
+<p>与在 Java 中一样，Kotlin 中的<code>users</code>是强类型的，但 Kotlin 的聪明类型推断允许更短的语法。</p>
+<h3 id="1-3-Null-safety"><a href="#1-3-Null-safety" class="headerlink" title="1.3. Null-safety"></a>1.3. Null-safety</h3><p>Kotlin 的 key features 之一是<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/null-safety.html">null-safety</a>，它在编译 time 时干净地处理<code>null</code>值，而不是在运行时碰到着名的<code>NullPointerException</code>。这使得 applications 通过可空性声明更安全，并且表达“value 或 no value”语义而无需支付包装器的成本，例如<code>Optional</code>。 (Kotlin 允许使用具有可空值的函数结构.请参阅<a target="_blank" rel="noopener" href="http://www.baeldung.com/kotlin-null-safety">Kotlin 综合指南 null-safety</a> .)</p>
+<p>虽然 Java 不允许你在 type-system 中表达 null-safety，但 Spring Framework 通过<code>org.springframework.lang</code>包中声明的 tooling-friendly 注释提供了<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#null-safety">整个 Spring Framework API 的 null-safety</a>。默认情况下，Kotlin 中使用的 Java API 类型被识别为<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/java-interop.html#null-safety-and-platform-types">平台类型</a>，其中 null-checks 被放宽。 <a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/java-interop.html#jsr-305-support">Kotlin 支持 JSR-305 annotations</a>和 Spring nullability annotations 为 Kotlin 开发人员提供了整个 Spring Framework API 的 null-safety，其优点是可以在编译 time 时处理<code>null</code> -related 问题。</p>
+<blockquote>
+<p>_Reactor 或 Spring Data 等库提供 null-safe API 来利用此 feature。</p>
+</blockquote>
+<p>您可以通过使用以下选项添加<code>-Xjsr305</code>编译器 flag 来配置 JSR-305 检查：<code>-Xjsr305=&#123;strict|warn|ignore&#125;</code>。</p>
+<p>对于 kotlin 版本 1.1，默认行为与<code>-Xjsr305=warn</code>相同。 value 需要在从 Spring API 中推断的 Kotlin 类型中考虑 Spring Framework API null-safety，但应该知道 Spring API 可空性声明甚至可以在次要版本之间发展，并且将来可能会添加更多检查) 。</p>
+<blockquote>
+<p>尚未支持泛型类型 arguments，varargs 和 array 元素的可空性，但应该在即将发布的版本中。有关 up-to-date 信息，请参阅<a target="_blank" rel="noopener" href="https://github.com/Kotlin/KEEP/issues/79">这个讨论</a>。</p>
+</blockquote>
+<h3 id="1-4-Classes-和-Interfaces"><a href="#1-4-Classes-和-Interfaces" class="headerlink" title="1.4. Classes 和 Interfaces"></a>1.4. Classes 和 Interfaces</h3><p>Spring Framework 支持各种 Kotlin 构造，例如通过主构造函数实例化 Kotlin classes，使用默认值的不可变 classes 数据 binding 和 function 可选参数。</p>
+<p>Kotlin 参数名称通过专用<code>KotlinReflectionParameterNameDiscoverer</code>识别，允许查找接口方法参数名称，而无需在编译期间启用 Java 8 <code>-parameters</code>编译器 flag。</p>
+<p>在 classpath 中找到时，会自动注册序列化或反序列化 JSON 数据所需的<a target="_blank" rel="noopener" href="https://github.com/FasterXML/jackson-module-kotlin">Jackson Kotlin 模块</a>，如果在没有 Jackson Kotlin 模块的情况下检测到 Jackson 和 Kotlin，则会记录警告消息。</p>
+<p>您可以将 configuration classes 声明为<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/nested-classes.html">top level 或嵌套但不是内部</a>，因为后者需要_eference to outer class。</p>
+<h3 id="1-5-Annotations"><a href="#1-5-Annotations" class="headerlink" title="1.5. Annotations"></a>1.5. Annotations</h3><p>Spring Framework 还利用<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/null-safety.html">Kotlin null-safety</a>来确定是否需要 HTTP 参数而无需显式定义<code>required</code>属性。这意味着<code>@RequestParam name: String?</code>被视为不需要，相反，<code>@RequestParam name: String</code>被视为必需。 Spring Messaging <code>@Header</code> annotation 也支持此 feature。</p>
+<p>以类似的方式，Spring bean 注入<code>@Autowired</code>，<code>@Bean</code>或<code>@Inject</code>使用此信息来确定是否需要 bean。</p>
+<p>对于 example，<code>@Autowired lateinit var thing: Thing</code>表示必须在 application context 中注册<code>Thing</code>类型的 bean，而如果 bean 不存在则<code>@Autowired lateinit var thing: Thing?</code>不会引发错误。</p>
+<p>遵循相同的原则，<code>@Bean fun play(toy: Toy, car: Car?) = Baz(toy, Car)</code>意味着必须在 application context 中注册<code>Toy</code>类型的 bean，而<code>Car</code>类型的 bean 可能存在也可能不存在。相同的行为适用于自动装配的构造函数参数。</p>
+<blockquote>
+<p>如果对带有 properties 的 classes 或主构造函数参数使用 bean 验证，则可能需要使用<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/annotations.html#annotation-use-site-targets">annotation use-site 目标</a>，如<code>@field:NotNull</code>或<code>@get:Size(min=5, max=15)</code>，如<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/35853200/1092077">此 Stack Overflow 响应</a>中所述。</p>
+</blockquote>
+<h3 id="1-6-Bean-定义-DSL"><a href="#1-6-Bean-定义-DSL" class="headerlink" title="1.6. Bean 定义 DSL"></a>1.6. Bean 定义 DSL</h3><p>Spring Framework 5 引入了一种通过使用 lambdas 替代 XML 或 Java configuration(<code>@Configuration</code>和<code>@Bean</code>)来以功能方式注册 beans 的新方法。简而言之，它允许您使用充当<code>FactoryBean</code>的 lambda 注册 beans。这种机制非常有效，因为它不需要任何反射或 CGLIB 代理。</p>
+<p>在 Java 中，您可以为 example 编写以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">GenericApplicationContext context &#x3D; new GenericApplicationContext();</span><br><span class="line">    context.registerBean(Foo.class);</span><br><span class="line">    context.registerBean(Bar.class, () -&gt; new Bar(context.getBean(Foo.class))</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>在 Kotlin 中，使用 reified 类型参数和<code>GenericApplicationContext</code> Kotlin extensions，您可以改为编写以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val context &#x3D; GenericApplicationContext().apply &#123;</span><br><span class="line">    registerBean&lt;Foo&gt;()</span><br><span class="line">    registerBean &#123; Bar(it.getBean&lt;Foo&gt;()) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 order 中允许更具说明性的方法和更清晰的语法，Spring Framework 提供<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.1.3.RELEASE/kdoc-api/spring-framework/org.springframework.context.support/-bean-definition-dsl/">Kotlin bean 定义 DSL</a>它通过一个干净的声明性 API 声明一个<code>ApplicationContextInitializer</code>，它允许你处理 profiles 和<code>Environment</code>来定制如何注册 beans。以下 example 创建<code>Play</code> profile：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">fun beans() &#x3D; beans &#123;</span><br><span class="line">    bean&lt;UserHandler&gt;()</span><br><span class="line">    bean&lt;Routes&gt;()</span><br><span class="line">    bean&lt;WebHandler&gt;(&quot;webHandler&quot;) &#123;</span><br><span class="line">        RouterFunctions.toWebHandler(</span><br><span class="line">            ref&lt;Routes&gt;().router(),</span><br><span class="line">            HandlerStrategies.builder().viewResolver(ref()).build()</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    bean(&quot;messageSource&quot;) &#123;</span><br><span class="line">        ReloadableResourceBundleMessageSource().apply &#123;</span><br><span class="line">            setBasename(&quot;messages&quot;)</span><br><span class="line">            setDefaultEncoding(&quot;UTF-8&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    bean &#123;</span><br><span class="line">        val prefix &#x3D; &quot;classpath:&#x2F;templates&#x2F;&quot;</span><br><span class="line">        val suffix &#x3D; &quot;.mustache&quot;</span><br><span class="line">        val loader &#x3D; MustacheResourceTemplateLoader(prefix, suffix)</span><br><span class="line">        MustacheViewResolver(Mustache.compiler().withLoader(loader)).apply &#123;</span><br><span class="line">            setPrefix(prefix)</span><br><span class="line">            setSuffix(suffix)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    profile(&quot;play&quot;) &#123;</span><br><span class="line">        bean&lt;Play&gt;()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在前面的 example 中，<code>bean&lt;Routes&gt;()</code>使用构造函数的自动装配，而<code>ref&lt;Routes&gt;()</code>是<code>applicationContext.getBean(Routes::class.java)</code>的快捷方式。</p>
+<p>然后，您可以使用此<code>beans()</code> function 在 application context 上注册 beans，如下面的 example 所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">val context &#x3D; GenericApplicationContext().apply &#123;</span><br><span class="line">    beans().initialize(this)</span><br><span class="line">    refresh()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个 DSL 是程序化的，这意味着它允许 beans 通过<code>if</code>表达式，<code>for</code>循环或任何其他 Kotlin 结构自定义注册逻辑。</p>
+</blockquote>
+<p>有关具体的 example，请参见<a target="_blank" rel="noopener" href="https://github.com/sdeleuze/spring-kotlin-functional/blob/master/src/main/kotlin/functional/Beans.kt">spring-kotlin-functional beans 声明</a>。</p>
+<blockquote>
+<p>Spring Boot 基于 Java configuration 和<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/issues/8115">尚未提供功能 bean 定义的特定支持</a>，但您可以通过 Spring Boot 的<code>ApplicationContextInitializer</code>支持实验性地使用函数 bean 定义。有关详细信息和 up-to-date 信息，请参阅<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/45935931/how-to-use-functional-bean-definition-kotlin-dsl-with-spring-boot-and-spring-w/46033685#46033685">这个 Stack Overflow 答案</a>。</p>
+</blockquote>
+<h3 id="1-7-Web"><a href="#1-7-Web" class="headerlink" title="1.7. Web"></a>1.7. Web</h3><h4 id="1-7-1-WebFlux-功能-DSL"><a href="#1-7-1-WebFlux-功能-DSL" class="headerlink" title="1.7.1. WebFlux 功能 DSL"></a>1.7.1. WebFlux 功能 DSL</h4><p>Spring Framework 现在附带一个<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/5.1.3.RELEASE/kdoc-api/spring-framework/org.springframework.web.reactive.function.server/-router-function-dsl/">Kotlin 路由 DSL</a>，它允许您使用<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/web-reactive.html#webflux-fn">WebFlux 功能 API</a>来编写干净且惯用的 Kotlin code，如下面的 example 所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">router &#123;</span><br><span class="line">    accept(TEXT_HTML).nest &#123;</span><br><span class="line">        GET(&quot;&#x2F;&quot;) &#123; ok().render(&quot;index&quot;) &#125;</span><br><span class="line">        GET(&quot;&#x2F;sse&quot;) &#123; ok().render(&quot;sse&quot;) &#125;</span><br><span class="line">        GET(&quot;&#x2F;users&quot;, userHandler::findAllView)</span><br><span class="line">    &#125;</span><br><span class="line">    &quot;&#x2F;api&quot;.nest &#123;</span><br><span class="line">        accept(APPLICATION_JSON).nest &#123;</span><br><span class="line">            GET(&quot;&#x2F;users&quot;, userHandler::findAll)</span><br><span class="line">        &#125;</span><br><span class="line">        accept(TEXT_EVENT_STREAM).nest &#123;</span><br><span class="line">            GET(&quot;&#x2F;users&quot;, userHandler::stream)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    resources(&quot;&#x2F;**&quot;, ClassPathResource(&quot;static&#x2F;&quot;))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个 DSL 是程序化的，这意味着它允许 beans 通过<code>if</code>表达式，<code>for</code>循环或任何其他 Kotlin 结构自定义注册逻辑。当您需要根据动态数据(例如，来自数据库)注册 routes 时，这非常有用。</p>
+</blockquote>
+<p>有关具体的 example，请参见<a target="_blank" rel="noopener" href="https://github.com/mixitconf/mixit/tree/bad6b92bce6193f9b3f696af9d416c276501dbf1/src/main/kotlin/mixit/web/routes">MiXiT 项目 routes</a>。</p>
+<h4 id="1-7-2-Kotlin-脚本模板"><a href="#1-7-2-Kotlin-脚本模板" class="headerlink" title="1.7.2. Kotlin 脚本模板"></a>1.7.2. Kotlin 脚本模板</h4><p>从 version 4.3 开始，Spring Framework 通过使用脚本引擎提供<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/view/script/ScriptTemplateView.html">ScriptTemplateView</a>来渲染模板。它支持<a target="_blank" rel="noopener" href="https://www.jcp.org/en/jsr/detail?id=223">JSR-223</a>。通过将此 feature 扩展到 WebFlux 并支持<a target="_blank" rel="noopener" href="https://jira.spring.io/browse/SPR-15064">i18n 和嵌套模板</a>，Spring Framework 5 更进一步。</p>
+<p>Kotlin 提供类似的支持并允许渲染 Kotlin-based 模板。有关详细信息，请参阅<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-framework/commit/badde3a479a53e1dd0777dd1bd5b55cb1021cf9e">这个提交</a>。</p>
+<p>这可以实现一些有趣的用例 - 例如使用<a target="_blank" rel="noopener" href="https://github.com/Kotlin/kotlinx.html">kotlinx.html</a> DSL 编写 type-safe 模板或使用插值使用 Kotlin 多线<code>String</code>。</p>
+<p>这可以让您在支持的 IDE 中编写具有完全自动完成和重构支持的 Kotlin 模板，如下面的示例所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import io.spring.demo.*</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">$&#123;include(&quot;header&quot;)&#125;</span><br><span class="line">&lt;h1&gt;$&#123;i18n(&quot;title&quot;)&#125;&lt;&#x2F;h1&gt;</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">$&#123;users.joinToLine&#123; &quot;&lt;li&gt;$&#123;i18n(&quot;user&quot;)&#125; $&#123;it.firstname&#125; $&#123;it.lastname&#125;&lt;&#x2F;li&gt;&quot; &#125;&#125;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line">$&#123;include(&quot;footer&quot;)&#125;</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>有关更多详细信息，请参阅<a target="_blank" rel="noopener" href="https://github.com/sdeleuze/kotlin-script-templating">kotlin-script-templating</a> example 项目。</p>
+<h3 id="1-8-Kotlin-中的-Spring-项目"><a href="#1-8-Kotlin-中的-Spring-项目" class="headerlink" title="1.8. Kotlin 中的 Spring 项目"></a>1.8. Kotlin 中的 Spring 项目</h3><p>本节提供了一些在 Kotlin 中开发 Spring 项目的具体提示和建议。</p>
+<h4 id="1-8-1-最后默认"><a href="#1-8-1-最后默认" class="headerlink" title="1.8.1. 最后默认"></a>1.8.1. 最后默认</h4><p>默认情况下，<a target="_blank" rel="noopener" href="https://discuss.kotlinlang.org/t/classes-final-by-default/166">Kotlin 中的所有 classes 都是最终</a>。 class 上的<code>open</code>修饰符与 Java 的<code>final</code>相反：它允许其他人继承此 class。这也适用于成员函数，因为它们需要被标记为<code>open</code>才能被覆盖。</p>
+<p>虽然 Kotlin 的 JVM-friendly 设计通常与 Spring 没有摩擦，但如果不考虑这个事实，这个特定的 Kotlin feature 可以阻止应用程序启动。这是因为 Spring beans(例如由于技术原因需要在运行时继承的<code>@Configuration</code> classes)通常由 CGLIB 代理。解决方法是在 CGLIB 代理的每个 class 和 Spring beans 的成员 function 上添加一个<code>open</code>关键字(例如<code>@Configuration</code> classes)，这很快就会变得很痛苦，并且违反了保持 code 简洁和可预测的 Kotlin 原则。</p>
+<p>幸运的是，Kotlin 现在提供了一个<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/compiler-plugins.html#kotlin-spring-compiler-plugin">kotlin-spring</a>插件(<code>kotlin-allopen</code>插件的预配置 version)，它自动打开 classes 及其成员函数，用于注释的类型或带有以下注释之一的 meta-annotated：</p>
+<ul>
+<li><code>@Component</code></li>
+<li><code>@Async</code></li>
+<li><code>@Transactional</code></li>
+<li><code>@Cacheable</code></li>
+</ul>
+<p>Meta-annotations 支持意味着自动打开带有<code>@Configuration</code>，<code>@Controller</code>，<code>@RestController</code>，<code>@Service</code>或<code>@Repository</code>注释的类型，因为这些注释是 meta-annotated，带有<code>@Component</code>。</p>
+<p><a target="_blank" rel="noopener" href="https://start.spring.io/#!language=kotlin">start.spring.io</a>默认启用它，因此，在实践中，您可以编写 Kotlin beans 而不需要任何其他<code>open</code>关键字，就像在 Java 中一样。</p>
+<h4 id="1-8-2-使用不可变的-Class-实例进行持久化"><a href="#1-8-2-使用不可变的-Class-实例进行持久化" class="headerlink" title="1.8.2. 使用不可变的 Class 实例进行持久化"></a>1.8.2. 使用不可变的 Class 实例进行持久化</h4><p>在 Kotlin 中，在主构造函数中声明 read-only properties 是一种方便且被认为是最佳实践，如下面的示例所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">class Person(val name: String, val age: Int)</span><br></pre></td></tr></table></figure>
+
+<p>您可以选择添加<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/data-classes.html">data 关键字</a>以使编译器自动从主构造函数中声明的所有 properties 派生以下成员：</p>
+<ul>
+<li><code>equals()</code>和<code>hashCode()</code></li>
+<li>形式<code>&quot;User(name=John, age=42)&quot;</code>的<code>toString()</code></li>
+<li><code>componentN()</code>与声明 order 中的 properties 对应的函数</li>
+<li><code>copy()</code> function</li>
+</ul>
+<p>如下面的 example 所示，即使<code>Person</code> properties 为 read-only，这也允许轻松更改单个 properties：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">data class Person(val name: String, val age: Int)</span><br><span class="line"></span><br><span class="line">val jack &#x3D; Person(name &#x3D; &quot;Jack&quot;, age &#x3D; 1)</span><br><span class="line">val olderJack &#x3D; jack.copy(age &#x3D; 2)</span><br></pre></td></tr></table></figure>
+
+<p>Common 持久性技术(如 JPA)需要一个默认构造函数，以防止这种设计。幸运的是，这个<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/32038177/kotlin-with-jpa-default-constructor-hell">“默认构造函数地狱”</a>现在有一个解决方法，因为 Kotlin 提供了一个<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/compiler-plugins.html#kotlin-jpa-compiler-plugin">kotlin-jpa</a>插件，为使用 JPA annotations 注释的 class 生成合成 no-arg 构造函数。</p>
+<p>如果您需要将此类机制用于其他持久性技术，则可以配置<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/compiler-plugins.html#how-to-use-no-arg-plugin">kotlin-noarg</a>插件。</p>
+<blockquote>
+<p>从 Kay 版本系列开始，Spring Data 支持 Kotlin 不可变 class 实例，如果模块使用 Spring Data object 映射(例如 MongoDB，Redis，Cassandra 等)，则不需要<code>kotlin-noarg</code>插件。</p>
+</blockquote>
+<h4 id="1-8-3-注入依赖关系"><a href="#1-8-3-注入依赖关系" class="headerlink" title="1.8.3. 注入依赖关系"></a>1.8.3. 注入依赖关系</h4><p>我们的建议是尝试使用<code>val</code> read-only(和 non-nullable，如果可能的话)<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/properties.html">properties</a>来支持构造函数注入，如下面的 example 所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">class YourBean(</span><br><span class="line">    private val mongoTemplate: MongoTemplate,</span><br><span class="line">    private val solrClient: SolrClient</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>从 Spring Framework 4.3 开始，具有单个构造函数的 classes 的参数会自动自动装配，这就是为什么上面显示的 example 中不需要显式<code>@Autowired constructor</code>的原因。</p>
+</blockquote>
+<p>如果确实需要使用字段注入，可以使用<code>lateinit var</code>构造，如下面的 example 所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Component</span><br><span class="line">class YourBean &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    lateinit var mongoTemplate: MongoTemplate</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    lateinit var solrClient: SolrClient</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-8-4-注入-Configuration-Properties"><a href="#1-8-4-注入-Configuration-Properties" class="headerlink" title="1.8.4. 注入 Configuration Properties"></a>1.8.4. 注入 Configuration Properties</h4><p>在 Java 中，您可以使用 annotations(例如<code>@Value(&quot;$&#123;property&#125;&quot;)</code>)inject configuration properties。但是，在 Kotlin 中，<code>$</code>是用于<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/idioms.html#string-interpolation">string 插值</a>的保留字符。</p>
+<p>因此，如果您希望在 Kotlin 中使用<code>@Value</code> annotation，则需要通过编写<code>@Value(&quot;\$&#123;property&#125;&quot;)</code>来转义<code>$</code>字符。</p>
+<p>或者，您可以通过声明以下 configuration beans 来自定义 properties 占位符前缀：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">fun propertyConfigurer() &#x3D; PropertySourcesPlaceholderConfigurer().apply &#123;</span><br><span class="line">    setPlaceholderPrefix(&quot;%&#123;&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>您可以使用 configuration beans 自定义使用<code>$&#123;…&#125;</code>语法的现有 code(例如 Spring Boot 执行器或<code>@LocalServerPort</code>)，如下面的 example 所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">fun kotlinPropertyConfigurer() &#x3D; PropertySourcesPlaceholderConfigurer().apply &#123;</span><br><span class="line">    setPlaceholderPrefix(&quot;%&#123;&quot;)</span><br><span class="line">    setIgnoreUnresolvablePlaceholders(true)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Bean</span><br><span class="line">fun defaultPropertyConfigurer() &#x3D; PropertySourcesPlaceholderConfigurer()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果使用 Spring Boot，则可以使用<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-typesafe-configuration-properties">@ConfigurationProperties</a>而不是<code>@Value</code> 注释。但是，目前，这仅适用于<code>lateinit</code>或 nullable <code>var</code> properties(我们推荐前者)，因为尚不支持由构造函数初始化的不可变 classes。有关详细信息，请参阅有关<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/issues/8762">@ConfigurationProperties binding 为不可变的 POJO</a>和<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/issues/1254">@ConfigurationProperties binding 接口</a>的这些问题。</p>
+</blockquote>
+<h4 id="1-8-5-Annotation-Array-属性"><a href="#1-8-5-Annotation-Array-属性" class="headerlink" title="1.8.5. Annotation Array 属性"></a>1.8.5. Annotation Array 属性</h4><p>Kotlin annotations 大多类似于 Java annotations，但 array 属性(在 Spring 中广泛使用)的行为有所不同。如<a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/annotations.html">Kotlin 文档</a>中所述，您可以省略<code>value</code>属性 name，与其他属性不同，并将其指定为<code>vararg</code>参数。</p>
+<p>要理解这意味着什么，请考虑<code>@RequestMapping</code>(这是使用最广泛的 Spring annotations 之一)作为 example。此 Java annotation 声明如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public @interface RequestMapping &#123;</span><br><span class="line"></span><br><span class="line">    @AliasFor(&quot;path&quot;)</span><br><span class="line">    String[] value() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    @AliasFor(&quot;value&quot;)</span><br><span class="line">    String[] path() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    RequestMethod[] method() default &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@RequestMapping</code>的典型用例是将处理程序方法 map 映射到特定的路径和方法。在 Java 中，您可以为 annotation array 属性指定单个 value，并自动将其转换为 array。</p>
+<p>这就是为什么人们可以写<code>@RequestMapping(value = &quot;/toys&quot;, method = RequestMethod.GET)</code>或<code>@RequestMapping(path = &quot;/toys&quot;, method = RequestMethod.GET)</code>。</p>
+<p>但是，在 Kotlin 1.2 中，必须编写<code>@RequestMapping(&quot;/toys&quot;, method = [RequestMethod.GET])</code>或<code>@RequestMapping(path = [&quot;/toys&quot;], method = [RequestMethod.GET])</code>(方括号需要使用命名的 array 属性指定)。</p>
+<p>此特定<code>method</code>属性(最常见的一个)的替代方法是使用快捷方式注释，例如<code>@GetMapping</code>，<code>@PostMapping</code>等。</p>
+<blockquote>
+<p>提醒：如果未指定<code>@RequestMapping</code> <code>method</code>属性，则将匹配所有 HTTP 方法，而不仅仅是<code>GET</code>。</p>
+</blockquote>
+<h4 id="1-8-6-测试"><a href="#1-8-6-测试" class="headerlink" title="1.8.6. 测试"></a>1.8.6. 测试</h4><p>本节使用 Kotlin 和 Spring Framework 的组合进行测试。</p>
+<h5 id="PERCLASS-生命周期"><a href="#PERCLASS-生命周期" class="headerlink" title="PERCLASS 生命周期"></a>PERCLASS 生命周期</h5><p>Kotlin 允许您在 non-static 方法的反引号(<code>). As of JUnit 5, Kotlin test classes can use the</code> @TestInstance(TestInstance.Lifecycle.PERCLASS)<code>annotation to enable a single instantiation of test classes, which allows the use of</code> @BeforeAll <code>and</code> @AfterAll`annotations 之间指定有意义的测试函数名称，这非常适合 Kotlin。</p>
+<p>由于带有<code>junit.jupiter.testinstance.lifecycle.default = per_class</code> property 的<code>junit-platform.properties</code>文件，您现在可以将默认行为更改为<code>PER_CLASS</code>。</p>
+<p>non-static 方法的以下 example <code>@BeforeAll</code>和<code>@AfterAll</code> 注解：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">class IntegrationTests &#123;</span><br><span class="line"></span><br><span class="line">  val application &#x3D; Application(8181)</span><br><span class="line">  val client &#x3D; WebClient.create(&quot;http:&#x2F;&#x2F;localhost:8181&quot;)</span><br><span class="line"></span><br><span class="line">  @BeforeAll</span><br><span class="line">  fun beforeAll() &#123;</span><br><span class="line">    application.start()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @Test</span><br><span class="line">  fun &#96;Find all users on HTML page&#96;() &#123;</span><br><span class="line">    client.get().uri(&quot;&#x2F;users&quot;)</span><br><span class="line">        .accept(TEXT_HTML)</span><br><span class="line">        .retrieve()</span><br><span class="line">        .bodyToMono&lt;String&gt;()</span><br><span class="line">        .test()</span><br><span class="line">        .expectNextMatches &#123; it.contains(&quot;Foo&quot;) &#125;</span><br><span class="line">        .verifyComplete()</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  @AfterAll</span><br><span class="line">  fun afterAll() &#123;</span><br><span class="line">    application.stop()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Specification-like-测试"><a href="#Specification-like-测试" class="headerlink" title="Specification-like 测试"></a>Specification-like 测试</h5><p>您可以使用 JUnit 5 和 Kotlin 创建 specification-like 测试。以下 example 显示了如何执行此操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class SpecificationLikeTests &#123;</span><br><span class="line"></span><br><span class="line">  @Nested</span><br><span class="line">  @DisplayName(&quot;a calculator&quot;)</span><br><span class="line">  inner class Calculator &#123;</span><br><span class="line">     val calculator &#x3D; SampleCalculator()</span><br><span class="line"></span><br><span class="line">     @Test</span><br><span class="line">     fun &#96;should return the result of adding the first number to the second number&#96;() &#123;</span><br><span class="line">        val sum &#x3D; calculator.sum(2, 4)</span><br><span class="line">        assertEquals(6, sum)</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     @Test</span><br><span class="line">     fun &#96;should return the result of subtracting the second number from the first number&#96;() &#123;</span><br><span class="line">        val subtract &#x3D; calculator.subtract(4, 2)</span><br><span class="line">        assertEquals(2, subtract)</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="Kotlin-中的-WebTestClient-类型推断问题"><a href="#Kotlin-中的-WebTestClient-类型推断问题" class="headerlink" title="Kotlin 中的 WebTestClient 类型推断问题"></a>Kotlin 中的 WebTestClient 类型推断问题</h5><p>由于<a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/KT-5464">类型推断问题</a>，您必须使用 Kotlin <code>expectBody</code>扩展名(例如<code>.expectBody&lt;String&gt;().isEqualTo(&quot;toys&quot;)</code>)，因为它为 Java API 提供了 Kotlin 问题的解决方法。</p>
+<p>另请参阅相关的<a target="_blank" rel="noopener" href="https://jira.spring.io/browse/SPR-16057">SPR-16057</a>问题。</p>
+<h3 id="1-9-入门"><a href="#1-9-入门" class="headerlink" title="1.9. 入门"></a>1.9. 入门</h3><p>本节介绍了开始使用 Kotlin 和 Spring Framework 组合的项目的最快方法。</p>
+<h4 id="1-9-1-使用-start-spring-io"><a href="#1-9-1-使用-start-spring-io" class="headerlink" title="1.9.1. 使用 start.spring.io"></a>1.9.1. 使用 start.spring.io</h4><p>在 Kotlin 中启动新的 Spring Framework 5 项目的最简单方法是在<a target="_blank" rel="noopener" href="https://start.spring.io/#!language=kotlin">start.spring.io</a>上创建一个新的 Spring Boot 2 项目。</p>
+<p>您还可以创建独立的 WebFlux 项目，如<a target="_blank" rel="noopener" href="https://spring.io/blog/2017/08/01/spring-framework-5-kotlin-apis-the-functional-way">这篇博文</a>中所述。</p>
+<h4 id="1-9-2-选择-Web-风味"><a href="#1-9-2-选择-Web-风味" class="headerlink" title="1.9.2. 选择 Web 风味"></a>1.9.2. 选择 Web 风味</h4><p>Spring Framework 现在有两个不同的 web 堆栈：<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/web.html#mvc">Spring MVC</a>和<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/web-reactive.html#spring-web-reactive">Spring WebFlux</a>。</p>
+<p>如果你想创建能够处理延迟，long-lived 连接，流媒体场景或者你想使用 web 功能 Kotlin DSL 的 applications，建议使用 Spring WebFlux。</p>
+<p>对于其他用例，特别是如果您使用阻塞技术(如 JPA)，Spring MVC 及其 annotation-based 编程 model 是完全有效且完全支持的选择。</p>
+<h3 id="1-10-资源"><a href="#1-10-资源" class="headerlink" title="1.10. 资源"></a>1.10. 资源</h3><p>对于学习如何使用 Kotlin 和 Spring Framework build applications 的人们，我们建议使用以下资源：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/reference/">Kotlin 语言 reference</a></li>
+<li><a target="_blank" rel="noopener" href="http://slack.kotlinlang.org/">Kotlin Slack</a>(带有专用的#spring channel)</li>
+<li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/tagged/spring+kotlin">Stackoverflow，带有 spring 和 kotlin 标签</a></li>
+<li><a target="_blank" rel="noopener" href="https://try.kotlinlang.org/">在浏览器中尝试 Kotlin</a></li>
+<li><a target="_blank" rel="noopener" href="https://blog.jetbrains.com/kotlin/">Kotlin 博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://kotlin.link/">真棒 Kotlin</a></li>
+</ul>
+<h4 id="1-10-1-教程"><a href="#1-10-1-教程" class="headerlink" title="1.10.1. 教程"></a>1.10.1. 教程</h4><p>我们建议使用以下教程：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://spring.io/guides/tutorials/spring-boot-kotlin/">Building web applications with Spring Boot 和 Kotlin</a></li>
+<li><a target="_blank" rel="noopener" href="https://kotlinlang.org/docs/tutorials/spring-boot-restful.html">使用 Spring Boot 创建 RESTful Web Service</a></li>
+</ul>
+<h4 id="1-10-2-博客文章"><a href="#1-10-2-博客文章" class="headerlink" title="1.10.2. 博客文章"></a>1.10.2. 博客文章</h4><p>以下博客文章提供了更多详细信息：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://spring.io/blog/2016/02/15/developing-spring-boot-applications-with-kotlin">用 Kotlin 开发 Spring Boot applications</a></li>
+<li><a target="_blank" rel="noopener" href="https://spring.io/blog/2016/03/20/a-geospatial-messenger-with-kotlin-spring-boot-and-postgresql">使用 Kotlin，Spring Boot 和 PostgreSQL 的地理空间信使</a></li>
+<li><a target="_blank" rel="noopener" href="https://spring.io/blog/2017/01/04/introducing-kotlin-support-in-spring-framework-5-0">在 Spring Framework 5.0 中引入 Kotlin 支持</a></li>
+<li><a target="_blank" rel="noopener" href="https://spring.io/blog/2017/08/01/spring-framework-5-kotlin-apis-the-functional-way">Spring Framework 5 Kotlin API，功能方式</a></li>
+</ul>
+<h4 id="1-10-3-例子"><a href="#1-10-3-例子" class="headerlink" title="1.10.3. 例子"></a>1.10.3. 例子</h4><p>以下 Github 项目提供了可以学习甚至可能扩展的示例：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/sdeleuze/spring-boot-kotlin-demo">spring-boot-kotlin-demo</a>：常规 Spring Boot 和 Spring Data JPA 项目</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mixitconf/mixit">MIXIT</a>：Spring Boot 2，WebFlux 和 Reactive Spring Data MongoDB</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sdeleuze/spring-kotlin-functional">spring-kotlin-functional</a>：独立的 WebFlux 和功能 bean 定义 DSL</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sdeleuze/spring-kotlin-fullstack">spring-kotlin-fullstack</a>：WebFlux Kotlin fullstack example 与 Kotlin2js 一起用于前端而不是 JavaScript 或 TypeScript</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spring-petclinic/spring-petclinic-kotlin">spring-petclinic-kotlin</a>：Spring PetClinic Sample Application 的 Kotlin version</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/sdeleuze/spring-kotlin-deepdive">spring-kotlin-deepdive</a>：Boot 1.0 和 Java 的 step-by-step 迁移指南 Boot 2.0 和 Kotlin</li>
+</ul>
+<h4 id="1-10-4-问题"><a href="#1-10-4-问题" class="headerlink" title="1.10.4. 问题"></a>1.10.4. 问题</h4><p>以下列表对与 Spring 和 Kotlin 支持相关的待处理问题进行了分类：</p>
+<ul>
+<li>Spring Framework</li>
+<li><a target="_blank" rel="noopener" href="https://jira.spring.io/browse/SPR-16057">无法在 Kotlin 中使用带有 mock 服务器的 WebTestClient</a></li>
+<li><a target="_blank" rel="noopener" href="https://jira.spring.io/browse/SPR-15942">支持 null-safety at generics，varargs 和 array elements level</a></li>
+<li><a target="_blank" rel="noopener" href="https://jira.spring.io/browse/SPR-15413">添加对 Kotlin 协同程序的支持</a></li>
+<li>Spring Boot</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/issues/8762">允许 @ConfigurationProperties binding 用于不可变的 POJO</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/issues/1254">在接口上允许 @ConfigurationProperties binding</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/issues/8115">通过 SpringApplication 公开函数 bean 注册 API</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/issues/10712">在 Spring Boot API 上添加 null-safety annotations</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/issues/9486">使用 Kotlin 的 bom 为 Kotlin 提供依赖管理</a></li>
+<li>Kotlin</li>
+<li><a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/KT-6380">Spring Framework 支持的 Parent 问题</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/KT-5464">Kotlin 需要 Java 没有的类型推断</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Kotlin/KEEP/issues/79">更好的泛型 null-safety 支持</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/KT-20283">使用 open classes 进行智能投射回归</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/KT-14984">无法将所有 SAM 参数作为 function 传递</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/KT-19592">将 JSR 305 meta-annotations 应用于泛型类型参数</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/KT-18398">为 libraries 提供一种方法，以避免混合 Kotlin 1.0 和 1.1 依赖项</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/KT-15125">通过脚本变量直接支持 JSR 223 绑定</a></li>
+<li><a target="_blank" rel="noopener" href="https://youtrack.jetbrains.com/issue/KT-15467">支持 Kotlin Eclipse 插件中的 all-open 和 no-arg 编译器插件</a></li>
+</ul>
+<h2 id="2-Apache-Groovy"><a href="#2-Apache-Groovy" class="headerlink" title="2. Apache Groovy"></a>2. Apache Groovy</h2><p>Groovy 是一种功能强大，可选的类型和动态语言，具有 static-typing 和静态编译功能。它提供了简洁的语法，并可与任何现有的 Java application 平滑集成。</p>
+<p>Spring Framework 提供了一个支持 Groovy-based Bean Definition DSL 的专用<code>ApplicationContext</code>。有关更多详细信息，请参阅<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#groovy-bean-definition-dsl">Groovy Bean 定义 DSL</a>。</p>
+<p>进一步支持 Groovy，包括用 Groovy 编写的 beans，可刷新的脚本 beans 等等，可在<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language">动态语言支持</a>中使用。</p>
+<h2 id="3-动态语言支持"><a href="#3-动态语言支持" class="headerlink" title="3.动态语言支持"></a>3.动态语言支持</h2><p>Spring 2.0 引入了对使用 classes 和 objects 的全面支持，这些 classes 和 objects 是使用动态语言(如 JRuby)和 Spring 定义的。此支持允许您以受支持的动态语言编写任意数量的 classes，并使 Spring 容器透明地实例化，配置和依赖 inject 得到的 objects。</p>
+<p>Spring 目前支持以下动态语言：</p>
+<ul>
+<li>JRuby 1.5</li>
+<li>Groovy 1.8</li>
+<li>BeanShell 2.0</li>
+</ul>
+<p>为什么只有这些语言？</p>
+<p>我们选择支持这些语言，因为：</p>
+<ul>
+<li>这些语言在 Java 企业社区中具有很大的吸引力。</li>
+<li>在 time 添加此支持时，未向其他语言发出请求</li>
+<li>Spring 开发人员最熟悉它们。</li>
+</ul>
+<p>您可以找到这个动态语言支持在<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-scenarios">方案</a>中可以立即使用的完整工作示例。</p>
+<h3 id="3-1-第一个例子"><a href="#3-1-第一个例子" class="headerlink" title="3.1. 第一个例子"></a>3.1. 第一个例子</h3><p>本章的大部分内容涉及详细描述动态语言支持。在深入研究动态语言支持的所有细节之前，我们先看一下动态语言中定义的 bean 的快速示例。第一个 bean 的动态语言是 Groovy。 (这个 example 的基础来自 Spring 测试套件.如果你想在任何其他支持的语言中看到相同的例子，请看一下 source code)。</p>
+<p>下一个 example 显示了接口，Groovy bean 将实现该接口。请注意，此接口是以普通 Java 定义的。注入了<code>Messenger</code>的 reference 的依赖 objects 不知道底层的 implementation 是一个 Groovy 脚本。以下清单显示了<code>Messenger</code>接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package org.springframework.scripting;</span><br><span class="line"></span><br><span class="line">public interface Messenger &#123;</span><br><span class="line"></span><br><span class="line">    String getMessage();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下 example 定义了一个与<code>Messenger</code>接口有依赖关系的 class：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package org.springframework.scripting;</span><br><span class="line"></span><br><span class="line">public class DefaultBookingService implements BookingService &#123;</span><br><span class="line"></span><br><span class="line">    private Messenger messenger;</span><br><span class="line"></span><br><span class="line">    public void setMessenger(Messenger messenger) &#123;</span><br><span class="line">        this.messenger &#x3D; messenger;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void processBooking() &#123;</span><br><span class="line">        &#x2F;&#x2F; use the injected Messenger object...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下 example 在 Groovy 中实现<code>Messenger</code>接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; from the file &#39;Messenger.groovy&#39;</span><br><span class="line">package org.springframework.scripting.groovy;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; import the Messenger interface (written in Java) that is to be implemented</span><br><span class="line">import org.springframework.scripting.Messenger</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; define the implementation in Groovy</span><br><span class="line">class GroovyMessenger implements Messenger &#123;</span><br><span class="line"></span><br><span class="line">    String message</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>要使用自定义动态语言标记来定义 dynamic-language-backed beans，您需要在 Spring XML configuration 文件的顶部放置 XML Schema 前导码。您还需要使用 Spring <code>ApplicationContext</code> implementation 作为 IoC 容器。支持使用带有普通<code>BeanFactory</code> implementation 的 dynamic-language-backed beans，但您必须管理 Spring 内部的管道才能执行此操作。</p>
+</blockquote>
+<p>有关 schema-based configuration 的更多信息，请参阅<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/appendix.html#xsd-configuration">XML Schema-based configuration</a>。</p>
+<p>最后，以下 example 显示 bean 定义，它们将 Groovy-defined <code>Messenger</code> 实现注入到<code>DefaultBookingService</code> class 的实例中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot; xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">    xmlns:lang&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;lang&quot;</span><br><span class="line">    xsi:schemaLocation&#x3D;&quot;</span><br><span class="line">        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;lang http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;lang&#x2F;spring-lang.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- this is the bean definition for the Groovy-backed Messenger implementation --&gt;</span><br><span class="line">    &lt;lang:groovy id&#x3D;&quot;messenger&quot; script-source&#x3D;&quot;classpath:Messenger.groovy&quot;&gt;</span><br><span class="line">        &lt;lang:property name&#x3D;&quot;message&quot; value&#x3D;&quot;I Can Do The Frug&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;lang:groovy&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- an otherwise normal bean that will be injected by the Groovy-backed Messenger --&gt;</span><br><span class="line">    &lt;bean id&#x3D;&quot;bookingService&quot; class&#x3D;&quot;x.y.DefaultBookingService&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;messenger&quot; ref&#x3D;&quot;messenger&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p><code>bookingService</code> bean(a <code>DefaultBookingService</code>)现在可以正常使用其私有<code>messenger</code>成员变量，因为注入其中的<code>Messenger</code>实例是<code>Messenger</code>实例。这里没有什么特别的东西 - 只是简单的 Java 和普通的 Groovy。</p>
+<p>希望前面的 XML 片段是 self-explanatory，但如果不是，请不要过分担心。继续阅读上述 configuration 的原因和原因的 in-depth 详细信息。</p>
+<h3 id="3-2-定义由动态语言支持的-Beans"><a href="#3-2-定义由动态语言支持的-Beans" class="headerlink" title="3.2. 定义由动态语言支持的 Beans"></a>3.2. 定义由动态语言支持的 Beans</h3><p>本节将准确描述如何在任何支持的动态语言中定义 Spring-managed beans。</p>
+<p>请注意，本章不会尝试解释支持的动态语言的语法和习语。例如，如果您想使用 Groovy 在 application 中编写某些 classes，我们假设您已经知道了 Groovy。如果您需要有关动态语言本身的更多详细信息，请参阅本章末尾的<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-resources">更多资源</a>。</p>
+<h4 id="3-2-1-Common-Concepts"><a href="#3-2-1-Common-Concepts" class="headerlink" title="3.2.1. Common Concepts"></a>3.2.1. Common Concepts</h4><p>使用 dynamic-language-backed beans 所涉及的步骤如下：</p>
+<ul>
+<li>编写动态语言 source code(自然)的测试。</li>
+<li>然后编写动态语言 source code 本身。</li>
+<li>通过在 XML configuration 中使用适当的<code>&lt;lang:language/&gt;</code>元素来定义 dynamic-language-backed beans(您可以使用 Spring API 以编程方式定义此类 beans，尽管您将不得不查阅 source code 以获取有关如何执行此操作的说明，因为本章未涵盖这种类型的高级 configuration)。请注意，这是一个迭代的 step。每个动态语言源文件至少需要一个 bean 定义(尽管多个 bean 定义可以引用相同的动态语言源文件)。</li>
+</ul>
+<p>前两个步骤(测试和编写动态语言源 files)超出了本章的范围。请参阅所选动态语言的语言规范和 reference 手册，并使用 developing 动态语言源 files 进行破解。但是，您首先要阅读本章的内容，因为 Spring 的动态语言支持确实对动态语言源 files 的内容做了一些(小的)假设。</p>
+<h5 id="lt-hh-367-3-gt-元素"><a href="#lt-hh-367-3-gt-元素" class="headerlink" title="&lt; hh:// +367+ *3* &gt;元素"></a>&lt; hh:// +367+ *3* &gt;元素</h5><p><a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-beans-concepts">前一节</a>列表中的最后 step 涉及定义 dynamic-language-backed bean 定义，每个 bean 用于您要配置的一个 bean(这与普通的 JavaBean configuration 没有区别)。但是，您可以使用<code>&lt;lang:language/&gt;</code>元素来定义动态 language-backed bean，而不是指定要由容器实例化和配置的 class 的完全限定类名。</p>
+<p>每种受支持的语言都有相应的<code>&lt;lang:language/&gt;</code>元素：</p>
+<ul>
+<li><code>&lt;lang:groovy/&gt;</code>(Groovy)</li>
+<li><code>&lt;lang:bsh/&gt;</code>(BeanShell)</li>
+<li><code>&lt;lang:std/&gt;</code>(JSR-223)</li>
+</ul>
+<p>configuration 可用的确切属性和 child 元素取决于 bean 已定义的语言(本章后面的 language-specific 部分详细说明了这一点)。</p>
+<h5 id="可刷新的-Beans"><a href="#可刷新的-Beans" class="headerlink" title="可刷新的 Beans"></a>可刷新的 Beans</h5><p>其中一个(也许是单个)最引人注目的 value 在 Spring 中增加了动态语言支持，是“可刷新的 bean”feature。</p>
+<p>可刷新的 bean 是 dynamic-language-backed bean。通过少量 configuration，dynamic-language-backed bean 可以监视其底层源文件资源的更改，然后在更改动态语言源文件时重新加载自身(例如，当您编辑并保存对文件系统上文件的更改时)。</p>
+<p>这允许您将任意数量的动态语言源 files 部署为 application 的一部分，配置 Spring 容器以创建由动态语言源 files 支持的 beans(使用本章中描述的机制)，以及(稍后，随着需求的变化或其他外部因素发挥作用)编辑动态语言源文件，并将它们所做的任何更改反映在由更改的动态语言源文件支持的 bean 中。无需关闭运行 application(或在 web application 的情况下重新部署)。如此修改的 dynamic-language-backed bean 从更改的动态语言源文件中获取新的 state 和逻辑。</p>
+<blockquote>
+<p>默认情况下，此 feature 处于关闭状态。</p>
+</blockquote>
+<p>现在我们可以看一个 example，看看开始使用可刷新的 beans 是多么容易。要打开可刷新的 beans feature，您必须在 bean 定义的<code>&lt;lang:language/&gt;</code>元素上指定一个额外的属性。因此，如果我们坚持本章前面的<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-a-first-example">这个例子</a>，下面的 example 将显示我们将在 Spring XML configuration 中更改的内容，以实现可刷新的 beans：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;beans&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- this bean is now &#39;refreshable&#39; due to the presence of the &#39;refresh-check-delay&#39; attribute --&gt;</span><br><span class="line">    &lt;lang:groovy id&#x3D;&quot;messenger&quot;</span><br><span class="line">            refresh-check-delay&#x3D;&quot;5000&quot; &lt;!-- switches refreshing on with 5 seconds between checks --&gt;</span><br><span class="line">            script-source&#x3D;&quot;classpath:Messenger.groovy&quot;&gt;</span><br><span class="line">        &lt;lang:property name&#x3D;&quot;message&quot; value&#x3D;&quot;I Can Do The Frug&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;lang:groovy&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id&#x3D;&quot;bookingService&quot; class&#x3D;&quot;x.y.DefaultBookingService&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;messenger&quot; ref&#x3D;&quot;messenger&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这就是你所要做的一切。 <code>messenger</code> bean 定义上定义的<code>refresh-check-delay</code>属性是使用对基础动态语言源文件所做的任何更改来刷新 bean 之前的毫秒数。您可以通过为<code>refresh-check-delay</code>属性指定负 value 来关闭刷新行为。请记住，默认情况下，禁用刷新行为。如果您不想要刷新行为，请不要定义该属性。</p>
+<p>如果我们然后运行以下 application，我们可以运行可刷新的 feature(请在下一个 code.)中找到“jumping-through-hoops-to-pause-the-execution”shenanigans。只有<code>System.in.read()</code>调用才会执行，以便程序的执行暂停而你(此处的开发人员)方案)关闭并编辑底层动态语言源文件，以便在程序恢复执行时，dynamic-language-backed bean 上的刷新触发器。</p>
+<p>以下清单显示了此 sample application：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line">import org.springframework.scripting.Messenger;</span><br><span class="line"></span><br><span class="line">public final class Boot &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(final String[] args) throws Exception &#123;</span><br><span class="line">        ApplicationContext ctx &#x3D; new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);</span><br><span class="line">        Messenger messenger &#x3D; (Messenger) ctx.getBean(&quot;messenger&quot;);</span><br><span class="line">        System.out.println(messenger.getMessage());</span><br><span class="line">        &#x2F;&#x2F; pause execution while I go off and make changes to the source file...</span><br><span class="line">        System.in.read();</span><br><span class="line">        System.out.println(messenger.getMessage());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，为了此 example 的目的，假设必须更改<code>Messenger</code> __mplementations 的<code>getMessage()</code>方法的所有 calls，以使消息被引号括起来。以下清单显示了在程序执行暂停时您(开发人员)应对<code>Messenger.groovy</code>源文件所做的更改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package org.springframework.scripting</span><br><span class="line"></span><br><span class="line">class GroovyMessenger implements Messenger &#123;</span><br><span class="line"></span><br><span class="line">    private String message &#x3D; &quot;Bingo&quot;</span><br><span class="line"></span><br><span class="line">    public String getMessage() &#123;</span><br><span class="line">        &#x2F;&#x2F; change the implementation to surround the message in quotes</span><br><span class="line">        return &quot;&#39;&quot; + this.message + &quot;&#39;&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setMessage(String message) &#123;</span><br><span class="line">        this.message &#x3D; message</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序运行时，输入暂停前的输出为<code>I Can Do The Frug</code>。在完成对源文件的更改并保存并且程序继续执行之后，在 dynamic-language-backed <code>Messenger</code> implementation 上调用<code>getMessage()</code>方法的结果是<code>&#39;I Can Do The Frug&#39;</code>(注意包含附加引号)。</p>
+<p>如果更改发生在<code>refresh-check-delay</code> value 的窗口内，则对脚本的更改不会触发刷新。在 dynamic-language-backed bean 上调用方法之前，实际上不会对脚本进行更改。只有在 dynamic-language-backed bean 上调用方法时，它才会检查其底层脚本源是否已更改。任何与刷新脚本相关的 exceptions(例如遇到编译错误或发现脚本文件已被删除)都会导致致命 exception 传播到调用 code。</p>
+<p>前面描述的可刷新 bean 行为不适用于使用<code>&lt;lang:inline-script/&gt;</code>元素表示法定义的动态语言源 files(请参阅<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-beans-inline">内联动态语言源文件</a>)。此外，它仅适用于实际可以检测到对基础源文件的更改的 beans(例如，通过 code 检查文件系统上存在的动态语言源文件的上次修改的 date)。</p>
+<h5 id="内联动态语言源文件"><a href="#内联动态语言源文件" class="headerlink" title="内联动态语言源文件"></a>内联动态语言源文件</h5><p>动态语言支持还可以满足直接嵌入 Spring bean 定义中的动态语言源 files。更具体地说，<code>&lt;lang:inline-script/&gt;</code>元素允许您在 Spring configuration 文件中立即定义动态语言源。 示例可能会澄清内联脚本 feature 的工作原理：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;lang:groovy id&#x3D;&quot;messenger&quot;&gt;</span><br><span class="line">    &lt;lang:inline-script&gt;</span><br><span class="line"></span><br><span class="line">package org.springframework.scripting.groovy;</span><br><span class="line"></span><br><span class="line">import org.springframework.scripting.Messenger</span><br><span class="line"></span><br><span class="line">class GroovyMessenger implements Messenger &#123;</span><br><span class="line">    String message</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">    &lt;&#x2F;lang:inline-script&gt;</span><br><span class="line">    &lt;lang:property name&#x3D;&quot;message&quot; value&#x3D;&quot;I Can Do The Frug&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;lang:groovy&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果我们将有关在 Spring configuration 文件中定义动态语言源的优良做法的问题放在一边，那么<code>&lt;lang:inline-script/&gt;</code>元素在某些情况下会很有用。例如，我们可能希望快速将 Spring <code>Validator</code> implementation 添加到 Spring MVC <code>Controller</code>。这只是 moment 使用内联源的工作。 (对于这样的 example.)，见<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-scenarios-validators">脚本验证器</a></p>
+<h5 id="了解-Dynamic-language-backed-Beans-的-Context-中的构造函数注入"><a href="#了解-Dynamic-language-backed-Beans-的-Context-中的构造函数注入" class="headerlink" title="了解 Dynamic-language-backed Beans 的 Context 中的构造函数注入"></a>了解 Dynamic-language-backed Beans 的 Context 中的构造函数注入</h5><p>关于 Spring 的动态语言支持，有一件非常重要的事情需要注意。也就是说，您不能(当前)向 dynamic-language-backed beans 提供构造函数 arguments(因此，constructor-injection 不适用于 dynamic-language-backed beans)。为了使构造函数和 properties 的这种特殊处理 100％清晰，以下 code 和 configuration 的混合不起作用：</p>
+<p>示例 1.无法使用的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; from the file &#39;Messenger.groovy&#39;</span><br><span class="line">package org.springframework.scripting.groovy;</span><br><span class="line"></span><br><span class="line">import org.springframework.scripting.Messenger</span><br><span class="line"></span><br><span class="line">class GroovyMessenger implements Messenger &#123;</span><br><span class="line"></span><br><span class="line">    GroovyMessenger() &#123;&#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; this constructor is not available for Constructor Injection</span><br><span class="line">    GroovyMessenger(String message) &#123;</span><br><span class="line">        this.message &#x3D; message;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    String message</span><br><span class="line"></span><br><span class="line">    String anotherMessage</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;lang:groovy id&#x3D;&quot;badMessenger&quot;</span><br><span class="line">    script-source&#x3D;&quot;classpath:Messenger.groovy&quot;&gt;</span><br><span class="line">    &lt;!-- this next constructor argument will not be injected into the GroovyMessenger --&gt;</span><br><span class="line">    &lt;!-- in fact, this isn&#39;t even allowed according to the schema --&gt;</span><br><span class="line">    &lt;constructor-arg value&#x3D;&quot;This will not work&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- only property values are injected into the dynamic-language-backed object --&gt;</span><br><span class="line">    &lt;lang:property name&#x3D;&quot;anotherMessage&quot; value&#x3D;&quot;Passed straight through to the dynamic-language-backed object&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;lang&gt;</span><br></pre></td></tr></table></figure>
+
+<p>实际上，这种限制并不像它最初出现时那么重要，因为二手注入是绝大多数开发人员所青睐的注入风格(我们将讨论是否对另一天来说是好事)。</p>
+<h4 id="3-2-2-Groovy-Beans"><a href="#3-2-2-Groovy-Beans" class="headerlink" title="3.2.2. Groovy Beans"></a>3.2.2. Groovy Beans</h4><p>本节介绍如何在 Spring 中使用 Groovy 中定义的 beans。</p>
+<p>Groovy library 依赖项</p>
+<p>Spring 中的 Groovy 脚本支持要求以下 libraries 位于 application 的 classpath 中：</p>
+<ul>
+<li><code>groovy-1.8.jar</code></li>
+<li><code>asm-3.2.jar</code></li>
+<li><code>antlr-2.7.7.jar</code></li>
+</ul>
+<p>Groovy 主页包括以下描述：</p>
+<p>“Groovy 是 Java 2 平台的一种敏捷动态语言，它具有人们非常喜欢 Python，Ruby 和 Smalltalk 等语言的许多 features，使得 Java 开发人员可以使用 Java-like 语法。”</p>
+<p>如果您已经从顶部开始阅读本章，那么您已经现在考虑另一个 example(再次使用 Spring 测试套件中的 example)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package org.springframework.scripting;</span><br><span class="line"></span><br><span class="line">public interface Calculator &#123;</span><br><span class="line"></span><br><span class="line">    int add(int x, int y);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下 example 在 Groovy 中实现<code>Calculator</code>接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; from the file &#39;calculator.groovy&#39;</span><br><span class="line">package org.springframework.scripting.groovy</span><br><span class="line"></span><br><span class="line">class GroovyCalculator implements Calculator &#123;</span><br><span class="line"></span><br><span class="line">    int add(int x, int y) &#123;</span><br><span class="line">        x + y</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下 bean 定义使用 Groovy 中定义的计算器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;-- from the file &#39;beans.xml&#39; --&gt;</span><br><span class="line">&lt;beans&gt;</span><br><span class="line">    &lt;lang:groovy id&#x3D;&quot;calculator&quot; script-source&#x3D;&quot;classpath:calculator.groovy&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>最后，以下小应用程序执行前面的 configuration：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">package org.springframework.scripting;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.ApplicationContext;</span><br><span class="line">import org.springframework.context.support.ClassPathXmlApplicationContext;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    public static void Main(String[] args) &#123;</span><br><span class="line">        ApplicationContext ctx &#x3D; new ClassPathXmlApplicationContext(&quot;beans.xml&quot;);</span><br><span class="line">        Calculator calc &#x3D; (Calculator) ctx.getBean(&quot;calculator&quot;);</span><br><span class="line">        System.out.println(calc.add(2, 8));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行上述程序产生的结果是(不出所料)<code>10</code>。 (有关更有趣的示例，请参阅动态语言展示项目以获取更复杂的 example 或参见本章后面的示例<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-a-first-example">方案</a>)。</p>
+<p>您不能为每个 Groovy 源文件定义多个 class。虽然这在 Groovy 中是完全合法的，但它(可以说)是一种不好的做法。为了采用一致的方法，您应该(在 Spring 团队看来)尊重每个源文件一个(公共)class 的标准 Java 约定。</p>
+<h5 id="使用回调自定义-Groovy-Objects"><a href="#使用回调自定义-Groovy-Objects" class="headerlink" title="使用回调自定义 Groovy Objects"></a>使用回调自定义 Groovy Objects</h5><p><code>GroovyObjectCustomizer</code>接口是一个回调，它允许你将_更多创建逻辑添加到_创建 Groovy-backed bean 的 process 中。对于 example，此接口的 implementations 可以调用任何所需的初始化方法，设置一些默认的 property 值，或指定自定义<code>MetaClass</code>。以下清单显示了<code>GroovyObjectCustomizer</code>接口定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface GroovyObjectCustomizer &#123;</span><br><span class="line"></span><br><span class="line">    void customize(GroovyObject goo);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Spring Framework 实例化 Groovy-backed bean 的实例，然后将创建的<code>GroovyObject</code>传递给指定的<code>GroovyObjectCustomizer</code>(如果已定义的话)。您可以使用提供的<code>GroovyObject</code> reference 执行任何操作。我们希望大多数人都希望使用此回调设置自定义<code>MetaClass</code>，以下 example 显示了如何执行此操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public final class SimpleMethodTracingCustomizer implements GroovyObjectCustomizer &#123;</span><br><span class="line"></span><br><span class="line">    public void customize(GroovyObject goo) &#123;</span><br><span class="line">        DelegatingMetaClass metaClass &#x3D; new DelegatingMetaClass(goo.getMetaClass()) &#123;</span><br><span class="line"></span><br><span class="line">            public Object invokeMethod(Object object, String methodName, Object[] arguments) &#123;</span><br><span class="line">                System.out.println(&quot;Invoking &#39;&quot; + methodName + &quot;&#39;.&quot;);</span><br><span class="line">                return super.invokeMethod(object, methodName, arguments);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        metaClass.initialize();</span><br><span class="line">        goo.setMetaClass(metaClass);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 Groovy 中对 meta-programming 的完整讨论超出了 Spring reference 手册的范围。请参阅 Groovy reference 手册的相关部分或在线搜索。很多文章都论述了这个主题。实际上，如果使用 Spring 名称空间支持，则使用<code>GroovyObjectCustomizer</code>很容易，如下面的 example 所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- define the GroovyObjectCustomizer just like any other bean --&gt;</span><br><span class="line">&lt;bean id&#x3D;&quot;tracingCustomizer&quot; class&#x3D;&quot;example.SimpleMethodTracingCustomizer&quot;&#x2F;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- ... and plug it into the desired Groovy bean via the &#39;customizer-ref&#39; attribute --&gt;</span><br><span class="line">    &lt;lang:groovy id&#x3D;&quot;calculator&quot;</span><br><span class="line">        script-source&#x3D;&quot;classpath:org&#x2F;springframework&#x2F;scripting&#x2F;groovy&#x2F;Calculator.groovy&quot;</span><br><span class="line">        customizer-ref&#x3D;&quot;tracingCustomizer&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果您不使用 Spring 命名空间支持，您仍然可以使用<code>GroovyObjectCustomizer</code>功能，如下面的 example 所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean id&#x3D;&quot;calculator&quot; class&#x3D;&quot;org.springframework.scripting.groovy.GroovyScriptFactory&quot;&gt;</span><br><span class="line">    &lt;constructor-arg value&#x3D;&quot;classpath:org&#x2F;springframework&#x2F;scripting&#x2F;groovy&#x2F;Calculator.groovy&quot;&#x2F;&gt;</span><br><span class="line">    &lt;!-- define the GroovyObjectCustomizer (as an inner bean) --&gt;</span><br><span class="line">    &lt;constructor-arg&gt;</span><br><span class="line">        &lt;bean id&#x3D;&quot;tracingCustomizer&quot; class&#x3D;&quot;example.SimpleMethodTracingCustomizer&quot;&#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;constructor-arg&gt;</span><br><span class="line">&lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean class&#x3D;&quot;org.springframework.scripting.support.ScriptFactoryPostProcessor&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>从 Spring Framework 4.3.3 开始，您也可以在与 Spring 的<code>GroovyObjectCustomizer</code>相同的位置指定 Groovy <code>CompilationCustomizer</code>(例如<code>ImportCustomizer</code>)甚至是完整的 Groovy <code>CompilerConfiguration</code> object。</p>
+</blockquote>
+<h4 id="3-2-3-BeanShell-Beans"><a href="#3-2-3-BeanShell-Beans" class="headerlink" title="3.2.3. BeanShell Beans"></a>3.2.3. BeanShell Beans</h4><p>本节介绍如何在 Spring 中使用 BeanShell beans。</p>
+<p>BeanShell library 依赖项</p>
+<p>Spring 中的 BeanShell 脚本支持要求以下 libraries 位于 application 的 classpath 中：</p>
+<ul>
+<li><code>bsh-2.0b4.jar</code></li>
+</ul>
+<p>BeanShell 主页包括以下描述：{。 450}</p>
+<p>“BeanShell 是一个小型，免费，可嵌入的 Java 源代码 - 解释器，带有动态语言 features，用 Java 编写.BeanShell 动态执行标准 Java 语法并使用 common 脚本编写方便性扩展它，例如松散类型，命令和方法闭包，如 Perl 和 JavaScript 中的那些“。</p>
+<p>与 Groovy 相比，BeanShell-backed bean 定义需要一些(小)额外的 configuration。 Spring 中的 BeanShell 动态语言支持的 implementation 很有意思，因为 Spring 创建了一个 JDK 动态代理，它实现了<code>&lt;lang:bsh&gt;</code>元素的<code>script-interfaces</code>属性 value 中指定的所有接口(这就是为什么你必须提供至少一个接口的原因)属性的 value，因此，当您使用 BeanShell-backed beans 时，编程到接口。这意味着 BeanShell-backed object 上的每个方法调用都通过 JDK 动态代理调用机制。</p>
+<p>现在我们可以展示一个完全工作的 example，使用 BeanShell-based bean 实现本章前面定义的<code>Messenger</code>接口。我们再次展示了<code>Messenger</code>接口的定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">package org.springframework.scripting;</span><br><span class="line"></span><br><span class="line">public interface Messenger &#123;</span><br><span class="line"></span><br><span class="line">    String getMessage();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下 example 显示了<code>Messenger</code>接口的 BeanShell“implementation”(我们在这里使用松散的术语)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">String message;</span><br><span class="line"></span><br><span class="line">String getMessage() &#123;</span><br><span class="line">    return message;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void setMessage(String aMessage) &#123;</span><br><span class="line">    message &#x3D; aMessage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面的 example 显示了定义上述“class”的“实例”的 Spring XML(同样，我们在这里非常松散地使用这些术语)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;lang:bsh id&#x3D;&quot;messageService&quot; script-source&#x3D;&quot;classpath:BshMessenger.bsh&quot;</span><br><span class="line">    script-interfaces&#x3D;&quot;org.springframework.scripting.Messenger&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;lang:property name&#x3D;&quot;message&quot; value&#x3D;&quot;Hello World!&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;lang:bsh&gt;</span><br></pre></td></tr></table></figure>
+
+<p>对于您可能想要使用 BeanShell-based beans 的某些情况，请参阅<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-scenarios">方案</a>。</p>
+<h3 id="3-3-方案"><a href="#3-3-方案" class="headerlink" title="3.3. 方案"></a>3.3. 方案</h3><p>在脚本语言中定义 Spring 托管 beans 会有益的可能场景是多种多样的。本节介绍了 Spring 中动态语言支持的两种可能用例。</p>
+<h4 id="3-3-1-脚本-Spring-MVC-控制器"><a href="#3-3-1-脚本-Spring-MVC-控制器" class="headerlink" title="3.3.1. 脚本 Spring MVC 控制器"></a>3.3.1. 脚本 Spring MVC 控制器</h4><p>可以从使用 dynamic-language-backed beans 中受益的一组 classes 是 Spring MVC 控制器。在纯 Spring MVC applications 中，通过 web application 的导航流程在很大程度上取决于封装在 Spring MVC 控制器中的 code。由于需要更新 web application 的导航流和其他表示层逻辑以响应支持问题或更改业务需求，因此通过编辑一个或多个动态语言源 files 并查看这些所需的更改可能更容易实现更改立即反映在 running application 的 state 中。</p>
+<p>请记住，在由 Spring 等项目支持的轻量级体系结构 model 中，您通常希望拥有一个非常精简的表示层，其中 application 的所有内容业务逻辑都包含在域和服务层 classes 中。 Developing Spring MVC 控制器为 dynamic-language-backed beans 允许您通过编辑和保存文本 files 来更改表示层逻辑。对此类动态语言源 files 的任何更改(取决于 configuration)都会自动反映在动态语言源 files 支持的 beans 中。</p>
+<blockquote>
+<p>要实现对 dynamic-language-backed beans 的任何更改的自动“拾取”，您必须启用“可刷新的 beans”功能。有关此 feature 的完整处理，请参阅<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-scenarios">可刷新的 Beans</a>。</p>
+</blockquote>
+<p>以下 example 显示了使用 Groovy 动态语言实现的<code>org.springframework.web.servlet.mvc.Controller</code>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; from the file &#39;&#x2F;WEB-INF&#x2F;groovy&#x2F;FortuneController.groovy&#39;</span><br><span class="line">package org.springframework.showcase.fortune.web</span><br><span class="line"></span><br><span class="line">import org.springframework.showcase.fortune.service.FortuneService</span><br><span class="line">import org.springframework.showcase.fortune.domain.Fortune</span><br><span class="line">import org.springframework.web.servlet.ModelAndView</span><br><span class="line">import org.springframework.web.servlet.mvc.Controller</span><br><span class="line"></span><br><span class="line">import javax.servlet.http.HttpServletRequest</span><br><span class="line">import javax.servlet.http.HttpServletResponse</span><br><span class="line"></span><br><span class="line">class FortuneController implements Controller &#123;</span><br><span class="line"></span><br><span class="line">    @Property FortuneService fortuneService</span><br><span class="line"></span><br><span class="line">    ModelAndView handleRequest(HttpServletRequest request,</span><br><span class="line">            HttpServletResponse httpServletResponse) &#123;</span><br><span class="line">        return new ModelAndView(&quot;tell&quot;, &quot;fortune&quot;, this.fortuneService.tellFortune())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;lang:groovy id&#x3D;&quot;fortune&quot;</span><br><span class="line">        refresh-check-delay&#x3D;&quot;3000&quot;</span><br><span class="line">        script-source&#x3D;&quot;&#x2F;WEB-INF&#x2F;groovy&#x2F;FortuneController.groovy&quot;&gt;</span><br><span class="line">    &lt;lang:property name&#x3D;&quot;fortuneService&quot; ref&#x3D;&quot;fortuneService&quot;&#x2F;&gt;</span><br><span class="line">&lt;&#x2F;lang:groovy&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-2-脚本验证器"><a href="#3-3-2-脚本验证器" class="headerlink" title="3.3.2. 脚本验证器"></a>3.3.2. 脚本验证器</h4><p>使用 Spring 进行 application 开发的另一个领域可能会受益于 dynamic-language-backed beans 提供的灵活性。与常规 Java 相比，通过使用松散类型的动态语言(也可能支持内联正则表达式)来表达复杂的验证逻辑可能更容易。</p>
+<p>同样，developing validators as dynamic-language-backed beans 允许您通过编辑和保存简单的文本文件来更改验证逻辑。任何此类更改(根据 configuration)自动反映在 running application 的执行中，并且不需要重新启动 application。</p>
+<blockquote>
+<p>要实现对 dynamic-language-backed beans 的任何更改的自动“拾取”，您必须启用’refreshable beans’feature。有关此 feature 的详细信息，请参阅<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/languages.html#dynamic-language-refreshable-beans">可刷新的 Beans</a>。</p>
+</blockquote>
+<p>以下 example 显示了使用 Groovy 动态语言实现的 Spring <code>org.springframework.validation.Validator</code>(有关<code>Validator</code>接口的讨论，请参阅<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#dynamic-language-refreshable-beans">使用 Spring 的 Validator 接口进行验证</a>)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import org.springframework.validation.Validator</span><br><span class="line">import org.springframework.validation.Errors</span><br><span class="line">import org.springframework.beans.TestBean</span><br><span class="line"></span><br><span class="line">class TestBeanValidator implements Validator &#123;</span><br><span class="line"></span><br><span class="line">    boolean supports(Class clazz) &#123;</span><br><span class="line">        return TestBean.class.isAssignableFrom(clazz)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    void validate(Object bean, Errors errors) &#123;</span><br><span class="line">        if(bean.name?.trim()?.size() &gt; 0) &#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">        errors.reject(&quot;whitespace&quot;, &quot;Cannot be composed wholly of whitespace.&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-额外细节"><a href="#3-4-额外细节" class="headerlink" title="3.4. 额外细节"></a>3.4. 额外细节</h3><p>最后一节包含一些与动态语言支持相关的其他详细信息。</p>
+<h4 id="3-4-1-AOP-建议脚本-Beans"><a href="#3-4-1-AOP-建议脚本-Beans" class="headerlink" title="3.4.1. AOP - 建议脚本 Beans"></a>3.4.1. AOP - 建议脚本 Beans</h4><p>您可以使用 Spring AOP framework 来建议脚本 beans。 Spring AOP framework 实际上并不知道被建议的 bean 可能是脚本化的 bean，因此您使用(或旨在使用)的所有 AOP 用例和功能都与脚本 beans 一起使用。当您建议脚本 beans 时，您不能使用 class-based 代理。你必须使用<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#validator">interface-based 代理</a>。</p>
+<p>您不仅限于为脚本 beans 提供建议。您还可以使用受支持的动态语言编写方面本身，并使用此类 beans 来建议其他 Spring beans。这确实是动态语言支持的高级用法。</p>
+<h4 id="3-4-2-作用域"><a href="#3-4-2-作用域" class="headerlink" title="3.4.2. 作用域"></a>3.4.2. 作用域</h4><p>如果不是很明显，脚本 beans 的范围可以与任何其他 bean 相同。各种<code>&lt;lang:language/&gt;</code>元素上的<code>scope</code>属性允许您控制底层脚本 bean 的范围，就像使用常规 bean 一样。 (默认范围是<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#aop-proxying">singleton</a>，因为它与“常规”beans.)一样</p>
+<p>以下 example 使用<code>scope</code>属性来定义作为<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#beans-factory-scopes-singleton">原型</a>的 Groovy bean：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot; xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">    xmlns:lang&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;lang&quot;</span><br><span class="line">    xsi:schemaLocation&#x3D;&quot;</span><br><span class="line">        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;lang http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;lang&#x2F;spring-lang.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;lang:groovy id&#x3D;&quot;messenger&quot; script-source&#x3D;&quot;classpath:Messenger.groovy&quot; scope&#x3D;&quot;prototype&quot;&gt;</span><br><span class="line">        &lt;lang:property name&#x3D;&quot;message&quot; value&#x3D;&quot;I Can Do The RoboCop&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;lang:groovy&gt;</span><br><span class="line"></span><br><span class="line">    &lt;bean id&#x3D;&quot;bookingService&quot; class&#x3D;&quot;x.y.DefaultBookingService&quot;&gt;</span><br><span class="line">        &lt;property name&#x3D;&quot;messenger&quot; ref&#x3D;&quot;messenger&quot; &#x2F;&gt;</span><br><span class="line">    &lt;&#x2F;bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<p>有关 Spring Framework 中作用域支持的完整讨论，请参阅<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#beans-factory-scopes-prototype">IoC 容器</a>中的<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/core.html#beans-factory-scopes">Bean 范围</a>。</p>
+<h4 id="3-4-3-lang-XML-schema"><a href="#3-4-3-lang-XML-schema" class="headerlink" title="3.4.3. lang XML schema"></a>3.4.3. lang XML schema</h4><p>Spring XML configuration 中的<code>lang</code>元素处理将以动态语言(如 JRuby 或 Groovy)编写的 objects 暴露为 Spring 容器中的 beans。</p>
+<p><a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-framework/5.1.3.RELEASE/reference/integration.html#beans">动态语言支持</a>中全面介绍了这些元素(以及动态语言支持)。有关此支持和<code>lang</code>元素的完整详细信息，请参阅该章。</p>
+<p>要使用<code>lang</code> schema 中的元素，您需要在 Spring XML configuration 文件的顶部添加以下前导码。以下代码段中的文本引用了正确的 schema，以便<code>lang</code>命名空间中的标记可供您使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;beans xmlns&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&quot;</span><br><span class="line">    xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">    xmlns:lang&#x3D;&quot;http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;lang&quot; xsi:schemaLocation&#x3D;&quot;</span><br><span class="line">        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;beans&#x2F;spring-beans.xsd</span><br><span class="line">        http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;lang http:&#x2F;&#x2F;www.springframework.org&#x2F;schema&#x2F;lang&#x2F;spring-lang.xsd&quot;&gt;</span><br><span class="line"></span><br><span class="line">    &lt;!-- bean definitions here --&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;beans&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-更多资源"><a href="#3-5-更多资源" class="headerlink" title="3.5. 更多资源"></a>3.5. 更多资源</h3><p>以下链接将介绍有关本章所述各种动态语言的更多信息：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://jruby.org/">JRuby</a>主页</li>
+<li><a target="_blank" rel="noopener" href="http://www.groovy-lang.org/">Groovy</a>主页</li>
+<li><a target="_blank" rel="noopener" href="http://www.beanshell.org/">BeanShell</a>主页</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SpringFramework/" rel="tag"># SpringFramework</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E9%9B%86%E6%88%90/" rel="prev" title="SpringFramework官方文档翻译-集成">
+      <i class="fa fa-chevron-left"></i> SpringFramework官方文档翻译-集成
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81"><span class="nav-number">1.</span> <span class="nav-text">语言支持</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Kotlin"><span class="nav-number">1.1.</span> <span class="nav-text">1. Kotlin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E8%A6%81%E6%B1%82"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1. 要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Extensions"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2. Extensions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Null-safety"><span class="nav-number">1.1.3.</span> <span class="nav-text">1.3. Null-safety</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Classes-%E5%92%8C-Interfaces"><span class="nav-number">1.1.4.</span> <span class="nav-text">1.4. Classes 和 Interfaces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-Annotations"><span class="nav-number">1.1.5.</span> <span class="nav-text">1.5. Annotations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-Bean-%E5%AE%9A%E4%B9%89-DSL"><span class="nav-number">1.1.6.</span> <span class="nav-text">1.6. Bean 定义 DSL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-Web"><span class="nav-number">1.1.7.</span> <span class="nav-text">1.7. Web</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-1-WebFlux-%E5%8A%9F%E8%83%BD-DSL"><span class="nav-number">1.1.7.1.</span> <span class="nav-text">1.7.1. WebFlux 功能 DSL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-7-2-Kotlin-%E8%84%9A%E6%9C%AC%E6%A8%A1%E6%9D%BF"><span class="nav-number">1.1.7.2.</span> <span class="nav-text">1.7.2. Kotlin 脚本模板</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-8-Kotlin-%E4%B8%AD%E7%9A%84-Spring-%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.1.8.</span> <span class="nav-text">1.8. Kotlin 中的 Spring 项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-8-1-%E6%9C%80%E5%90%8E%E9%BB%98%E8%AE%A4"><span class="nav-number">1.1.8.1.</span> <span class="nav-text">1.8.1. 最后默认</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-8-2-%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%8F%AF%E5%8F%98%E7%9A%84-Class-%E5%AE%9E%E4%BE%8B%E8%BF%9B%E8%A1%8C%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">1.1.8.2.</span> <span class="nav-text">1.8.2. 使用不可变的 Class 实例进行持久化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-8-3-%E6%B3%A8%E5%85%A5%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB"><span class="nav-number">1.1.8.3.</span> <span class="nav-text">1.8.3. 注入依赖关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-8-4-%E6%B3%A8%E5%85%A5-Configuration-Properties"><span class="nav-number">1.1.8.4.</span> <span class="nav-text">1.8.4. 注入 Configuration Properties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-8-5-Annotation-Array-%E5%B1%9E%E6%80%A7"><span class="nav-number">1.1.8.5.</span> <span class="nav-text">1.8.5. Annotation Array 属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-8-6-%E6%B5%8B%E8%AF%95"><span class="nav-number">1.1.8.6.</span> <span class="nav-text">1.8.6. 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#PERCLASS-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.1.8.6.1.</span> <span class="nav-text">PERCLASS 生命周期</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Specification-like-%E6%B5%8B%E8%AF%95"><span class="nav-number">1.1.8.6.2.</span> <span class="nav-text">Specification-like 测试</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Kotlin-%E4%B8%AD%E7%9A%84-WebTestClient-%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.8.6.3.</span> <span class="nav-text">Kotlin 中的 WebTestClient 类型推断问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-%E5%85%A5%E9%97%A8"><span class="nav-number">1.1.9.</span> <span class="nav-text">1.9. 入门</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-9-1-%E4%BD%BF%E7%94%A8-start-spring-io"><span class="nav-number">1.1.9.1.</span> <span class="nav-text">1.9.1. 使用 start.spring.io</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-9-2-%E9%80%89%E6%8B%A9-Web-%E9%A3%8E%E5%91%B3"><span class="nav-number">1.1.9.2.</span> <span class="nav-text">1.9.2. 选择 Web 风味</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-%E8%B5%84%E6%BA%90"><span class="nav-number">1.1.10.</span> <span class="nav-text">1.10. 资源</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-1-%E6%95%99%E7%A8%8B"><span class="nav-number">1.1.10.1.</span> <span class="nav-text">1.10.1. 教程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-2-%E5%8D%9A%E5%AE%A2%E6%96%87%E7%AB%A0"><span class="nav-number">1.1.10.2.</span> <span class="nav-text">1.10.2. 博客文章</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-3-%E4%BE%8B%E5%AD%90"><span class="nav-number">1.1.10.3.</span> <span class="nav-text">1.10.3. 例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-10-4-%E9%97%AE%E9%A2%98"><span class="nav-number">1.1.10.4.</span> <span class="nav-text">1.10.4. 问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Apache-Groovy"><span class="nav-number">1.2.</span> <span class="nav-text">2. Apache Groovy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%8A%A8%E6%80%81%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81"><span class="nav-number">1.3.</span> <span class="nav-text">3.动态语言支持</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E7%AC%AC%E4%B8%80%E4%B8%AA%E4%BE%8B%E5%AD%90"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1. 第一个例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E5%AE%9A%E4%B9%89%E7%94%B1%E5%8A%A8%E6%80%81%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E7%9A%84-Beans"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2. 定义由动态语言支持的 Beans</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-1-Common-Concepts"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">3.2.1. Common Concepts</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#lt-hh-367-3-gt-%E5%85%83%E7%B4%A0"><span class="nav-number">1.3.2.1.1.</span> <span class="nav-text">&lt; hh:&#x2F;&#x2F; +367+ *3* &gt;元素</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%8F%AF%E5%88%B7%E6%96%B0%E7%9A%84-Beans"><span class="nav-number">1.3.2.1.2.</span> <span class="nav-text">可刷新的 Beans</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%86%85%E8%81%94%E5%8A%A8%E6%80%81%E8%AF%AD%E8%A8%80%E6%BA%90%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.2.1.3.</span> <span class="nav-text">内联动态语言源文件</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3-Dynamic-language-backed-Beans-%E7%9A%84-Context-%E4%B8%AD%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E6%B3%A8%E5%85%A5"><span class="nav-number">1.3.2.1.4.</span> <span class="nav-text">了解 Dynamic-language-backed Beans 的 Context 中的构造函数注入</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-2-Groovy-Beans"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">3.2.2. Groovy Beans</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9B%9E%E8%B0%83%E8%87%AA%E5%AE%9A%E4%B9%89-Groovy-Objects"><span class="nav-number">1.3.2.2.1.</span> <span class="nav-text">使用回调自定义 Groovy Objects</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-3-BeanShell-Beans"><span class="nav-number">1.3.2.3.</span> <span class="nav-text">3.2.3. BeanShell Beans</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%96%B9%E6%A1%88"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3. 方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-%E8%84%9A%E6%9C%AC-Spring-MVC-%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="nav-number">1.3.3.1.</span> <span class="nav-text">3.3.1. 脚本 Spring MVC 控制器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-%E8%84%9A%E6%9C%AC%E9%AA%8C%E8%AF%81%E5%99%A8"><span class="nav-number">1.3.3.2.</span> <span class="nav-text">3.3.2. 脚本验证器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-%E9%A2%9D%E5%A4%96%E7%BB%86%E8%8A%82"><span class="nav-number">1.3.4.</span> <span class="nav-text">3.4. 额外细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-1-AOP-%E5%BB%BA%E8%AE%AE%E8%84%9A%E6%9C%AC-Beans"><span class="nav-number">1.3.4.1.</span> <span class="nav-text">3.4.1. AOP - 建议脚本 Beans</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-2-%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="nav-number">1.3.4.2.</span> <span class="nav-text">3.4.2. 作用域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-3-lang-XML-schema"><span class="nav-number">1.3.4.3.</span> <span class="nav-text">3.4.3. lang XML schema</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-5-%E6%9B%B4%E5%A4%9A%E8%B5%84%E6%BA%90"><span class="nav-number">1.3.5.</span> <span class="nav-text">3.5. 更多资源</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Route-nice"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Route-nice</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/route-nice" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;route-nice" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:route.lvy.roman@gmail.com" title="E-Mail → mailto:route.lvy.roman@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Route-nice</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"2VnxHgjEtfnE32vEU7kSwp7u-gzGzoHsz","app_key":"C31JOMiTW1vAVoeT7ece3Gts","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://route-nice.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81/";
+    this.page.identifier = "2020/08/25/SpringFramework官方文档翻译-语言支持/";
+    this.page.title = "SpringFramework官方文档翻译-语言支持";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://route-nice.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

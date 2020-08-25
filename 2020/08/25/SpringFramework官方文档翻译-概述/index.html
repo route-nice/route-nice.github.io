@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Spring Framework 概述“Spring” 的含义术语“Spring”在不同的环境中意味着不同的东西。它可用于引用 Spring Framework 项目本身，这是它开始的地方。随着时间推移，其他 Spring 项目已经构建在 Spring Framework 之上。大多数情况下，当人们说“Spring”时，他们指的是整个项目系列。这个参考文档侧重于基础：Spring Framewor">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Framework官方文档翻译-概述">
+<meta property="og:url" content="http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Spring Framework 概述“Spring” 的含义术语“Spring”在不同的环境中意味着不同的东西。它可用于引用 Spring Framework 项目本身，这是它开始的地方。随着时间推移，其他 Spring 项目已经构建在 Spring Framework 之上。大多数情况下，当人们说“Spring”时，他们指的是整个项目系列。这个参考文档侧重于基础：Spring Framewor">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-25T00:22:35.000Z">
+<meta property="article:modified_time" content="2020-08-25T00:23:45.312Z">
+<meta property="article:author" content="Route-nice">
+<meta property="article:tag" content="SpringFramework">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%A6%82%E8%BF%B0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Spring Framework官方文档翻译-概述 | Hexo</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8b3aabf954a120e5a2920d31f3600013";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%A6%82%E8%BF%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Route-nice">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring Framework官方文档翻译-概述
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-25 08:22:35 / 修改时间：08:23:45" itemprop="dateCreated datePublished" datetime="2020-08-25T08:22:35+08:00">2020-08-25</time>
+            </span>
+
+          
+            <span id="/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%A6%82%E8%BF%B0/" class="post-meta-item leancloud_visitors" data-flag-title="Spring Framework官方文档翻译-概述" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%A6%82%E8%BF%B0/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/25/SpringFramework官方文档翻译-概述/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Spring-Framework-概述"><a href="#Spring-Framework-概述" class="headerlink" title="Spring Framework 概述"></a>Spring Framework 概述</h1><h2 id="“Spring”-的含义"><a href="#“Spring”-的含义" class="headerlink" title="“Spring” 的含义"></a>“Spring” 的含义</h2><p>术语“Spring”在不同的环境中意味着不同的东西。它可用于引用 Spring Framework 项目本身，这是它开始的地方。随着时间推移，其他 Spring 项目已经构建在 Spring Framework 之上。大多数情况下，当人们说“Spring”时，他们指的是整个项目系列。这个参考文档侧重于基础：Spring Framework 本身。</p>
+<p>Spring Framework 分离成多个模块。 Applications 可以选择他们所需要的模块。容器的核心模块包括 配置模型和依赖注入机制。除此之外，Spring Framework 为不同的应用程序架构提供了基础支持，包括消息传递，事务数据和持久性以及 web。它还包括 Servlet-based Spring MVC web framework，以及 Spring WebFlux reactive web framework。</p>
+<p>关于模块的说明：Spring 的 framework jars 允许部署到 JDK 9 的模块路径(“Jigsaw”)。为了在 Jigsaw-enabled applications 中使用，Spring Framework 5 jars 带有“Automatic-Module-Name”清单条目，它们定义了独立于 jar artifact 名称的稳定 language-level 模块名称(“spring.core”，“spring.context”等)(jars 遵循相同的命名规则“ - “而不是”.“，例如 ”spring-core“和”spring-context“)。当然，Spring 的 framework jars 在 JDK 8 和 9 上都能正常工作。</p>
+<a id="more"></a>
+
+<h2 id="Spring-和-Spring-Framework-的历史"><a href="#Spring-和-Spring-Framework-的历史" class="headerlink" title="Spring 和 Spring Framework 的历史"></a>Spring 和 Spring Framework 的历史</h2><p>Spring 于 2003 年成立，是对早期<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Java_Platform,_Enterprise_Edition">J2EE</a>规范复杂性的回应。虽然有些人认为 Java EE 和 Spring 处于竞争中，但实际上，Spring 是对 Java EE 的补充。 Spring 编程模型不包含 Java EE 平台规范；相反它集成了从Java EE 下精心挑选出的来规则：</p>
+<ul>
+<li>Servlet API(<a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=340">JSR 340</a>)</li>
+<li>WebSocket API(<a target="_blank" rel="noopener" href="https://www.jcp.org/en/jsr/detail?id=356">JSR 356</a>)</li>
+<li>Concurrency Utilities(<a target="_blank" rel="noopener" href="https://www.jcp.org/en/jsr/detail?id=236">JSR 236</a>)</li>
+<li>JSON Binding API(<a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=367">JSR 367</a>)</li>
+<li>Bean Validation(<a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=303">JSR 303</a>)</li>
+<li>JPA(<a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=338">JSR 338</a>)</li>
+<li>JMS(<a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=914">JSR 914</a>)</li>
+<li>以及必须要时用于事务协调的 JTA/JCA</li>
+</ul>
+<p>Spring Framework 还支持Dependency Injection(<a target="_blank" rel="noopener" href="https://www.jcp.org/en/jsr/detail?id=330">JSR 330</a>)和 Common Annotations(<a target="_blank" rel="noopener" href="https://jcp.org/en/jsr/detail?id=250">JSR 250</a>)规范，应用程序开发人员可以选择使用这些规范，而不是 Spring Framework 提供的 Spring-specific 机制。</p>
+<p>从 Spring Framework 5.0 开始，Spring 需要 Java EE 7 level(例如 Servlet 3.1，JPA 2.1)作为最低要求 - 同时提供开箱即用的集成与 Java EE 8 level 上的新 API(例如 Servlet 4.0，JSON Binding API)。这使得 Spring 与多种版本程序完全兼容。例如 Tomcat 8 和 9，WebSphere 9 和 JBoss EAP 7。</p>
+<p>随着时间推移，Java EE 在应用开发中的作用已经变得更重要。在 Java EE 和 Spring 的早期，应用被创建并部署在服务器上。而今天，在 Spring Boot 的帮助下，应用是以可持续和云友好得方式创建的，嵌入了 Servlet 容器并且很容易更改。从 Spring Framework 5 开始，WebFlux application 甚至不再直接使用 Servlet API，并且可以在不是 Servlet 容器的服务器(例如 Netty)上运行。</p>
+<p>Spring 保持不断的创新和发展。除了 Spring Framework 之外，还有其他项目，例如 Spring Boot，Spring Security，Spring Data，Spring Cloud，Spring Batch 等等。重要的是每个项目都有自己的源码 repository，issue 和 release 。有关 Spring 项目的完整列表，请参阅<a target="_blank" rel="noopener" href="https://spring.io/projects">spring.io/projects</a>。</p>
+<h2 id="设计理念"><a href="#设计理念" class="headerlink" title="设计理念"></a>设计理念</h2><p>当您学习 framework 时，重要的是不仅要知道它的作用，还要了解它遵循的原则。以下是 Spring Framework 的指导原则：</p>
+<ul>
+<li>在每个层级提供选择。 Spring 让你尽可能晚地决定设计决策。例如，你可以通过配置文件切换持久性提供程序而无需更改代码。对于许多其他基础设置和第三方 API 的整合是同样适用的。</li>
+<li>Spring 非常灵活。没有固定的规则去规定怎么去设计，它从不同的角度支持广泛的应用程序需求。</li>
+<li>保持强大的向后兼容性。 Spring 版本的更迭和重大改变都是经过精心设计的。 Spring 支持精心选择的 JDK 版本和第三方 libraries，以便于维护依赖于 Spring 的 applications 和 libraries。</li>
+<li>关注 API 设计。 Spring 团队投入了大量的思考和时间来制作直观的 API，这些 API 可以支撑多个版本和时间的考验。</li>
+<li>为代码质量设定高标准。 Spring Framework 是重点强调有意义，最新和准确的javadoc。它是极少数可以宣称自己是代码和结构没有侵入，并且包与包之间没有循环依赖关系的项目之一。</li>
+</ul>
+<h2 id="反馈和贡献"><a href="#反馈和贡献" class="headerlink" title="反馈和贡献"></a>反馈和贡献</h2><p>对于如何提问，定位，调试，我们建议使用 StackOverflow，我们有<a target="_blank" rel="noopener" href="https://spring.io/questions">questions page</a> 列出要使用的建议标记。如果您非常确定 Spring Framework 中存在问题或想要提建议，请使用<a target="_blank" rel="noopener" href="https://jira.spring.io/browse/spr">JIRA</a>。</p>
+<p>如果您有解决方案或修复建议，您可以在<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-framework">Github</a>上提交拉取请求。除去微不足道的问题，我们希望提交在issue中进行讨论并保留记录以备将来参考。</p>
+<p>有关详细信息，请参阅<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-framework/blob/master/CONTRIBUTING.md">CONTRIBUTING</a>，最上方项目页面上的指南。</p>
+<h2 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h2><p>如果您刚刚开始使用 Spring，您可能希望通过创建 <a target="_blank" rel="noopener" href="https://projects.spring.io/spring-boot/">Spring Boot</a> 基础应用开始使用 Spring Framework。 Spring Boot 提供了一种快速(现成)的方式来创建 Spring 基础应用。它基于 Spring Framework，优于配置的约定，旨在让您尽快启动和运行应用。</p>
+<p>您可以使用<a target="_blank" rel="noopener" href="https://start.spring.io/">start.spring.io</a>创建基本项目，也可以使用<a target="_blank" rel="noopener" href="https://spring.io/guides">“入门”guides</a>中的项目，例如<a target="_blank" rel="noopener" href="https://spring.io/guides/gs/rest-service/">入门构建 RESTful Web 服务</a>。除了更容易理解之外，这些 guides 目标性非常明确，而且他们大多数都是基于 Spring Boot的。它们还涵盖了Spring产品组合中的其他项目，您在解决特定问题时可能要关注这些项目。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SpringFramework/" rel="tag"># SpringFramework</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/24/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%A0%B8%E5%BF%83/" rel="prev" title="SpringFramework官方文档翻译-核心">
+      <i class="fa fa-chevron-left"></i> SpringFramework官方文档翻译-核心
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%B5%8B%E8%AF%95/" rel="next" title="SpringFramework官方文档翻译-测试">
+      SpringFramework官方文档翻译-测试 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Framework-%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">Spring Framework 概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9CSpring%E2%80%9D-%E7%9A%84%E5%90%AB%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">“Spring” 的含义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-%E5%92%8C-Spring-Framework-%E7%9A%84%E5%8E%86%E5%8F%B2"><span class="nav-number">1.2.</span> <span class="nav-text">Spring 和 Spring Framework 的历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E7%90%86%E5%BF%B5"><span class="nav-number">1.3.</span> <span class="nav-text">设计理念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8D%E9%A6%88%E5%92%8C%E8%B4%A1%E7%8C%AE"><span class="nav-number">1.4.</span> <span class="nav-text">反馈和贡献</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-number">1.5.</span> <span class="nav-text">入门</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Route-nice"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Route-nice</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/route-nice" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;route-nice" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:route.lvy.roman@gmail.com" title="E-Mail → mailto:route.lvy.roman@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Route-nice</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+<script>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      var visitors = document.querySelector('.leancloud_visitors');
+      var url = decodeURI(visitors.id);
+      var title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            var counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              leancloudSelector(url).innerText = 'Counter not initialized! More info at console err msg.';
+              console.error('ATTENTION! LeanCloud counter has security bug, see how to solve it here: https://github.com/theme-next/hexo-leancloud-counter-security. \n However, you can still use LeanCloud without security, by setting `security` option to `false`.');
+            
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      var visitors = document.querySelectorAll('.leancloud_visitors');
+      var entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            let target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    let { app_id, app_key, server_url } = {"enable":true,"app_id":"2VnxHgjEtfnE32vEU7kSwp7u-gzGzoHsz","app_key":"C31JOMiTW1vAVoeT7ece3Gts","server_url":null,"security":true};
+    function fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    let api_server = app_id.slice(-9) !== '-MdYXbMMI' ? server_url : `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com`;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://route-nice.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%A6%82%E8%BF%B0/";
+    this.page.identifier = "2020/08/25/SpringFramework官方文档翻译-概述/";
+    this.page.title = "Spring Framework官方文档翻译-概述";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://route-nice.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
