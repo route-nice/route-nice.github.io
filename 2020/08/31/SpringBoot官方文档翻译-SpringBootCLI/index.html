@@ -28,7 +28,7 @@
 <meta property="og:description" content="Spring Boot CLI 是一个命令行工具，如果您想快速开发 Spring 应用程序，可以使用它。它使您可以运行 Groovy 脚本，这意味着您具有类似 Java 的熟悉语法，而没有太多样板代码。您还可以引导一个新项目或为其编写自己的命令。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-31T03:42:42.000Z">
-<meta property="article:modified_time" content="2020-08-31T07:12:42.718Z">
+<meta property="article:modified_time" content="2020-09-07T02:15:12.622Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
@@ -197,10 +197,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-08-31 11:42:42 / 修改时间：15:12:42" itemprop="dateCreated datePublished" datetime="2020-08-31T11:42:42+08:00">2020-08-31</time>
+              <time title="创建时间：2020-08-31 11:42:42" itemprop="dateCreated datePublished" datetime="2020-08-31T11:42:42+08:00">2020-08-31</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-07 10:15:12" itemprop="dateModified" datetime="2020-09-07T10:15:12+08:00">2020-09-07</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -245,36 +251,31 @@
       
         <p>Spring Boot CLI 是一个命令行工具，如果您想快速开发 Spring 应用程序，可以使用它。它使您可以运行 Groovy 脚本，这意味着您具有类似 Java 的熟悉语法，而没有太多样板代码。您还可以引导一个新项目或为其编写自己的命令。</p>
 <a id="more"></a>
-
-<h1 id="安装-CLI"><a href="#安装-CLI" class="headerlink" title="安装 CLI"></a>安装 CLI</h1><p>可以使用 SDKMAN 手动安装 Spring Boot CLI(命令行界面)！ (SDK Manager)或使用 Homebrew 或 MacPorts(如果您是 OSX 用户)。有关全面的安装说明，请参阅“Starter”部分中的* <a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-boot/2.1.1.RELEASE/reference/getting-started-installing-spring-boot.html#getting-started-installing-the-cli">第 10.2 节“安装 Spring Boot CLI”</a> *。</p>
-<h1 id="使用-CLI"><a href="#使用-CLI" class="headerlink" title="使用 CLI"></a>使用 CLI</h1><p>安装 CLI 后，可以通过键入<code>spring</code>并在命令行中按 Enter 来运行它。如果您不带任何参数运行<code>spring</code>，则会显示一个简单的帮助屏幕，如下所示：</p>
+<h1 id="安装CLI"><a href="#安装CLI" class="headerlink" title="安装CLI"></a>安装CLI</h1><p>可以使用 SDKMAN 手动安装 Spring Boot CLI(命令行界面)！ (SDK Manager)或使用 Homebrew 或 MacPorts(如果您是 OSX 用户)。有关全面的安装说明，请参阅“Starter”部分中的<em> <a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot官方文档翻译-使用Starter/#安装SpringBootCLI">第 10.2 节“安装 Spring Boot CLI”</a> </em>。</p>
+<h1 id="使用CLI"><a href="#使用CLI" class="headerlink" title="使用CLI"></a>使用CLI</h1><p>安装 CLI 后，可以通过键入<code>spring</code>并在命令行中按 Enter 来运行它。如果您不带任何参数运行<code>spring</code>，则会显示一个简单的帮助屏幕，如下所示：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring</span></span><br><span class="line">usage: spring [--help] [--version]</span><br><span class="line">       &lt;command&gt; [&lt;args&gt;]</span><br><span class="line"></span><br><span class="line">Available commands are:</span><br><span class="line"></span><br><span class="line">  run [options] &lt;files&gt; [--] [args]</span><br><span class="line">    Run a spring groovy script</span><br><span class="line"></span><br><span class="line">  ... more command help is shown here</span><br></pre></td></tr></table></figure>
-
 <p>您可以键入<code>spring help</code>以获取有关任何受支持命令的更多详细信息，如以下示例所示：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring <span class="built_in">help</span> run</span></span><br><span class="line">spring run - Run a spring groovy script</span><br><span class="line"></span><br><span class="line">usage: spring run [options] &lt;files&gt; [--] [args]</span><br><span class="line"></span><br><span class="line">Option                     Description</span><br><span class="line">------                     -----------</span><br><span class="line">--autoconfigure [Boolean]  Add autoconfigure compiler</span><br><span class="line">                             transformations (default: true)</span><br><span class="line">--classpath, -cp           Additional classpath entries</span><br><span class="line">-e, --edit                 Open the file with the default system</span><br><span class="line">                             editor</span><br><span class="line">--no-guess-dependencies    Do not attempt to guess dependencies</span><br><span class="line">--no-guess-imports         Do not attempt to guess imports</span><br><span class="line">-q, --quiet                Quiet logging</span><br><span class="line">-v, --verbose              Verbose logging of dependency</span><br><span class="line">                             resolution</span><br><span class="line">--watch                    Watch the specified file for changes</span><br></pre></td></tr></table></figure>
-
 <p><code>version</code>命令提供了一种快速的方法来检查您正在使用的 Spring Boot 版本，如下所示：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring version</span></span><br><span class="line">Spring CLI v2.1.1.RELEASE</span><br></pre></td></tr></table></figure>
-
 <h2 id="使用CLI运行应用程序"><a href="#使用CLI运行应用程序" class="headerlink" title="使用CLI运行应用程序"></a>使用CLI运行应用程序</h2><p>您可以使用<code>run</code>命令来编译和运行 Groovy 源代码。 Spring Boot CLI 是完全独立的，因此您不需要任何外部 Groovy 安装。</p>
 <p>以下示例显示了用 Groovy 编写的“ hello world” Web 应用程序：</p>
 <p><strong>hello.groovy.</strong></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@RestController</span><br><span class="line">class WebApplication &#123;</span><br><span class="line"></span><br><span class="line">    @RequestMapping(&quot;/&quot;)</span><br><span class="line">    String home() &#123;</span><br><span class="line">        &quot;Hello World!&quot;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WebApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="string">&quot;Hello World!&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>要编译并运行该应用程序，请键入以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring run hello.groovy</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ spring run hello.groovy</span><br></pre></td></tr></table></figure>
 <p>要将命令行参数传递给应用程序，请使用<code>--</code>将命令与“ spring”命令参数分开，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring run hello.groovy -- --server.port=9000</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ spring run hello.groovy -- --server.port=9000</span><br></pre></td></tr></table></figure>
 <p>要设置 JVM 命令行参数，可以使用<code>JAVA_OPTS</code>环境变量，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> JAVA_OPTS=-Xmx1024m spring run hello.groovy</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ JAVA_OPTS=-Xmx1024m spring run hello.groovy</span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>Note</p>
 <p>在 Microsoft Windows 上设置<code>JAVA_OPTS</code>时，请确保引用整个指令，例如<code>set &quot;JAVA_OPTS=-Xms256m -Xmx2048m&quot;</code>。这样做可以确保将值正确传递给流程。</p>
+</blockquote>
 <h3 id="推论”grab”依赖性"><a href="#推论”grab”依赖性" class="headerlink" title="推论”grab”依赖性"></a>推论”grab”依赖性</h3><p>标准 Groovy 包含<code>@Grab</code>注解，该注解使您可以声明对第三方库的依赖关系。 Groovy 可以使用这种有用的技术以与 Maven 或 Gradle 相同的方式下载 jar，而无需使用构建工具。</p>
 <p>Spring Boot 进一步扩展了该技术，并尝试根据您的代码推断出哪些库可以“抢”。例如，由于先前显示的<code>WebApplication</code>代码使用<code>@RestController</code>注解，因此 Spring Boot 会捕获“ Tomcat”和“ Spring MVC”。</p>
 <p>以下各项用作“抓取提示”：</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -282,7 +283,8 @@
 <th>Grabs</th>
 </tr>
 </thead>
-<tbody><tr>
+<tbody>
+<tr>
 <td><code>JdbcTemplate</code> , <code>NamedParameterJdbcTemplate</code> , <code>DataSource</code></td>
 <td>JDBC Application.</td>
 </tr>
@@ -326,71 +328,61 @@
 <td><code>@EnableTransactionManagement</code></td>
 <td>SpringTransactionManagement。</td>
 </tr>
-</tbody></table>
+</tbody>
+</table>
+</div>
 <p>Tip</p>
 <p>请参阅 Spring Boot CLI 源代码中的<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tree/v2.1.1.RELEASE/spring-boot-project/spring-boot-cli/src/main/java/org/springframework/boot/cli/compiler/CompilerAutoConfiguration.java">CompilerAutoConfiguration</a>的子类，以确切地了解如何应用定制。</p>
 <h3 id="推导”grab”坐标"><a href="#推导”grab”坐标" class="headerlink" title="推导”grab”坐标"></a>推导”grab”坐标</h3><p>Spring Boot 通过允许您指定不带组或版本的依赖项(例如<code>@Grab(&#39;freemarker&#39;)</code>)来扩展 Groovy 的标准<code>@Grab</code>支持。这样做可以参考 Spring Boot 的默认依赖元数据来推断工件的组和版本。</p>
+<blockquote>
 <p>Note</p>
-<p>默认元数据与您使用的 CLI 版本相关。仅当您移至新版本的 CLI 时，它才会更改，从而使您可以控制依赖项的版本何时更改。可以在<a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-boot/2.1.1.RELEASE/reference/appendix-dependency-versions.html">appendix</a>中找到一个表格，其中显示了默认元数据中包含的依赖项及其版本。</p>
+<p>默认元数据与您使用的 CLI 版本相关。仅当您移至新版本的 CLI 时，它才会更改，从而使您可以控制依赖项的版本何时更改。可以在<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot官方文档翻译-附录/#依赖版本">appendix</a>中找到一个表格，其中显示了默认元数据中包含的依赖项及其版本。</p>
+</blockquote>
 <h3 id="默认导入语句"><a href="#默认导入语句" class="headerlink" title="默认导入语句"></a>默认导入语句</h3><p>为了帮助减少 Groovy 代码的大小，将自动包含多个<code>import</code>语句。注意，前面的示例如何引用<code>@Component</code>，<code>@RestController</code>和<code>@RequestMapping</code>，而无需使用完全限定的名称或<code>import</code>语句。</p>
+<blockquote>
 <p>Tip</p>
 <p>许多 Spring Comments 无需使用<code>import</code>语句即可工作。在添加导入之前，请尝试运行您的应用程序以查看失败的原因。</p>
+</blockquote>
 <h3 id="自动Main方法"><a href="#自动Main方法" class="headerlink" title="自动Main方法"></a>自动Main方法</h3><p>与等效的 Java 应用程序不同，您不需要在<code>Groovy</code>脚本中包含<code>public static void main(String[] args)</code>方法。会自动创建一个<code>SpringApplication</code>，并将您的编译后代码用作<code>source</code>。</p>
 <h3 id="自定义依赖项管理"><a href="#自定义依赖项管理" class="headerlink" title="自定义依赖项管理"></a>自定义依赖项管理</h3><p>默认情况下，CLI 使用<code>spring-boot-dependencies</code>中声明的依赖性 Management 来解决<code>@Grab</code>依赖性。可以使用<code>@DependencyManagementBom</code>注解来配置其他依赖项 Management，这些依赖项 Management 将覆盖默认的依赖项 Management。Comments 的值应指定一个或多个 Maven BOM 的坐标(<code>groupId:artifactId:version</code>)。</p>
 <p>例如，考虑以下声明：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@DependencyManagementBom(&quot;com.example.custom-bom:1.0.0&quot;)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@DependencyManagementBom</span>(<span class="string">&quot;com.example.custom-bom:1.0.0&quot;</span>)</span><br></pre></td></tr></table></figure>
 <p>前面的声明在<code>com/example/custom-versions/1.0.0/</code>下的 Maven 存储库中选取<code>custom-bom-1.0.0.pom</code>。</p>
 <p>当您指定多个 BOM 时，它们以声明它们的 Sequences 应用，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@DependencyManagementBom([&quot;com.example.custom-bom:1.0.0&quot;,</span><br><span class="line">        &quot;com.example.another-bom:1.0.0&quot;])</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@DependencyManagementBom</span>([<span class="string">&quot;com.example.custom-bom:1.0.0&quot;</span>,</span><br><span class="line">        <span class="string">&quot;com.example.another-bom:1.0.0&quot;</span>])</span><br></pre></td></tr></table></figure>
 <p>前面的示例表明<code>another-bom</code>中的依赖项 Management 覆盖<code>custom-bom</code>中的依赖项 Management。</p>
 <p>您可以在可以使用<code>@Grab</code>的任何地方使用<code>@DependencyManagementBom</code>。但是，为确保依赖性 Management 的 Sequences 一致，您最多可以在应用程序中使用<code>@DependencyManagementBom</code>。 <a target="_blank" rel="noopener" href="https://platform.spring.io/">Spring IO 平台</a>是依赖 Management 的有用资源(它是 Spring Boot 依赖 Management 的超集)，您可以将其包括在以下行中：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@DependencyManagementBom(&#x27;io.spring.platform:platform-bom:1.1.2.RELEASE&#x27;)</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@DependencyManagementBom</span>(<span class="string">&#x27;io.spring.platform:platform-bom:1.1.2.RELEASE&#x27;</span>)</span><br></pre></td></tr></table></figure>
 <h2 id="具有多个源文件的应用程序"><a href="#具有多个源文件的应用程序" class="headerlink" title="具有多个源文件的应用程序"></a>具有多个源文件的应用程序</h2><p>您可以对所有接受文件 Importing 的命令使用“ shell globbing”。这样可以使您从单个目录使用多个文件，如以下示例所示：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring run *.groovy</span></span><br></pre></td></tr></table></figure>
-
 <h2 id="打包您的应用程序"><a href="#打包您的应用程序" class="headerlink" title="打包您的应用程序"></a>打包您的应用程序</h2><p>您可以使用<code>jar</code>命令将您的应用程序打包到一个独立的可执行 jar 文件中，如以下示例所示：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring jar my-app.jar *.groovy</span></span><br></pre></td></tr></table></figure>
-
 <p>生成的 jar 包含通过编译应用程序产生的类以及应用程序的所有依赖关系，以便随后可以使用<code>java -jar</code>来运行它。 jar 文件还包含来自应用程序的 Classpath 的条目。您可以使用<code>--include</code>和<code>--exclude</code>添加和删除 jar 的显式路径。两者都用逗号分隔，并且都接受形式为“”和“-”的前缀，以表示应将其从默认值中删除。默认包括以下内容：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public/**, resources/**, static/**, templates/**, META-INF/**, *</span><br></pre></td></tr></table></figure>
-
 <p>默认排除项如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.*, repository/**, build/**, target/**, **/*.jar, **/*.groovy</span><br></pre></td></tr></table></figure>
-
 <p>在命令行上键入<code>spring help jar</code>以获取更多信息。</p>
 <h2 id="初始化新项目"><a href="#初始化新项目" class="headerlink" title="初始化新项目"></a>初始化新项目</h2><p><code>init</code>命令使您可以使用<a target="_blank" rel="noopener" href="https://start.spring.io/">start.spring.io</a>创建新项目，而无需离开 Shell，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring init --dependencies=web,data-jpa my-project</span></span><br><span class="line">Using service at https://start.spring.io</span><br><span class="line">Project extracted to &#x27;/Users/developer/example/my-project&#x27;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ spring init --dependencies=web,data-jpa my-project</span><br><span class="line">Using service at https://start.spring.io</span><br><span class="line">Project extracted to <span class="string">&#x27;/Users/developer/example/my-project&#x27;</span></span><br></pre></td></tr></table></figure>
 <p>前面的示例使用<code>spring-boot-starter-web</code>和<code>spring-boot-starter-data-jpa</code>创建一个基于 Maven 的项目的<code>my-project</code>目录。您可以使用<code>--list</code>标志列出服务的功能，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring init --list</span></span><br><span class="line">=======================================</span><br><span class="line">Capabilities of https://start.spring.io</span><br><span class="line">=======================================</span><br><span class="line"></span><br><span class="line">Available dependencies:</span><br><span class="line">-----------------------</span><br><span class="line">actuator - Actuator: Production ready features to help you monitor and manage your application</span><br><span class="line">...</span><br><span class="line">web - Web: Support for full-stack web development, including Tomcat and spring-webmvc</span><br><span class="line">websocket - Websocket: Support for WebSocket development</span><br><span class="line">ws - WS: Support for Spring Web Services</span><br><span class="line"></span><br><span class="line">Available project types:</span><br><span class="line">------------------------</span><br><span class="line">gradle-build -  Gradle Config [format:build, build:gradle]</span><br><span class="line">gradle-project -  Gradle Project [format:project, build:gradle]</span><br><span class="line">maven-build -  Maven POM [format:build, build:maven]</span><br><span class="line">maven-project -  Maven Project [format:project, build:maven] (default)</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">$ spring init --list</span><br><span class="line">=======================================</span><br><span class="line">Capabilities of https://start.spring.io</span><br><span class="line">=======================================</span><br><span class="line"></span><br><span class="line">Available dependencies:</span><br><span class="line">-----------------------</span><br><span class="line">actuator - Actuator: Production ready features to <span class="built_in">help</span> you monitor and manage your application</span><br><span class="line">...</span><br><span class="line">web - Web: Support <span class="keyword">for</span> full-stack web development, including Tomcat and spring-webmvc</span><br><span class="line">websocket - Websocket: Support <span class="keyword">for</span> WebSocket development</span><br><span class="line">ws - WS: Support <span class="keyword">for</span> Spring Web Services</span><br><span class="line"></span><br><span class="line">Available project types:</span><br><span class="line">------------------------</span><br><span class="line">gradle-build -  Gradle Config [format:build, build:gradle]</span><br><span class="line">gradle-project -  Gradle Project [format:project, build:gradle]</span><br><span class="line">maven-build -  Maven POM [format:build, build:maven]</span><br><span class="line">maven-project -  Maven Project [format:project, build:maven] (default)</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <p><code>init</code>命令支持许多选项。有关更多详细信息，请参见<code>help</code>输出。例如，以下命令创建使用 Java 8 和<code>war</code>打包的 Gradle 项目：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring init --build=gradle --java-version=1.8 --dependencies=websocket --packaging=war sample-app.zip</span></span><br><span class="line">Using service at https://start.spring.io</span><br><span class="line">Content saved to &#x27;sample-app.zip&#x27;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ spring init --build=gradle --java-version=1.8 --dependencies=websocket --packaging=war sample-app.zip</span><br><span class="line">Using service at https://start.spring.io</span><br><span class="line">Content saved to <span class="string">&#x27;sample-app.zip&#x27;</span></span><br></pre></td></tr></table></figure>
 <h2 id="使用嵌入式Shell"><a href="#使用嵌入式Shell" class="headerlink" title="使用嵌入式Shell"></a>使用嵌入式Shell</h2><p>Spring Boot 包含用于 BASH 和 zsh Shell 的命令行完成脚本。如果您不使用这两个 Shell 程序(也许您是 Windows 用户)，则可以使用<code>shell</code>命令启动集成 Shell 程序，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring shell</span></span><br><span class="line">Spring Boot (v2.1.1.RELEASE)</span><br><span class="line">Hit TAB to complete. Type \&#x27;help&#x27; and hit RETURN for help, and \&#x27;exit&#x27; to quit.</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ spring shell</span><br><span class="line">Spring Boot (v2.1.1.RELEASE)</span><br><span class="line">Hit TAB to complete. Type \<span class="string">&#x27;help&#x27;</span> and hit RETURN <span class="keyword">for</span> <span class="built_in">help</span>, and \<span class="string">&#x27;exit&#x27;</span> to quit.</span><br></pre></td></tr></table></figure>
 <p>在嵌入式 Shell 程序内部，您可以直接运行其他命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> version</span></span><br><span class="line">Spring CLI v2.1.1.RELEASE</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ version</span><br><span class="line">Spring CLI v2.1.1.RELEASE</span><br></pre></td></tr></table></figure>
 <p>嵌入式 Shell 支持 ANSI 颜色输出以及<code>tab</code>完成。如果需要运行本机命令，则可以使用<code>!</code>前缀。要退出嵌入式 Shell，请按<code>ctrl-c</code>。</p>
 <h2 id="将扩展添加到CLI"><a href="#将扩展添加到CLI" class="headerlink" title="将扩展添加到CLI"></a>将扩展添加到CLI</h2><p>您可以使用<code>install</code>命令将扩展添加到 CLI。该命令采用<code>group:artifact:version</code>格式的一组或多组工件坐标，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring install com.example:spring-boot-cli-extension:1.0.0.RELEASE</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ spring install com.example:spring-boot-cli-extension:1.0.0.RELEASE</span><br></pre></td></tr></table></figure>
 <p>除了安装由您提供的坐标标识的工件之外，还将安装所有工件的依赖项。</p>
 <p>要卸载依赖项，请使用<code>uninstall</code>命令。与<code>install</code>命令一样，它采用<code>group:artifact:version</code>格式的一组或多组工件坐标，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring uninstall com.example:spring-boot-cli-extension:1.0.0.RELEASE</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ spring uninstall com.example:spring-boot-cli-extension:1.0.0.RELEASE</span><br></pre></td></tr></table></figure>
 <p>它将卸载由您提供的坐标及其依赖项标识的工件。</p>
 <p>要卸载所有其他依赖项，可以使用<code>--all</code>选项，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> spring uninstall --all</span></span><br></pre></td></tr></table></figure>
-
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ spring uninstall --all</span><br></pre></td></tr></table></figure>
 <h1 id="使用GroovyBeanDSL开发应用程序"><a href="#使用GroovyBeanDSL开发应用程序" class="headerlink" title="使用GroovyBeanDSL开发应用程序"></a>使用GroovyBeanDSL开发应用程序</h1><p>Spring Framework 4.0 对<code>beans&#123;&#125;</code>“ DSL”(从<a target="_blank" rel="noopener" href="http://grails.org/">Grails</a>借来)具有本地支持，并且您可以使用相同的格式将 Bean 定义嵌入 Groovy 应用程序脚本中。有时，这是包括外部功能(如中间件声明)的好方法，如以下示例所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">class Application implements CommandLineRunner &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    SharedService service</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    void run(String... args) &#123;</span><br><span class="line">        println service.message</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">import my.company.SharedService</span><br><span class="line"></span><br><span class="line">beans &#123;</span><br><span class="line">    service(SharedService) &#123;</span><br><span class="line">        message = &quot;Hello World&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Application</span> <span class="keyword">implements</span> <span class="title">CommandLineRunner</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    SharedService service</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">(String... args)</span> </span>&#123;</span><br><span class="line">        println service.message</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> my.company.SharedService</span><br><span class="line"></span><br><span class="line">beans &#123;</span><br><span class="line">    service(SharedService) &#123;</span><br><span class="line">        message = <span class="string">&quot;Hello World&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>您可以将类声明与<code>beans&#123;&#125;</code>混合在同一文件中，只要它们位于顶层即可；或者，如果愿意，可以将 bean DSL 放在单独的文件中。</p>
 <h1 id="使用settings-xml配置CLI"><a href="#使用settings-xml配置CLI" class="headerlink" title="使用settings.xml配置CLI"></a>使用settings.xml配置CLI</h1><p>Spring Boot CLI 使用 Maven 的依赖关系解析引擎 Aether 来解决依赖关系。 CLI 利用<code>~/.m2/settings.xml</code>中的 Maven 配置来配置 Aether。 CLI 遵循以下配置设置：</p>
 <ul>
@@ -407,7 +399,7 @@
 </ul>
 <p>有关更多信息，请参见<a target="_blank" rel="noopener" href="https://maven.apache.org/settings.html">Maven 的设置文档</a>。</p>
 <h1 id="接下来要读什么"><a href="#接下来要读什么" class="headerlink" title="接下来要读什么"></a>接下来要读什么</h1><p>GitHub 存储库中有一些<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tree/v2.1.1.RELEASE/spring-boot-project/spring-boot-cli/samples">常规脚本示例</a>可用于尝试 Spring Boot CLI。整个<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tree/v2.1.1.RELEASE/spring-boot-project/spring-boot-cli/src/main/java/org/springframework/boot/cli">source code</a>中也有广泛的 Javadoc。</p>
-<p>如果发现达到了 CLI 工具的极限，则可能需要考虑将应用程序转换为完整的 Gradle 或 Maven 构建的“ Groovy 项目”。下一节将介绍 Spring Boot 的“ <a target="_blank" rel="noopener" href="https://www.docs4dev.com/docs/zh/spring-boot/2.1.1.RELEASE/reference/build-tool-plugins.html">构建工具插件</a>”，您可以将其与 Gradle 或 Maven 一起使用。</p>
+<p>如果发现达到了 CLI 工具的极限，则可能需要考虑将应用程序转换为完整的 Gradle 或 Maven 构建的“ Groovy 项目”。下一节将介绍 Spring Boot 的“ <a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot官方文档翻译-构建工具插件/">构建工具插件</a>”，您可以将其与 Gradle 或 Maven 一起使用。</p>
 
     </div>
 
@@ -498,7 +490,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85-CLI"><span class="nav-number">1.</span> <span class="nav-text">安装 CLI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-CLI"><span class="nav-number">2.</span> <span class="nav-text">使用 CLI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CLI%E8%BF%90%E8%A1%8C%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.1.</span> <span class="nav-text">使用CLI运行应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%AE%BA%E2%80%9Dgrab%E2%80%9D%E4%BE%9D%E8%B5%96%E6%80%A7"><span class="nav-number">2.1.1.</span> <span class="nav-text">推论”grab”依赖性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E5%AF%BC%E2%80%9Dgrab%E2%80%9D%E5%9D%90%E6%A0%87"><span class="nav-number">2.1.2.</span> <span class="nav-text">推导”grab”坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%AF%BC%E5%85%A5%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.3.</span> <span class="nav-text">默认导入语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8Main%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.4.</span> <span class="nav-text">自动Main方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BE%9D%E8%B5%96%E9%A1%B9%E7%AE%A1%E7%90%86"><span class="nav-number">2.1.5.</span> <span class="nav-text">自定义依赖项管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%A4%9A%E4%B8%AA%E6%BA%90%E6%96%87%E4%BB%B6%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">具有多个源文件的应用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E6%82%A8%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.3.</span> <span class="nav-text">打包您的应用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.4.</span> <span class="nav-text">初始化新项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B5%8C%E5%85%A5%E5%BC%8FShell"><span class="nav-number">2.5.</span> <span class="nav-text">使用嵌入式Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E6%89%A9%E5%B1%95%E6%B7%BB%E5%8A%A0%E5%88%B0CLI"><span class="nav-number">2.6.</span> <span class="nav-text">将扩展添加到CLI</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8GroovyBeanDSL%E5%BC%80%E5%8F%91%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">使用GroovyBeanDSL开发应用程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8settings-xml%E9%85%8D%E7%BD%AECLI"><span class="nav-number">4.</span> <span class="nav-text">使用settings.xml配置CLI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E8%A6%81%E8%AF%BB%E4%BB%80%E4%B9%88"><span class="nav-number">5.</span> <span class="nav-text">接下来要读什么</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85CLI"><span class="nav-number">1.</span> <span class="nav-text">安装CLI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CLI"><span class="nav-number">2.</span> <span class="nav-text">使用CLI</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CLI%E8%BF%90%E8%A1%8C%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.1.</span> <span class="nav-text">使用CLI运行应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%AE%BA%E2%80%9Dgrab%E2%80%9D%E4%BE%9D%E8%B5%96%E6%80%A7"><span class="nav-number">2.1.1.</span> <span class="nav-text">推论”grab”依赖性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E5%AF%BC%E2%80%9Dgrab%E2%80%9D%E5%9D%90%E6%A0%87"><span class="nav-number">2.1.2.</span> <span class="nav-text">推导”grab”坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%AF%BC%E5%85%A5%E8%AF%AD%E5%8F%A5"><span class="nav-number">2.1.3.</span> <span class="nav-text">默认导入语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8Main%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.4.</span> <span class="nav-text">自动Main方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BE%9D%E8%B5%96%E9%A1%B9%E7%AE%A1%E7%90%86"><span class="nav-number">2.1.5.</span> <span class="nav-text">自定义依赖项管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%A4%9A%E4%B8%AA%E6%BA%90%E6%96%87%E4%BB%B6%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.2.</span> <span class="nav-text">具有多个源文件的应用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E6%82%A8%E7%9A%84%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">2.3.</span> <span class="nav-text">打包您的应用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%96%B0%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.4.</span> <span class="nav-text">初始化新项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%B5%8C%E5%85%A5%E5%BC%8FShell"><span class="nav-number">2.5.</span> <span class="nav-text">使用嵌入式Shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E6%89%A9%E5%B1%95%E6%B7%BB%E5%8A%A0%E5%88%B0CLI"><span class="nav-number">2.6.</span> <span class="nav-text">将扩展添加到CLI</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8GroovyBeanDSL%E5%BC%80%E5%8F%91%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">3.</span> <span class="nav-text">使用GroovyBeanDSL开发应用程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8settings-xml%E9%85%8D%E7%BD%AECLI"><span class="nav-number">4.</span> <span class="nav-text">使用settings.xml配置CLI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A5%E4%B8%8B%E6%9D%A5%E8%A6%81%E8%AF%BB%E4%BB%80%E4%B9%88"><span class="nav-number">5.</span> <span class="nav-text">接下来要读什么</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -514,20 +506,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">21</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -640,6 +632,8 @@
 
 
 
+
+  
 
   
 
