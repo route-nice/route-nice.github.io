@@ -28,7 +28,7 @@
 <meta property="og:description" content="Spring Boot Features 本节详细介绍Spring引导。在这里，您可以了解您可能想要使用和自定义的关键特性。如果您还没有这样做，那么您可能需要阅读入门和使用，使您有了良好的基础知识。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-31T03:40:42.000Z">
-<meta property="article:modified_time" content="2020-09-16T07:11:17.598Z">
+<meta property="article:modified_time" content="2020-09-16T07:49:51.468Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-16 15:11:17" itemprop="dateModified" datetime="2020-09-16T15:11:17+08:00">2020-09-16</time>
+                <time title="修改时间：2020-09-16 15:49:51" itemprop="dateModified" datetime="2020-09-16T15:49:51+08:00">2020-09-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -326,14 +326,14 @@
 <p>Note</p>
 <p>创建<code>ApplicationContext</code>层次结构时有一些限制。例如，Web 组件 <strong>必须</strong> 包含在子上下文中，并且相同的<code>Environment</code>用于父上下文和子上下文。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/api/org/springframework/boot/builder/SpringApplicationBuilder.html">SpringApplicationBuilder Javadoc</a>。</p>
 </blockquote>
-<h2 id="应用程序可用性"><a href="#应用程序可用性" class="headerlink" title="应用程序可用性"></a>应用程序可用性</h2><p>当部署在平台上时，应用程序可以使用<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/">Kubernetes探针</a>等基础设施向平台提供关于其可用性的信息。Spring引导包括对常用的“活跃”和“准备就绪”可用状态的开箱即用支持。如果您正在使用Spring Boot的“执行器”支持，那么这些状态将作为运行状况端点组公开。</p>
+<h2 id="应用程序可用性"><a href="#应用程序可用性" class="headerlink" title="应用程序可用性"></a>应用程序可用性</h2><p>当部署在平台上时，应用程序可以使用<a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/">Kubernetes探针</a>等基础设施向平台提供关于其可用性的信息。Spring引导包括对常用的“活跃”和“准备就绪”可用状态的开箱即用支持。如果您正在使用Spring Boot的“actuator”支持，那么这些状态将作为运行状况端点组公开。</p>
 <p>此外，您还可以通过将<code>ApplicationAvailability</code>接口注入您自己的bean来获得可用性状态。</p>
 <h3 id="Liveness状态"><a href="#Liveness状态" class="headerlink" title="Liveness状态"></a>Liveness状态</h3><p>应用程序的“活动”状态告诉它的内部状态是否允许它正确地工作，或者如果它当前失败了，它自己恢复。中断的“活动”状态意味着应用程序处于无法恢复的状态，基础设施应该重新启动应用程序。</p>
 <blockquote>
 <p>通常，“活动”状态不应该基于外部检查，比如运行<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html#production-ready-health">状况检查</a>。如果是这样，失败的外部系统(数据库、Web API、外部缓存)将触发大规模重启和跨平台的级联故障。</p>
 </blockquote>
 <p>Spring引导应用程序的内部状态主要由Spring <code>ApplicationContext</code>表示。如果应用程序上下文已经成功启动，Spring Boot将假定应用程序处于有效状态。一旦上下文被刷新，应用程序就被认为是活动的，请参阅<a href="#应用程序事件和侦听器">Spring Boot应用程序生命周期和相关应用程序事件</a>。</p>
-<h3 id="Readiness状态"><a href="#Readiness状态" class="headerlink" title="Readiness状态"></a>Readiness状态</h3><p>应用程序的“准备就绪”状态告诉应用程序是否准备好处理流量。失败的“准备就绪”状态告诉平台现在不应该将流量路由到应用程序。这通常发生在启动时，当<code>CommandLineRunner</code>和<code>ApplicationRunner</code>组件正在处理，或在任何时候，如果应用程序决定它太忙，为额外的流量。</p>
+<h3 id="Readiness状态"><a href="#Readiness状态" class="headerlink" title="Readiness状态"></a>Readiness状态</h3><p>应用程序的“准备就绪”状态告诉应用程序是否准备好处理流量。失败的“准备就绪”状态告诉平台现在不应该将流量路由到应用程序。这通常发生在启动时，当<code>CommandLineRunner</code>和<code>ApplicationRunner</code>组件正在处理，或在任何时候，如果应用程序认为它处理额外的流量太忙。</p>
 <p>一旦调用了应用程序和命令行运行器，就认为应用程序已经准备好了，请参阅Spring Boot<a href="#应用程序事件和侦听器">应用程序生命周期和相关应用程序事件</a>。</p>
 <blockquote>
 <p>期望在启动期间运行的任务应该由<code>CommandLineRunner</code>和<code>ApplicationRunner</code>组件执行，而不是使用Spring组件生命周期回调，如<code>@PostConstruct</code>。</p>
@@ -343,7 +343,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReadinessStateExporter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@EventListener</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStateChange</span><span class="params">(AvailabilityChangeEvent&lt;ReadinessState&gt; event)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (event.getState()) &#123;</span><br><span class="line">        <span class="keyword">case</span> ACCEPTING_TRAFFIC:</span><br><span class="line">            <span class="comment">// create file /tmp/healthy</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> REFUSING_TRAFFIC:</span><br><span class="line">            <span class="comment">// remove file /tmp/healthy</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们也可以更新应用程序的状态，当应用程序中断，无法恢复:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LocalCacheVerifier</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ApplicationEventPublisher eventPublisher;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LocalCacheVerifier</span><span class="params">(ApplicationEventPublisher eventPublisher)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.eventPublisher = eventPublisher;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">checkLocalCache</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span> (CacheCompletelyBrokenException ex) &#123;</span><br><span class="line">            AvailabilityChangeEvent.publish(<span class="keyword">this</span>.eventPublisher, ex, LivenessState.BROKEN);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Spring Boot为执行器运行状况端点的“活动”和“准备就绪”提供了<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-SpringBoot-Actuator%E5%8F%AF%E7%94%A8%E4%BA%8E%E7%94%9F%E4%BA%A7%E7%9A%84%E5%8A%9F%E8%83%BD/#Kubernetes探头">Kubernetes HTTP探针</a>。在专门的部分中，您可以获得关于在Kubernetes上部署Spring引导应用程序的更多指导。</p>
+<p>Spring Boot为执行器运行状况端点的“活动”和“准备就绪”提供了<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-SpringBoot-Actuator%E5%8F%AF%E7%94%A8%E4%BA%8E%E7%94%9F%E4%BA%A7%E7%9A%84%E5%8A%9F%E8%83%BD/#Kubernetes探头">Kubernetes HTTP探针</a>。在专门的部分中，您可以获得关于在<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-SpringBoot-Actuator%E5%8F%AF%E7%94%A8%E4%BA%8E%E7%94%9F%E4%BA%A7%E7%9A%84%E5%8A%9F%E8%83%BD/#Kubernetes">Kubernetes上部署Spring引导应用程序</a>的更多指导。</p>
 <h2 id="应用程序事件和侦听器"><a href="#应用程序事件和侦听器" class="headerlink" title="应用程序事件和侦听器"></a>应用程序事件和侦听器</h2><p>除了通常的 Spring Framework 事件(例如<a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.1.3.RELEASE/javadoc-api/org/springframework/context/event/ContextRefreshedEvent.html">ContextRefreshedEvent</a>)之外，<code>SpringApplication</code>还发送一些其他应用程序事件。</p>
 <blockquote>
 <p>Note</p>
@@ -351,17 +351,26 @@
 </blockquote>
 <p>如果希望这些监听器自动注册，而不管创建应用程序的方式如何，都可以将<code>META-INF/spring.factories</code>文件添加到项目中，并使用<code>org.springframework.context.ApplicationListener</code>键引用您的监听器，如以下示例所示：</p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">org.springframework.context.ApplicationListener</span>=<span class="string">com.example.project.MyListener</span></span><br></pre></td></tr></table></figure>
-<p>应用程序事件在您的应用程序运行时按以下 Sequences 发送：</p>
-<ul>
+<p>应用程序事件在您的应用程序运行时按以下顺序发送：</p>
+<ol>
 <li><code>ApplicationStartingEvent</code>在运行开始时但在进行任何处理之前(侦听器和初始化器的注册除外)发送。</li>
-<li>当知道要在上下文中使用的<code>Environment</code>时但在创建上下文之前发送<code>ApplicationEnvironmentPreparedEvent</code>。</li>
-<li>在刷新开始之前但在加载 bean 定义之后发送<code>ApplicationPreparedEvent</code>。</li>
-<li>在刷新上下文之后但在调用任何应用程序和命令行运行程序之前发送<code>ApplicationStartedEvent</code>。</li>
-<li>调用任何应用程序和命令行运行程序后，将发送<code>ApplicationReadyEvent</code>。它指示应用程序已准备就绪，可以处理请求。</li>
-<li>如果启动时出现异常，则会发送<code>ApplicationFailedEvent</code>。</li>
+<li><code>ApplicationEnvironmentPreparedEvent</code>在上下文中使用的环境已知但在创建上下文之前发送。</li>
+<li>当准备好<code>ApplicationContext</code>并且调用了<code>ApplicationContextInitializedEvent</code>，但在加载任何bean定义之前发送<code>applicationcontextinitialalizer</code>。</li>
+<li>当准备好<code>ApplicationContext</code>并且调用了<code>ApplicationContextInitializedEvent</code>，但在加载任何bean定义之前发送<code>applicationcontextinitialalizer</code>。</li>
+<li><code>ApplicationStartedEvent</code>是在刷新上下文之后，在调用任何应用程序和命令行运行器之前发送的。</li>
+<li>然后用<code>AvailabilityChangeEvent</code>发送一个`LivenessState.CORRECT,表示应用程序是活动的。</li>
+<li>在调用任何应用程序和<code>command-line runners</code>之后发送一个<code>ApplicationReadyEvent</code>。</li>
+<li>然后，<code>AvailabilityChangeEvent</code>发送一个<code>ReadinessState.ACCEPTING_TRAFFIC</code>，表示应用程序已准备好为请求提供服务。</li>
+<li>如果启动时出现异常，则发送<code>ApplicationFailedEvent</code>。</li>
+</ol>
+<p>上面的列表只包含绑定到<code>SpringApplication</code>的<code>SpringApplicationEvents</code>。除此之外，以下事件也在<code>ApplicationPreparedEvent</code>之后和<code>ApplicationStartedEvent</code>之前发布:</p>
+<ul>
+<li><code>WebServerInitializedEvent</code>在WebServer准备好之后发送。<code>ServletWebServerInitializedEvent</code>和<code>ReactiveWebServerInitializedEvent</code>分别是servlet和反应变量。</li>
+<li>当刷新<code>ApplicationContext</code>时发送<code>ContextRefreshedEvent</code>。</li>
 </ul>
-<p>Tip</p>
+<blockquote>
 <p>您通常不需要使用应用程序事件，但是很容易知道它们的存在。在内部，Spring Boot 使用事件来处理各种任务。</p>
+</blockquote>
 <p>应用程序事件是通过使用 Spring Framework 的事件发布机制发送的。此机制的一部分确保在子级上下文中发布给侦听器的事件也可以在任何祖先上下文中发布给侦听器。结果，如果您的应用程序使用<code>SpringApplication</code>实例的层次结构，则侦听器可能会收到同一类型的应用程序事件的多个实例。</p>
 <p>为了使您的侦听器能够区分其上下文的事件和后代上下文的事件，它应请求注入其应用程序上下文，然后将注入的上下文与事件的上下文进行比较。可以通过实现<code>ApplicationContextAware</code>来注入上下文，或者如果侦听器是 bean，则可以通过使用<code>@Autowired</code>来注入上下文。</p>
 <h2 id="Web环境"><a href="#Web环境" class="headerlink" title="Web环境"></a>Web环境</h2><p><code>SpringApplication</code>尝试代表您创建正确的<code>ApplicationContext</code>类型。确定<code>WebApplicationType</code>的算法非常简单：</p>
