@@ -28,7 +28,7 @@
 <meta property="og:description" content="使用SpringBoot 本节将详细介绍如何使用 Spring Boot。它涵盖了诸如构建系统，自动配置以及如何运行应用程序之类的主题。我们还将介绍一些 Spring Boot 最佳实践。尽管 Spring Boot 并没有什么特别的地方(它只是另一个可以使用的库)，但是有一些建议可以使您的开发过程更轻松一些。 如果您是从 Spring Boot 开始的，那么在进入本节之前，您应该阅读 Getti">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-31T03:40:16.000Z">
-<meta property="article:modified_time" content="2020-09-16T02:17:20.766Z">
+<meta property="article:modified_time" content="2020-09-16T02:59:55.599Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-16 10:17:20" itemprop="dateModified" datetime="2020-09-16T10:17:20+08:00">2020-09-16</time>
+                <time title="修改时间：2020-09-16 10:59:55" itemprop="dateModified" datetime="2020-09-16T10:59:55+08:00">2020-09-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -254,12 +254,12 @@
 <p>如果您是从 Spring Boot 开始的，那么在进入本节之前，您应该阅读<em> <a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot官方文档翻译-使用Starter/">Getting Started</a></em>指南</p>
 <a id="more"></a>
 <h1 id="系统构建"><a href="#系统构建" class="headerlink" title="系统构建"></a>系统构建</h1><p>强烈建议您选择一个支持<a href="#依赖性管理">dependency management</a>并且可以使用发布到“ Maven Central”存储库的工件的构建系统。我们建议您选择 Maven 或 Gradle。可以使 Spring Boot 与其他构建系统(例如，Ant)一起使用，但是它们并没有得到很好的支持。</p>
-<h2 id="依赖性管理"><a href="#依赖性管理" class="headerlink" title="依赖性管理"></a>依赖性管理</h2><p>每个 Spring Boot 版本都提供了它支持的精选依赖列表。实际上，您不需要为构建配置中的所有这些依赖项提供版本，因为 Spring Boot 会为您 Management 版本。当您升级 Spring Boot 本身时，这些依赖项也会以一致的方式升级。</p>
+<h2 id="依赖性管理"><a href="#依赖性管理" class="headerlink" title="依赖性管理"></a>依赖性管理</h2><p>Spring Boot的每个版本都提供了它所支持的依赖项的列表。实际上，您不需要为构建配置中的所有这些依赖项提供版本，因为 Spring Boot 会为您管理版本。当您升级 Spring Boot 本身时，这些依赖项也会以一致的方式升级。</p>
 <blockquote>
 <p>Note</p>
 <p>您仍然可以指定版本，并在需要时覆盖 Spring Boot 的建议。</p>
 </blockquote>
-<p>精选列表包含可与 Spring Boot 一起使用的所有 spring 模块以及精炼的第三方库列表。该列表作为标准<a href="#在没有父POM的情况下使用SpringBoot">物料 Lists(Spring 引导相关性)</a>可用，可以与<a href="#Maven">Maven</a>和<a href="#Gradle">Gradle</a>一起使用。</p>
+<p>精选列表包含可与 Spring Boot 一起使用的所有 spring 模块以及经过改进的第三方库列表。该列表作为标准<a href="#在没有父POM的情况下使用SpringBoot">物料 Lists(Spring 引导相关性)</a>可用，可以与<a href="#Maven">Maven</a>和<a href="#Gradle">Gradle</a>一起使用。</p>
 <blockquote>
 <p>Warning</p>
 <p>每个 Spring Boot 版本都与 Spring Framework 的基本版本相关联。我们强烈建议您不要指定其版本。</p>
@@ -268,13 +268,13 @@
 <ul>
 <li>Java 1.8 是默认的编译器级别。</li>
 <li>UTF-8 源编码。</li>
-<li>继承自 spring-boot-dependencies pom 的<a href="#依赖性管理">依赖性 Management 部分</a>，用于 Management 常见依赖项的版本。当在您自己的 pom 中使用这些依赖关系时，可以为这些依赖关系省略标记。</li>
+<li>继承自 spring-boot-dependencies pom 的<a href="#依赖性管理">依赖性管理部分</a>，用于管理常见依赖项的版本。当在您自己的 pom 中使用这些依赖关系时，可以为这些依赖关系省略标记。</li>
 <li>带有<code>repackage</code>执行 ID 的<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.1.1.RELEASE/maven-plugin/repackage-mojo.html">repackage goal</a>的执行。</li>
-<li>Sensible <a target="_blank" rel="noopener" href="https://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html">resource filtering</a>.</li>
+<li>合理的<a target="_blank" rel="noopener" href="https://maven.apache.org/plugins/maven-resources-plugin/examples/filter.html">resource filtering</a>.</li>
 <li>合理的插件配置(<a target="_blank" rel="noopener" href="https://www.mojohaus.org/exec-maven-plugin/">exec plugin</a>，<a target="_blank" rel="noopener" href="https://github.com/ktoso/maven-git-commit-id-plugin">Git 提交 ID</a>和<a target="_blank" rel="noopener" href="https://maven.apache.org/plugins/maven-shade-plugin/">shade</a>)。</li>
 <li><code>application.properties</code>和<code>application.yml</code>的敏感资源过滤，包括特定于配置文件的文件(例如<code>application-dev.properties</code>和<code>application-dev.yml</code>)</li>
 </ul>
-<p>请注意，由于<code>application.properties</code>和<code>application.yml</code>文件接受 Spring 样式占位符(<code>$&#123;…&#125;</code>)，因此 Maven 过滤已更改为使用<code>@[email protected]</code>占位符。 (您可以通过设置名为<code>resource.delimiter</code>的 Maven 属性来覆盖它.)</p>
+<p>请注意，由于<code>application.properties</code>和<code>application.yml</code>文件接受 Spring 样式占位符(<code>$&#123;…&#125;</code>)，因此 Maven 过滤已更改为使用@..@占位符。 (您可以通过设置名为<code>resource.delimiter</code>的 Maven 属性来覆盖它.)</p>
 <h3 id="继承StarterParent"><a href="#继承StarterParent" class="headerlink" title="继承StarterParent"></a>继承StarterParent</h3><p>要将项目配置为从<code>spring-boot-starter-parent</code>继承，请设置<code>parent</code>，如下所示：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Inherit defaults from Spring Boot --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -283,8 +283,10 @@
 </blockquote>
 <p>使用该设置，您还可以通过覆盖自己项目中的属性来覆盖各个依赖项。例如，要升级到另一个 Spring Data 发布系列，可以将以下内容添加到<code>pom.xml</code>：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring-data-releasetrain.version</span>&gt;</span>Fowler-SR2<span class="tag">&lt;/<span class="name">spring-data-releasetrain.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>Tip</p>
 <p>在<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-boot/tree/v2.1.1.RELEASE/spring-boot-project/spring-boot-dependencies/pom.xml">spring-boot-dependencies pom</a>上查看受支持的属性的列表。</p>
+</blockquote>
 <h3 id="在没有父POM的情况下使用SpringBoot"><a href="#在没有父POM的情况下使用SpringBoot" class="headerlink" title="在没有父POM的情况下使用SpringBoot"></a>在没有父POM的情况下使用SpringBoot</h3><p>并非每个人都喜欢从<code>spring-boot-starter-parent</code> POM 继承。您可能需要使用自己的公司标准父级，或者可能希望显式声明所有 Maven 配置。</p>
 <p>如果您不想使用<code>spring-boot-starter-parent</code>，仍然可以通过使用<code>scope=import</code>依赖项来保留依赖项 Management(而不是插件 Management)的好处，如下所示：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- Import dependency management from Spring Boot --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.1.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -314,7 +316,7 @@
 <p>Tip</p>
 <p>如果您不想使用<code>spring-boot-antlib</code>模块，请参阅<em> <a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot官方文档翻译-使用方法指南/#无需使用spring-boot-antlib就可以从Ant构建可执行存档">第 91.9 节“不使用 spring-boot-antlib 从 Ant 构建可执行存档”</a></em>“操作方法”。</p>
 </blockquote>
-<h2 id="Starters"><a href="#Starters" class="headerlink" title="Starters"></a>Starters</h2><p>Starter 程序是一组方便的依赖项 Descriptors，您可以在应用程序中包括它们。您可以一站式购买所需的所有 Spring 和相关技术，而不必遍历示例代码和依赖 Descriptors 的复制粘贴负载。例如，如果要开始使用 Spring 和 JPA 进行数据库访问，请在项目中包括<code>spring-boot-starter-data-jpa</code>依赖项。</p>
+<h2 id="Starters"><a href="#Starters" class="headerlink" title="Starters"></a>Starters</h2><p>Starter 程序是一组方便的依赖项描述符，您可以在应用程序中包括它们。您可以获得所需的所有Spring和相关技术的一站式服务，而无需遍历示例代码和复制粘贴依赖描述符的加载。例如，如果要开始使用 Spring 和 JPA 进行数据库访问，请在项目中包括<code>spring-boot-starter-data-jpa</code>依赖项。</p>
 <p>Starter 程序包含许多启动项目并快速运行所需的依赖项，并且具有一组受支持的受管传递性依赖项。</p>
 <p>What’s in a name</p>
 <p>所有“官方”Starter 者都遵循类似的命名方式； <code>spring-boot-starter-*</code>，其中<code>*</code>是特定类型的应用程序。这种命名结构旨在在您需要寻找 Starter 者时提供帮助。许多 IDE 中的 Maven 集成使您可以按名称搜索依赖项。例如，在安装了适当的 Eclipse 或 STS 插件的情况下，您可以在 POM 编辑器中按<code>ctrl-space</code>并键入“ spring-boot-starter”以获取完整列表。</p>
@@ -635,8 +637,10 @@
 </blockquote>
 <h1 id="构建代码"><a href="#构建代码" class="headerlink" title="构建代码"></a>构建代码</h1><p>Spring Boot 不需要任何特定的代码布局即可工作。但是，有一些最佳实践可以帮助您。</p>
 <h2 id="使用”default”软件包"><a href="#使用”default”软件包" class="headerlink" title="使用”default”软件包"></a>使用”default”软件包</h2><p>当一个类不包含<code>package</code>声明时，它将被视为在“默认包”中。通常不建议使用“默认程序包”，应避免使用。对于使用<code>@ComponentScan</code>，<code>@EntityScan</code>或<code>@SpringBootApplication</code>注解的 Spring Boot 应用程序，这可能会导致特定的问题，因为每个 jar 中的每个类都会被读取。</p>
+<blockquote>
 <p>Tip</p>
 <p>我们建议您遵循 Java 建议的程序包命名约定，并使用反向域名(例如<code>com.example.project</code>)。</p>
+</blockquote>
 <h2 id="查找主应用程序类"><a href="#查找主应用程序类" class="headerlink" title="查找主应用程序类"></a>查找主应用程序类</h2><p>我们通常建议您将主应用程序类放在其他类之上的根包中。 <a href="#使用SpringBootApplication注解">@SpringBootApplication annotation</a>通常放在您的主类上，它隐式定义某些项目的基本“搜索包”。例如，如果您正在编写 JPA 应用程序，则使用<code>@SpringBootApplication</code>注解的类的包来搜索<code>@Entity</code>项。使用根软件包还允许组件扫描仅应用于您的项目。</p>
 <blockquote>
 <p>Tip</p>
@@ -649,14 +653,16 @@
 <h1 id="配置类"><a href="#配置类" class="headerlink" title="配置类"></a>配置类</h1><p>Spring Boot 支持基于 Java 的配置。尽管可以将<code>SpringApplication</code>与 XML 源一起使用，但是我们通常建议您的主要源为单个<code>@Configuration</code>类。通常，定义<code>main</code>方法的类是主要<code>@Configuration</code>的不错的选择。</p>
 <blockquote>
 <p>Tip</p>
-<p>Internet 上已经发布了许多使用 XML 配置的 Spring 配置示例。如果可能，请始终尝试使用等效的基于 Java 的配置。搜索<code>Enable*</code>Comments 可能是一个不错的起点。</p>
+<p>Internet 上已经发布了许多使用 XML 配置的 Spring 配置示例。如果可能，请始终尝试使用等效的基于 Java 的配置。搜索`Enable*注解可能是一个不错的起点。</p>
 </blockquote>
 <h2 id="导入其他配置类"><a href="#导入其他配置类" class="headerlink" title="导入其他配置类"></a>导入其他配置类</h2><p>您无需将所有<code>@Configuration</code>都放在一个类中。 <code>@Import</code>注解可用于导入其他配置类。另外，您可以使用<code>@ComponentScan</code>自动拾取所有 Spring 组件，包括<code>@Configuration</code>类。</p>
 <h2 id="导入-XML-配置"><a href="#导入-XML-配置" class="headerlink" title="导入 XML 配置"></a>导入 XML 配置</h2><p>如果绝对必须使用基于 XML 的配置，我们建议您仍然从<code>@Configuration</code>类开始。然后，您可以使用<code>@ImportResource</code>注解来加载 XML 配置文件。</p>
 <h1 id="Auto-configuration"><a href="#Auto-configuration" class="headerlink" title="Auto-configuration"></a>Auto-configuration</h1><p>Spring Boot 自动配置会尝试根据添加的 jar 依赖项自动配置 Spring 应用程序。例如，如果<code>HSQLDB</code>在 Classpath 上，并且您尚未手动配置任何数据库连接 bean，那么 Spring Boot 会自动配置内存数据库。</p>
-<p>您需要通过向<code>@Configuration</code>类之一添加<code>@EnableAutoConfiguration</code>或<code>@SpringBootApplication</code>Comments 来选择自动配置。</p>
+<p>您需要通过向<code>@Configuration</code>类之一添加<code>@EnableAutoConfiguration</code>或`@SpringBootApplication注解来选择自动配置。</p>
+<blockquote>
 <p>Tip</p>
-<p>您只能添加一个<code>@SpringBootApplication</code>或<code>@EnableAutoConfiguration</code>Comments。通常，我们建议您仅将一个或另一个添加到主要的<code>@Configuration</code>类中。</p>
+<p>您只能添加一个<code>@SpringBootApplication</code>或<code>@EnableAutoConfiguration</code>注解。通常，我们建议您仅其中一个添加到主要的<code>@Configuration</code>类中。</p>
+</blockquote>
 <h2 id="逐步取代自动配置"><a href="#逐步取代自动配置" class="headerlink" title="逐步取代自动配置"></a>逐步取代自动配置</h2><p>自动配置是非侵入性的。在任何时候，您都可以开始定义自己的配置，以替换自动配置的特定部分。例如，如果您添加自己的<code>DataSource</code> bean，则默认的嵌入式数据库支持将退出。</p>
 <p>如果您需要找出当前正在应用的自动配置以及原因，请使用<code>--debug</code>开关启动您的应用程序。这样做可以启用调试日志以供选择核心 Logger，并将条件报告记录到控制台。</p>
 <h2 id="禁用特定的自动配置类"><a href="#禁用特定的自动配置类" class="headerlink" title="禁用特定的自动配置类"></a>禁用特定的自动配置类</h2><p>如果发现正在应用不需要的特定自动配置类，则可以使用<code>@EnableAutoConfiguration</code>的 exclude 属性禁用它们，如以下示例所示：</p>
