@@ -28,7 +28,7 @@
 <meta property="og:description" content="Spring Boot Features 本节详细介绍Spring引导。在这里，您可以了解您可能想要使用和自定义的关键特性。如果您还没有这样做，那么您可能需要阅读入门和使用，使您有了良好的基础知识。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-08-31T03:40:42.000Z">
-<meta property="article:modified_time" content="2020-09-18T03:45:40.751Z">
+<meta property="article:modified_time" content="2020-09-18T07:53:50.045Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-18 11:45:40" itemprop="dateModified" datetime="2020-09-18T11:45:40+08:00">2020-09-18</time>
+                <time title="修改时间：2020-09-18 15:53:50" itemprop="dateModified" datetime="2020-09-18T15:53:50+08:00">2020-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1166,14 +1166,18 @@
 <p>Tip</p>
 <p>如果您的应用程序打包为 jar，则不要使用<code>src/main/webapp</code>目录。尽管此目录是一个通用标准，但它仅在 war 打包中有效，并且在生成 jar 时，大多数构建工具都将其忽略。</p>
 </blockquote>
-<p>Spring Boot 还支持 Spring MVC 提供的高级资源处理功能，允许使用案例，例如缓存清除静态资源或对 Webjars 使用版本无关的 URL。</p>
-<p>要对 Webjar 使用版本无关的 URL，请添加<code>webjars-locator-core</code>依赖项。然后声明您的 Webjar。以 jQuery 为例，在<code>&quot;/webjars/jquery/x.y.z/jquery.min.js&quot;</code>中添加<code>&quot;/webjars/jquery/jquery.min.js&quot;</code>结果。其中<code>x.y.z</code>是 Webjar 版本。</p>
+<p>Spring Boot 还支持Spring MVC提供的高级资源处理功能，允许使用案例，例如缓存清除静态资源或对 Webjars 使用版本无关的 URL。</p>
+<p>要对 Webjar 使用版本无关的 URL，请添加<code>webjars-locator-core</code>依赖项。然后声明您的 Webjar。以 <code>jQuery</code> 为例，在<code>&quot;/webjars/jquery/x.y.z/jquery.min.js&quot;</code>中添加<code>&quot;/webjars/jquery/jquery.min.js&quot;</code>结果。其中<code>x.y.z</code>是 Webjar 版本。</p>
+<blockquote>
 <p>Note</p>
 <p>如果使用 JBoss，则需要声明<code>webjars-locator-jboss-vfs</code>依赖性而不是<code>webjars-locator-core</code>。否则，所有 Webjar 都解析为<code>404</code>。</p>
+</blockquote>
 <p>要使用缓存清除，以下配置为所有静态资源配置了缓存清除解决方案，从而有效地在 URL 中添加了内容哈希，例如<code>&lt;link href=&quot;/css/spring-2a2d595e6ed9a0b24f027f2b63b134d6.css&quot;/&gt;</code>：</p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.resources.chain.strategy.content.enabled</span>=<span class="string">true</span></span><br><span class="line"><span class="meta">spring.resources.chain.strategy.content.paths</span>=<span class="string">/**</span></span><br></pre></td></tr></table></figure>
+<blockquote>
 <p>Note</p>
 <p>得益于为 Thymeleaf 和 FreeMarker 自动配置的<code>ResourceUrlEncodingFilter</code>，在运行时将资源链接重写为模板。使用 JSP 时，您应该手动声明此过滤器。当前不自动支持其他模板引擎，但可以与自定义模板宏/帮助器一起使用，并可以使用<a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.1.3.RELEASE/javadoc-api/org/springframework/web/servlet/resource/ResourceUrlProvider.html">ResourceUrlProvider</a>。</p>
+</blockquote>
 <p>例如，当使用 JavaScript 模块加载器动态加载资源时，不能重命名文件。这就是为什么其他策略也受支持并且可以组合的原因。 “固定”策略在 URL 中添加静态版本字符串，而不会更改文件名，如以下示例所示：</p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.resources.chain.strategy.content.enabled</span>=<span class="string">true</span></span><br><span class="line"><span class="meta">spring.resources.chain.strategy.content.paths</span>=<span class="string">/**</span></span><br><span class="line"><span class="meta">spring.resources.chain.strategy.fixed.enabled</span>=<span class="string">true</span></span><br><span class="line"><span class="meta">spring.resources.chain.strategy.fixed.paths</span>=<span class="string">/js/lib/</span></span><br><span class="line"><span class="meta">spring.resources.chain.strategy.fixed.version</span>=<span class="string">v12</span></span><br></pre></td></tr></table></figure>
 <p>通过这种配置，位于<code>&quot;/js/lib/&quot;</code>下的 JavaScript 模块使用固定的版本控制策略(<code>&quot;/v12/js/lib/mymodule.js&quot;</code>)，而其他资源仍使用内容版本(<code>&lt;link href=&quot;/css/spring-2a2d595e6ed9a0b24f027f2b63b134d6.css&quot;/&gt;</code>)。</p>
@@ -1182,7 +1186,7 @@
 <p>此功能已在专用的<a target="_blank" rel="noopener" href="https://spring.io/blog/2014/07/24/spring-framework-4-1-handling-static-web-resources">blog post</a>和 Spring Framework 的<a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.1.3.RELEASE/spring-framework-reference/web.html#mvc-config-static-resources">reference documentation</a>中进行了详细描述。</p>
 <h3 id="欢迎页面"><a href="#欢迎页面" class="headerlink" title="欢迎页面"></a>欢迎页面</h3><p>Spring Boot 支持静态和模板欢迎页面。它首先在配置的静态内容位置中查找<code>index.html</code>文件。如果未找到，则它将寻找<code>index</code>模板。如果找到任何一个，它将自动用作应用程序的欢迎页面。</p>
 <h3 id="自定义图标"><a href="#自定义图标" class="headerlink" title="自定义图标"></a>自定义图标</h3><p>Spring Boot 在配置的静态内容位置和 Classpath 的根目录(按此 Sequences)中查找<code>favicon.ico</code>。如果存在这样的文件，它将自动用作应用程序的收藏夹图标。</p>
-<h3 id="路径匹配和内容协商"><a href="#路径匹配和内容协商" class="headerlink" title="路径匹配和内容协商"></a>路径匹配和内容协商</h3><p>Spring MVC 可以通过查看请求路径并将其匹配到应用程序中定义的 Map(例如 Controller 方法上的<code>@GetMapping</code>Comments)，将传入的 HTTP 请求 Map 到处理程序。</p>
+<h3 id="路径匹配和内容协商"><a href="#路径匹配和内容协商" class="headerlink" title="路径匹配和内容协商"></a>路径匹配和内容协商</h3><p>Spring MVC 可以通过查看请求路径并将其匹配到应用程序中定义的Map(例如 Controller 方法上的<code>@GetMapping</code>注解)，将传入的 HTTP 请求 Map 到处理程序。</p>
 <p>Spring Boot 默认选择禁用后缀模式匹配，这意味着诸如<code>&quot;GET /projects/spring-boot.json&quot;</code>之类的请求将不会与<code>@GetMapping(&quot;/projects/spring-boot&quot;)</code>Map 相匹配。这被视为<a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.1.3.RELEASE/spring-framework-reference/web.html#mvc-ann-requestmapping-suffix-pattern-match">Spring MVC 应用程序的最佳实践</a>。过去，此功能主要用于未发送正确的“ Accept”请求 Headers 的 HTTP Client 端。我们需要确保将正确的 Content Type 发送给 Client 端。如今，内容协商已变得更加可靠。</p>
 <p>还有其他处理 HTTP Client 端的方法，这些方法不能始终发送正确的“ Accept”请求 Headers。除了使用后缀匹配，我们还可以使用查询参数来确保将<code>&quot;GET /projects/spring-boot?format=json&quot;</code>之类的请求 Map 到<code>@GetMapping(&quot;/projects/spring-boot&quot;)</code>：</p>
 <figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">spring.mvc.contentnegotiation.favor-parameter</span>=<span class="string">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># We can change the parameter name, which is &quot;format&quot; by default:</span></span><br><span class="line"><span class="comment"># spring.mvc.contentnegotiation.parameter-name=myparam</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># We can also register additional file extensions/media types with:</span></span><br><span class="line"><span class="meta">spring.mvc.contentnegotiation.media-types.markdown</span>=<span class="string">text/markdown</span></span><br></pre></td></tr></table></figure>
