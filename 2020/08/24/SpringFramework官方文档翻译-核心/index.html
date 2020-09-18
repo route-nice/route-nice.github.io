@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://www.docs4dev.com/images/spring-framework/5.1.3.RELEASE/aop-proxy-plain-pojo-call.jpg">
 <meta property="og:image" content="https://www.docs4dev.com/images/spring-framework/5.1.3.RELEASE/aop-proxy-call.jpg">
 <meta property="article:published_time" content="2020-08-24T06:34:27.000Z">
-<meta property="article:modified_time" content="2020-09-18T09:24:19.694Z">
+<meta property="article:modified_time" content="2020-09-18T09:29:22.265Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringFramework">
 <meta name="twitter:card" content="summary">
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-18 17:24:19" itemprop="dateModified" datetime="2020-09-18T17:24:19+08:00">2020-09-18</time>
+                <time title="修改时间：2020-09-18 17:29:22" itemprop="dateModified" datetime="2020-09-18T17:29:22+08:00">2020-09-18</time>
               </span>
 
           
@@ -272,12 +272,12 @@
 <h3 id="配置元数据"><a href="#配置元数据" class="headerlink" title="配置元数据"></a>配置元数据</h3><p>如上图所示，Spring IoC容器使用一种形式的配置元数据。此配置元数据表示您作为应用程序开发人员如何告诉Spring容器在应用程序中实例化、配置和组装对象。</p>
 <p>配置元数据传统上是以简单直观的XML格式提供的，本章的大部分内容都使用它来传达Spring IoC容器的关键概念和特性。</p>
 <blockquote>
-<p>基于 XML 的元数据不是唯一允许的配置元数据形式。 Spring IoC 容器本身与实际编写此 configuration 元数据的格式完全分离。现在，许多开发人员选择 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/core.html#beans-java">基于Java的配置</a> 作为他们开发的 Spring 应用。</p>
+<p>基于 XML 的元数据不是唯一允许的配置元数据形式。 Spring IoC 容器本身与实际编写此 configuration 元数据的格式完全分离。现在，许多开发人员选择 <a href="#基于Java的容器配置">基于Java的配置</a> 作为他们开发的 Spring 应用。</p>
 </blockquote>
 <p>有关在 Spring 容器中使用其他形式的元数据的信息，请参阅：</p>
 <ul>
-<li><a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/core.html#beans-annotation-config">基于注解的配置</a>：Spring 2.5引入了对基于注解的配置元数据的支持。</li>
-<li><a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.2.5.RELEASE/spring-framework-reference/core.html#beans-java">基于Java的配置</a>：从Spring 3.0开始，Spring JavaConfig项目提供的许多特性成为了核心Spring框架的一部分。因此，您可以使用Java而不是XML文件来定义应用程序类的外部bean。要使用这些新特性，请参阅<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html">@Configuration</a>，<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Bean.html">@Bean</a>，<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Import.html">@Import</a>和[@DependsOn注解。</li>
+<li><a href="#基于注解的容器配置">基于注解的配置</a>：Spring 2.5引入了对基于注解的配置元数据的支持。</li>
+<li><a href="#基于Java的容器配置">基于Java的配置</a>：从Spring 3.0开始，Spring JavaConfig项目提供的许多特性成为了核心Spring框架的一部分。因此，您可以使用Java而不是XML文件来定义应用程序类的外部bean。要使用这些新特性，请参阅<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html">@Configuration</a>，<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Bean.html">@Bean</a>，<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Import.html">@Import</a>和[@DependsOn注解。</li>
 </ul>
 <p>Spring 配置方式至少包含一种并且通常容器必须管理多个 bean 定义。 基于 XML 配置的元数据将 beans 配置为 top-level <code>&lt;beans/&gt;</code>元素内的<code>&lt;bean/&gt;</code>元素。 Java 配置通常在<code>@Configuration</code> 标记的类中使用<code>@Bean</code> 注解的方法。</p>
 <p>这些 bean 定义对应于构成应用的实际对象。通常，您定义服务层对象，数据访问对象(DAO)，表示对象(如 Struts <code>Action</code>实例)，基础结构对象(如 Hibernate <code>SessionFactories</code>，JMS <code>Queues</code>等)。通常，不会在容器中配置 fine-grained domain objects，因为它通常是 DAO 和业务逻辑负责创建和加载 domain objects。但是，您可以通过 Spring 与 AspectJ 整合来配置在 IoC 容器控制之外创建的 objects。见<a href="#使用AspectJ用Spring依赖注入域对象">使用 AspectJ 与 Spring 注入 domain objects</a>。</p>
