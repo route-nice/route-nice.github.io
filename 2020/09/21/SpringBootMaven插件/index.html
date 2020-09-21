@@ -28,7 +28,7 @@
 <meta property="og:description" content="Stephane Nicoll, Andy Wilkinson, Scott Frederick 介绍Spring Boot Maven插件在Apache Maven中提供Spring引导支持。它允许您打包可执行的jar或war文件，运行Spring引导应用程序，生成构建信息，并在运行集成测试之前启动Spring引导应用程序。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-21T01:19:09.000Z">
-<meta property="article:modified_time" content="2020-09-21T06:47:20.941Z">
+<meta property="article:modified_time" content="2020-09-21T08:51:09.450Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringBoot">
 <meta name="twitter:card" content="summary">
@@ -199,7 +199,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-09-21 09:19:09 / 修改时间：14:47:20" itemprop="dateCreated datePublished" datetime="2020-09-21T09:19:09+08:00">2020-09-21</time>
+              <time title="创建时间：2020-09-21 09:19:09 / 修改时间：16:51:09" itemprop="dateCreated datePublished" datetime="2020-09-21T09:19:09+08:00">2020-09-21</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,7 +269,7 @@
 <p>通过该设置，您还可以通过覆盖自己项目中的属性来覆盖各个依赖项。例如，要使用不同版本的<code>SLF4J</code>库和Spring数据发布系列，您需要在您的<code>pom.xml</code>中添加以下内容:</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">slf4j.version</span>&gt;</span>1.7.30<span class="tag">&lt;/<span class="name">slf4j.version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">spring-data-releasetrain.version</span>&gt;</span>Moore-SR6<span class="tag">&lt;/<span class="name">spring-data-releasetrain.version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>浏览Spring引导参考中的<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E9%99%84%E5%BD%95/#版本依赖">依赖版本附录</a>，获得依赖版本属性的完整列表。</p>
-<h1 id="不继承父POM"><a href="#不继承父POM" class="headerlink" title="不继承父POM"></a>不继承父POM</h1><p>不从<code>spring-boot-starter-parent``POM</code>继承可能是有原因的。您可能需要使用自己的公司标准父组件，或者您可能更喜欢显式地声明所有的Maven配置。</p>
+<h1 id="不继承父POM"><a href="#不继承父POM" class="headerlink" title="不继承父POM"></a>不继承父POM</h1><p>不从<code>spring-boot-starter-parent POM</code>继承可能是有原因的。您可能需要使用自己的公司标准父组件，或者您可能更喜欢显式地声明所有的Maven配置。</p>
 <p>如果你不想使用<code>spring-boot-starter-parent</code>，你仍然可以通过使用import作用域依赖项来保持依赖项管理(而不是插件管理)的优势，如下所示:</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencyManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- Import dependency management from Spring Boot --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencyManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>前面的示例设置不允许您通过使用属性(如上所述)覆盖单个依赖项。要达到相同的结果，您需要在spring启动依赖项之前在项目的<code>dependencyManagement</code>部分中添加条目。例如，要使用不同版本的<code>SLF4J</code>库和Spring数据发布系列，您可以在您的<code>pom.xml</code>中添加以下元素:</p>
@@ -285,32 +285,32 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-build-image">spring-boot:build-image</a></td>
-<td style="text-align:left">Package an application into a OCI image using a buildpack.</td>
+<td style="text-align:left"><a href="#build-image">spring-boot:build-image</a></td>
+<td style="text-align:left">使用构建包将应用程序打包到OCI映像中。</td>
 </tr>
 <tr>
-<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-build-info">spring-boot:build-info</a></td>
-<td style="text-align:left">Generate a <code>build-info.properties</code> file based the content of the current <code>MavenProject</code>.</td>
+<td style="text-align:left"><a href="#build-info">spring-boot:build-info</a></td>
+<td style="text-align:left">生成一个build-info。属性文件基于当前MavenProject的内容。</td>
 </tr>
 <tr>
-<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-help">spring-boot:help</a></td>
-<td style="text-align:left">Display help information on spring-boot-maven-plugin. Call <code>mvn spring-boot:help -Ddetail=true -Dgoal=&lt;goal-name&gt;</code> to display parameter details.</td>
+<td style="text-align:left"><a href="#help">spring-boot:help</a></td>
+<td style="text-align:left">显示有关<code>spring-boot-maven-plugin</code>的帮助信息。调用<code>mvn spring-boot:help -Ddetail=true -Dgoal=&lt;goal-name&gt;</code>显示参数细节。</td>
 </tr>
 <tr>
-<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-repackage">spring-boot:repackage</a></td>
-<td style="text-align:left">Repackage existing JAR and WAR archives so that they can be executed from the command line using <code>java -jar</code>. With <code>layout=NONE</code> can also be used simply to package a JAR with nested dependencies (and no main class, so not executable).</td>
+<td style="text-align:left"><a href="#repackage">spring-boot:repackage</a></td>
+<td style="text-align:left">重新打包现有的JAR和WAR归档，以便可以使用java -jar从命令行执行它们。使用<code>layout=NONE</code>也可以简单地用于打包带有嵌套依赖关系的JAR(没有主类，所以不是可执行的)。</td>
 </tr>
 <tr>
-<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-run">spring-boot:run</a></td>
-<td style="text-align:left">Run an application in place.</td>
+<td style="text-align:left"><a href="#run">spring-boot:run</a></td>
+<td style="text-align:left">运行应用</td>
 </tr>
 <tr>
-<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-start">spring-boot:start</a></td>
-<td style="text-align:left">Start a spring application. Contrary to the <code>run</code> goal, this does not block and allows other goals to operate on the application. This goal is typically used in integration test scenario where the application is started before a test suite and stopped after.</td>
+<td style="text-align:left"><a href="#start">spring-boot:start</a></td>
+<td style="text-align:left">启动一个spring应用程序。与运行目标相反，它不会阻塞，并允许其他目标对应用程序进行操作。这个目标通常用于集成测试场景，其中应用程序在测试套件之前启动，在测试套件之后停止。</td>
 </tr>
 <tr>
-<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-stop">spring-boot:stop</a></td>
-<td style="text-align:left">Stop an application that has been started by the “start” goal. Typically invoked once a test suite has completed.</td>
+<td style="text-align:left"><a href="#stop">spring-boot:stop</a></td>
+<td style="text-align:left">停止由“start”目标启动的应用程序。通常在测试套件完成后调用。</td>
 </tr>
 </tbody>
 </table>
@@ -348,7 +348,7 @@
 <li><code>snapshot-dependencies</code>用于版本包含<code>SNAPSHOT</code>的任何依赖。</li>
 <li><code>application</code>用于application类和resources。</li>
 </ul>
-<p>层顺序很重要，因为它决定了当应用程序的一部分发生更改时缓存前一层的可能性有多大。默认顺序是<code>dependencies``,</code>spring-boot-loader<code>,</code>snapshot-dependencies<code>,</code>application`。首先应该添加最不容易更改的内容，然后添加更容易更改的层。</p>
+<p>层顺序很重要，因为它决定了当应用程序的一部分发生更改时缓存前一层的可能性有多大。默认顺序是<code>dependencies, spring-boot-loader, snapshot-dependencies, application</code>。首先应该添加最不容易更改的内容，然后添加更容易更改的层。</p>
 <h3 id="自定义层配置"><a href="#自定义层配置" class="headerlink" title="自定义层配置"></a>自定义层配置</h3><p>根据您的应用程序，您可能需要调整层的创建和添加新层的方式。这可以使用一个单独的配置文件来完成，应该注册如下所示:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;project&gt;</span><br><span class="line">    &lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.boot&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-boot-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;version&gt;2.3.4.RELEASE&lt;&#x2F;version&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;layers&gt;</span><br><span class="line">                        &lt;enabled&gt;true&lt;&#x2F;enabled&gt;</span><br><span class="line">                        &lt;configuration&gt;$&#123;project.basedir&#125;&#x2F;src&#x2F;layers.xml&lt;&#x2F;configuration&gt;</span><br><span class="line">                    &lt;&#x2F;layers&gt;</span><br><span class="line">                &lt;&#x2F;configuration&gt;</span><br><span class="line">            &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;&#x2F;plugins&gt;</span><br><span class="line">    &lt;&#x2F;build&gt;</span><br><span class="line">&lt;&#x2F;project&gt;</span><br></pre></td></tr></table></figure>
 <p>配置文件描述了如何将jar划分为层，以及这些层的顺序。下面的示例展示了如何显式定义上面描述的默认顺序:</p>
@@ -1163,6 +1163,7 @@
 <p>该插件使用编译器的插件配置或<code>maven.compiler.target</code>属性检测项目的目标Java兼容性。默认情况下，插件指示构建包安装相同的Java版本。您可以通过设置<code>BP_JVM_VERSION</code>环境变量来覆盖此行为，请参阅<a href="#构建器配置">构建器配置</a>。</p>
 </blockquote>
 <p>有关详细信息，还请参见<a href="自定义镜像构建器">自定义映像生成器</a>和<a href="#自定义镜像名称">自定义映像名称</a>。</p>
+<p><span id="build-image"></span></p>
 <h2 id="spring-boot-build-image"><a href="#spring-boot-build-image" class="headerlink" title="spring-boot:build-image"></a><code>spring-boot:build-image</code></h2><p><code>org.springframework.boot:spring-boot-maven-plugin:2.3.4.RELEASE</code></p>
 <p>使用构建包将应用程序打包到OCI映像中。</p>
 <h3 id="必要参数"><a href="#必要参数" class="headerlink" title="必要参数"></a>必要参数</h3><div class="table-container">
@@ -2452,7 +2453,1193 @@
 <blockquote>
 <p>默认情况下，应用程序在单独的进程中启动，并使用JMX与应用程序通信。如果需要配置JMX端口，请参阅<a href="#自定义JMX端口">专用示例</a>。</p>
 </blockquote>
-<h1 id="集成Actuator"><a href="#集成Actuator" class="headerlink" title="集成Actuator"></a>集成Actuator</h1><h1 id="帮助信息"><a href="#帮助信息" class="headerlink" title="帮助信息"></a>帮助信息</h1>
+<p><span id="spring-boot:start"></span></p>
+<h2 id="spring-boot-start"><a href="#spring-boot-start" class="headerlink" title="spring-boot:start"></a><code>spring-boot:start</code></h2><p><code>org.springframework.boot:spring-boot-maven-plugin:2.3.4.RELEASE</code></p>
+<h3 id="必要参数-2"><a href="#必要参数-2" class="headerlink" title="必要参数"></a>必要参数</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-classesDirectory">classesDirectory</a></td>
+<td style="text-align:left"><code>File</code></td>
+<td style="text-align:left"><code>$&#123;project.build.outputDirectory&#125;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="可选参数-3"><a href="#可选参数-3" class="headerlink" title="可选参数"></a>可选参数</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a href="/#goals-start-parameters-details-addResources">addResources</a></td>
+<td style="text-align:left"><code>boolean</code></td>
+<td style="text-align:left"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-agents">agents</a></td>
+<td style="text-align:left"><code>File[]</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-arguments">arguments</a></td>
+<td style="text-align:left"><code>String[]</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-commandlineArguments">commandlineArguments</a></td>
+<td style="text-align:left"><code>String</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-directories">directories</a></td>
+<td style="text-align:left"><code>String[]</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-environmentVariables">environmentVariables</a></td>
+<td style="text-align:left"><code>Map</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-excludeGroupIds">excludeGroupIds</a></td>
+<td style="text-align:left"><code>String</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-excludes">excludes</a></td>
+<td style="text-align:left"><code>List</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-folders">folders</a></td>
+<td style="text-align:left"><code>String[]</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-fork">fork</a></td>
+<td style="text-align:left"><code>boolean</code></td>
+<td style="text-align:left"><code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-includes">includes</a></td>
+<td style="text-align:left"><code>List</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-jmxName">jmxName</a></td>
+<td style="text-align:left"><code>String</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-jmxPort">jmxPort</a></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-jvmArguments">jvmArguments</a></td>
+<td style="text-align:left"><code>String</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-mainClass">mainClass</a></td>
+<td style="text-align:left"><code>String</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-maxAttempts">maxAttempts</a></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-noverify">noverify</a></td>
+<td style="text-align:left"><code>boolean</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-profiles">profiles</a></td>
+<td style="text-align:left"><code>String[]</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-skip">skip</a></td>
+<td style="text-align:left"><code>boolean</code></td>
+<td style="text-align:left"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-systemPropertyVariables">systemPropertyVariables</a></td>
+<td style="text-align:left"><code>Map</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-useTestClasspath">useTestClasspath</a></td>
+<td style="text-align:left"><code>Boolean</code></td>
+<td style="text-align:left"><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-wait">wait</a></td>
+<td style="text-align:left"><code>long</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-start-parameters-details-workingDirectory">workingDirectory</a></td>
+<td style="text-align:left"><code>File</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="详细参数-3"><a href="#详细参数-3" class="headerlink" title="详细参数"></a>详细参数</h3><p><span id="goals-start-parameters-details-addResources"></span></p>
+<h4 id="addResources-1"><a href="#addResources-1" class="headerlink" title="addResources"></a><code>addResources</code></h4><p>直接将maven资源添加到类路径中，这允许对资源进行实时的就地编辑。从<code>target/classes</code>中删除重复的资源，以防止在调用<code>ClassLoader.getResources()</code>时它们出现两次。请考虑在您的项目中添加<code>spring-boot-devtools</code>，因为它提供了这个特性和更多特性。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>addResources</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>boolean</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.addResources</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.0.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-agents"></span></p>
+<h4 id="agents-1"><a href="#agents-1" class="headerlink" title="agents"></a><code>agents</code></h4><p>到代理jar的路径。注意:使用此特性需要一个分支过程。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>agents</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.io.File[]</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.agents</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>2.2.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-arguments"></span></p>
+<h4 id="arguments-1"><a href="#arguments-1" class="headerlink" title="arguments"></a><code>arguments</code></h4><p>应该传递给应用程序的参数。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>arguments</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String[]</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.0.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-classesDirectory"></span></p>
+<h4 id="classesDirectory-1"><a href="#classesDirectory-1" class="headerlink" title="classesDirectory"></a><code>classesDirectory</code></h4><p>目录，其中包含应该打包到存档中的类和资源文件。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>classesDirectory</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.io.File</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td><code>$&#123;project.build.outputDirectory&#125;</code></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.0.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-commandlineArguments"></span></p>
+<h4 id="commandlineArguments-1"><a href="#commandlineArguments-1" class="headerlink" title="commandlineArguments"></a><code>commandlineArguments</code></h4><p>应该传递给应用程序的命令行参数。使用空格分隔多个参数，并确保在引号之间包装多个值。在指定时，优先于<code>#arguments</code>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>commandlineArguments</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.arguments</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>2.2.3</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-directories"></span></p>
+<h4 id="directories-1"><a href="#directories-1" class="headerlink" title="directories"></a><code>directories</code></h4><p>应该添加到类路径的类目录之外的其他目录。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>directories</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String[]</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.directories</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.0.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-environmentVariables"></span></p>
+<h4 id="environmentVariables-1"><a href="#environmentVariables-1" class="headerlink" title="environmentVariables"></a><code>environmentVariables</code></h4><p>应与用于运行应用程序的派生进程关联的环境变量的列表。注意:使用此特性需要一个分支过程。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>environmentVariables</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.util.Map</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>2.1.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-excludeGroupIds"></span></p>
+<h4 id="excludeGroupIds-3"><a href="#excludeGroupIds-3" class="headerlink" title="excludeGroupIds"></a><code>excludeGroupIds</code></h4><p>要排除的用逗号分隔的groupId名称列表(精确匹配)。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>excludeGroupIds</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.excludeGroupIds</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.1.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-excludes"></span></p>
+<h4 id="excludes-3"><a href="#excludes-3" class="headerlink" title="excludes"></a><code>excludes</code></h4><p>要排除的工件定义的集合。Exclude元素定义了groupId和artifactId强制属性以及一个可选的分类器属性。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>excludes</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.util.List</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.excludes</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.1.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-folders"></span></p>
+<h4 id="folders-1"><a href="#folders-1" class="headerlink" title="folders"></a><code>folders</code></h4><p>应该添加到类路径的类目录之外的其他目录。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>folders</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String[]</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.folders</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.0.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-fork"></span></p>
+<h4 id="fork-1"><a href="#fork-1" class="headerlink" title="fork"></a><code>fork</code></h4><p>标志，指示是否应该派生运行进程。禁用fork将禁用一些特性，如代理、自定义JVM参数、devtools或指定要使用的工作目录。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>fork</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>boolean</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.fork</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.2.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-includes"></span></p>
+<h4 id="includes-3"><a href="#includes-3" class="headerlink" title="includes"></a><code>includes</code></h4><p>要包含的工件定义的集合。<code>Include</code>元素定义了<code>groupId</code>和<code>artifactId</code>强制属性以及一个可选的分类器属性。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>includes</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.util.List</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.includes</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.2.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-jmxName"></span></p>
+<h4 id="jmxName"><a href="#jmxName" class="headerlink" title="jmxName"></a><code>jmxName</code></h4><p>自动部署的管理spring应用程序生命周期的MBean的JMX名称。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td><code>jmxName</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-jmxPort"></span></p>
+<h4 id="jmxPort"><a href="#jmxPort" class="headerlink" title="jmxPort"></a><code>jmxPort</code></h4><p>如果应用程序是派生的，则用于公开平台MBeanServer的端口。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td><code>jmxPort</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-jvmArguments"></span></p>
+<h4 id="jvmArguments-1"><a href="#jvmArguments-1" class="headerlink" title="jvmArguments"></a><code>jvmArguments</code></h4><p>应该与用于运行应用程序的派生进程相关联的JVM参数。在命令行上，确保在引号之间包装多个值。注意:使用此特性需要一个分支过程。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>jvmArguments</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.jvmArguments</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.1.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-mainClass"></span></p>
+<h4 id="mainClass-3"><a href="#mainClass-3" class="headerlink" title="mainClass"></a><code>mainClass</code></h4><p>主类的名称。如果没有指定，将使用第一个发现的包含“main”方法的编译类。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>mainClass</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.main-class</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.0.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-maxAttempts"></span></p>
+<h4 id="maxAttempts"><a href="#maxAttempts" class="headerlink" title="maxAttempts"></a><code>maxAttempts</code></h4><p>检查spring应用程序是否准备就绪的最大尝试次数。结合“wait”参数，这会给出一个全局超时值(默认为30秒)</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td><code>maxAttempts</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-noverify"></span></p>
+<h4 id="noverify-1"><a href="#noverify-1" class="headerlink" title="noverify"></a><code>noverify</code></h4><p>表示代理需要-noverify。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>noverify</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>boolean</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.noverify</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.0.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-profiles"></span></p>
+<h4 id="profiles-1"><a href="#profiles-1" class="headerlink" title="profiles"></a><code>profiles</code></h4><p>要激活的spring配置文件。指定<code>spring.profiles</code>的快捷方式。积极的观点。在命令行中，使用逗号分隔多个概要文件。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>profiles</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String[]</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.profiles</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.3.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-skip"></span></p>
+<h4 id="skip-3"><a href="#skip-3" class="headerlink" title="skip"></a><code>skip</code></h4><p>路过执行。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>skip</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>boolean</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.skip</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.3.2</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-systemPropertyVariables"></span></p>
+<h4 id="systemPropertyVariables-1"><a href="#systemPropertyVariables-1" class="headerlink" title="systemPropertyVariables"></a><code>systemPropertyVariables</code></h4><p>要传递给进程的JVM系统属性列表。注意:使用此特性需要一个分支过程。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>systemPropertyVariables</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.util.Map</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>2.1.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-useTestClasspath"></span></p>
+<h4 id="useTestClasspath-1"><a href="#useTestClasspath-1" class="headerlink" title="useTestClasspath"></a><code>useTestClasspath</code></h4><p>标记以在运行时包含测试类路径。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>useTestClasspath</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.Boolean</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.useTestClasspath</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.3.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-wait"></span></p>
+<h4 id="wait"><a href="#wait" class="headerlink" title="wait"></a><code>wait</code></h4><p>每次尝试检查spring应用程序是否准备就绪之间等待的毫秒数。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td><code>wait</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>long</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-start-parameters-details-workingDirectory"></span></p>
+<h4 id="workingDirectory-1"><a href="#workingDirectory-1" class="headerlink" title="workingDirectory"></a><code>workingDirectory</code></h4><p>用于应用程序的当前工作目录。如果没有指定，将使用basedir。注意:使用此特性需要一个分支过程。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>workingDirectory</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.io.File</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.run.workingDirectory</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.5.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="spring-boot-stop"><a href="#spring-boot-stop" class="headerlink" title="spring-boot:stop"></a><code>spring-boot:stop</code></h2><p><code>org.springframework.boot:spring-boot-maven-plugin:2.3.4.RELEASE</code></p>
+<p>停止由“start”目标启动的应用程序。通常在测试套件完成后调用。</p>
+<h3 id="可选参数-4"><a href="#可选参数-4" class="headerlink" title="可选参数"></a>可选参数</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th style="text-align:left">Type</th>
+<th style="text-align:left">Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-stop-parameters-details-fork">fork</a></td>
+<td style="text-align:left"><code>Boolean</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-stop-parameters-details-jmxName">jmxName</a></td>
+<td style="text-align:left"><code>String</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-stop-parameters-details-jmxPort">jmxPort</a></td>
+<td style="text-align:left"><code>int</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.3.4.RELEASE/maven-plugin/reference/html/#goals-stop-parameters-details-skip">skip</a></td>
+<td style="text-align:left"><code>boolean</code></td>
+<td style="text-align:left"><code>false</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="详细参数-4"><a href="#详细参数-4" class="headerlink" title="详细参数"></a>详细参数</h3><h4 id="fork-2"><a href="#fork-2" class="headerlink" title="fork"></a><code>fork</code></h4><p>指示要停止的进程是否已分叉的标志。默认情况下，该值是从MavenProject继承的。如果设置了这个值，它必须与StartMojo启动进程时使用的值匹配。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>fork</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.Boolean</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.stop.fork</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.3.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="jmxName-1"><a href="#jmxName-1" class="headerlink" title="jmxName"></a><code>jmxName</code></h4><p>自动部署的管理应用程序生命周期的MBean的JMX名称。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td><code>jmxName</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="jmxPort-1"><a href="#jmxPort-1" class="headerlink" title="jmxPort"></a><code>jmxPort</code></h4><p>如果应用程序已经派生，则用于查找平台MBeanServer的端口。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td><code>jmxPort</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>int</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h4 id="skip-4"><a href="#skip-4" class="headerlink" title="skip"></a><code>skip</code></h4><p>跳过执行</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>skip</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>boolean</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td><code>spring-boot.stop.skip</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>1.3.2</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Exampless"><a href="#Exampless" class="headerlink" title="Exampless"></a>Exampless</h2><h3 id="用于集成测试的随机端口"><a href="#用于集成测试的随机端口" class="headerlink" title="用于集成测试的随机端口"></a>用于集成测试的随机端口</h3><p>Spring引导测试集成的一个很好的特性是，它可以为web应用程序分配一个自由端口。当使用插件的启动目标时，Spring引导应用程序将单独启动，这使得将实际的端口传递到集成测试本身变得困难。</p>
+<p>下面的例子展示了如何使用<a target="_blank" rel="noopener" href="https://www.mojohaus.org/build-helper-maven-plugin">Build Helper Maven插件</a>实现相同的功能:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.codehaus.mojo<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>build-helper-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">id</span>&gt;</span>reserve-tomcat-port<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>reserve-network-port<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">phase</span>&gt;</span>process-resources<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">portNames</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">portName</span>&gt;</span>tomcat.http.port<span class="tag">&lt;/<span class="name">portName</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">portNames</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">id</span>&gt;</span>pre-integration-test<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>start<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">arguments</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">argument</span>&gt;</span>--server.port=$&#123;tomcat.http.port&#125;<span class="tag">&lt;/<span class="name">argument</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">arguments</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">id</span>&gt;</span>post-integration-test<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>stop<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-failsafe-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">systemPropertyVariables</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">test.server.port</span>&gt;</span>$&#123;tomcat.http.port&#125;<span class="tag">&lt;/<span class="name">test.server.port</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">systemPropertyVariables</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>现在可以检索<code>test.server.port</code>在任何集成测试中端口system属性，以创建到服务器的正确<code>URL</code>。</p>
+<h3 id="自定义JMX端口"><a href="#自定义JMX端口" class="headerlink" title="自定义JMX端口"></a>自定义JMX端口</h3><p><code>jmxPort</code>属性允许定制插件用于与Spring引导应用程序通信的端口。</p>
+<p>这个示例展示了如何在案例<code>9001</code>已经使用的情况下定制端口:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                       <span class="tag">&lt;<span class="name">jmxPort</span>&gt;</span>9009<span class="tag">&lt;/<span class="name">jmxPort</span>&gt;</span></span><br><span class="line">                   <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">id</span>&gt;</span>pre-integration-test<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>start<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">skip</span>&gt;</span>$&#123;skip.it&#125;<span class="tag">&lt;/<span class="name">skip</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">id</span>&gt;</span>post-integration-test<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>stop<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">skip</span>&gt;</span>$&#123;skip.it&#125;<span class="tag">&lt;/<span class="name">skip</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note</p>
+<p>如果需要配置JMX端口，请确保如上所示在全局配置中进行配置，以便两个目标共享该端口。</p>
+</blockquote>
+<h3 id="跳过集成测试"><a href="#跳过集成测试" class="headerlink" title="跳过集成测试"></a>跳过集成测试</h3><p>skip属性允许完全跳过Spring Boot maven插件的执行。</p>
+<p>这个例子展示了如何跳过命令行属性的集成测试，同时确保重新打包的目标运行:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">skip.it</span>&gt;</span>false<span class="tag">&lt;/<span class="name">skip.it</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">id</span>&gt;</span>pre-integration-test<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>start<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">skip</span>&gt;</span>$&#123;skip.it&#125;<span class="tag">&lt;/<span class="name">skip</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">id</span>&gt;</span>post-integration-test<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>stop<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">skip</span>&gt;</span>$&#123;skip.it&#125;<span class="tag">&lt;/<span class="name">skip</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-failsafe-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">skip</span>&gt;</span>$&#123;skip.it&#125;<span class="tag">&lt;/<span class="name">skip</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>默认情况下，集成测试将运行，但此设置允许您轻松禁用它们的命令行如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mvn verify -Dskip.it=<span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h1 id="集成Actuator"><a href="#集成Actuator" class="headerlink" title="集成Actuator"></a>集成Actuator</h1><p>如果有<code>META-INF/build-info.properties</code>文件, Spring引导执行器将显示与构建相关的信息。<code>build-info</code>目标使用项目坐标和构建时间生成这样的文件。它还允许您添加任意数量的附加属性，如下面的例子所示:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">project</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.3.4.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">goal</span>&gt;</span>build-info<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;<span class="name">additionalProperties</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">encoding.source</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding.source</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">encoding.reporting</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">encoding.reporting</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">java.source</span>&gt;</span>$&#123;maven.compiler.source&#125;<span class="tag">&lt;/<span class="name">java.source</span>&gt;</span></span><br><span class="line">                                <span class="tag">&lt;<span class="name">java.target</span>&gt;</span>$&#123;maven.compiler.target&#125;<span class="tag">&lt;/<span class="name">java.target</span>&gt;</span></span><br><span class="line">                            <span class="tag">&lt;/<span class="name">additionalProperties</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个配置将生成一个<code>build-info.properties</code>的属性,带有四个附加键的预期位置上。请注意，<code>maven.compiler.source</code>和<code>maven.compiler.targe</code>t预计是项目中可用的常规属性。它们会像你期望的那样被插入。</p>
+<h2 id="spring-boot-build-info"><a href="#spring-boot-build-info" class="headerlink" title="spring-boot:build-info"></a><code>spring-boot:build-info</code></h2><p><code>org.springframework.boot:spring-boot-maven-plugin:2.3.4.RELEASE</code></p>
+<p>基于当前<code>MavenPorjec</code>t内容生成一个<code>build-info.properties</code>文件。</p>
+<h3 id="可选参数-5"><a href="#可选参数-5" class="headerlink" title="可选参数"></a>可选参数</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+<th style="text-align:left"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td style="text-align:left">Type</td>
+<td style="text-align:left">Default</td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-build-info-parameters-details-additionalProperties">additionalProperties</a></td>
+<td style="text-align:left"><code>Map</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-build-info-parameters-details-outputFile">outputFile</a></td>
+<td style="text-align:left"><code>File</code></td>
+<td style="text-align:left"><code>$&#123;project.build.outputDirectory&#125;/META-INF/build-info.properties</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><a href="#goals-build-info-parameters-details-time">time</a></td>
+<td style="text-align:left"><code>String</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="详细参数-5"><a href="#详细参数-5" class="headerlink" title="详细参数"></a>详细参数</h3><p><span id="goals-build-info-parameters-details-additionalProperties"></span></p>
+<h4 id="additionalProperties"><a href="#additionalProperties" class="headerlink" title="additionalProperties"></a><code>additionalProperties</code></h4><p>要存储在<code>build-info.properties</code>中的其他属性。每个条目都以build作为前缀。在生成的<code>build-info.properties</code>中。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td><code>additionalProperties</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.util.Map</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-build-info-parameters-details-outputFile"></span></p>
+<h4 id="outputFile"><a href="#outputFile" class="headerlink" title="outputFile"></a><code>outputFile</code></h4><p>生成的build-info.properties的位置。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left"></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Name</td>
+<td><code>outputFile</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.io.File</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td><code>$&#123;project.build.outputDirectory&#125;/META-INF/build-info.properties</code></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="goals-build-info-parameters-details-time"></span></p>
+<h4 id="time"><a href="#time" class="headerlink" title="time"></a><code>time</code></h4><p>用于构建的值<code>build.time</code>属性的格式适合于<code>Instant#parse(CharSequence)</code>。默认为<code>session.request.startTime</code>。禁用<code>build.time</code>属性完全使用“off”。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Name</th>
+<th><code>time</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Type</td>
+<td><code>java.lang.String</code></td>
+</tr>
+<tr>
+<td style="text-align:left">Default value</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">User property</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:left">Since</td>
+<td><code>2.2.0</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h1 id="帮助信息"><a href="#帮助信息" class="headerlink" title="帮助信息"></a>帮助信息</h1><p><code>help</code>目标是一个标准目标，它显示了关于插件功能的信息。</p>
+
     </div>
 
     
@@ -2539,7 +3726,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">使用插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%90%AF%E5%8A%A8%E5%99%A8%E7%88%B6POM"><span class="nav-number">4.</span> <span class="nav-text">继承启动器父POM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E7%BB%A7%E6%89%BF%E7%88%B6POM"><span class="nav-number">5.</span> <span class="nav-text">不继承父POM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Goals"><span class="nav-number">6.</span> <span class="nav-text">Goals</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%A1%A3%E6%A1%88"><span class="nav-number">7.</span> <span class="nav-text">打包可执行档案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B1%82%E7%9A%84Jars"><span class="nav-number">7.1.</span> <span class="nav-text">分层的Jars</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%82%E9%85%8D%E7%BD%AE"><span class="nav-number">7.1.1.</span> <span class="nav-text">自定义层配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-repackage"><span class="nav-number">7.2.</span> <span class="nav-text">spring-boot:repackage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%A6%81%E6%B1%82"><span class="nav-number">7.2.1.</span> <span class="nav-text">参数要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0"><span class="nav-number">7.2.2.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0"><span class="nav-number">7.2.3.</span> <span class="nav-text">详细参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#classifier"><span class="nav-number">7.2.3.1.</span> <span class="nav-text">classifier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#embeddedLaunchScript"><span class="nav-number">7.2.3.2.</span> <span class="nav-text">embeddedLaunchScript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#embeddedLaunchScriptProperties"><span class="nav-number">7.2.3.3.</span> <span class="nav-text">embeddedLaunchScriptProperties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeDevtools"><span class="nav-number">7.2.3.4.</span> <span class="nav-text">excludeDevtools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeGroupIds"><span class="nav-number">7.2.3.5.</span> <span class="nav-text">excludeGroupIds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludes"><span class="nav-number">7.2.3.6.</span> <span class="nav-text">excludes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#executable"><span class="nav-number">7.2.3.7.</span> <span class="nav-text">executable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includeSystemScope"><span class="nav-number">7.2.3.8.</span> <span class="nav-text">includeSystemScope</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includes"><span class="nav-number">7.2.3.9.</span> <span class="nav-text">includes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layers"><span class="nav-number">7.2.3.10.</span> <span class="nav-text">layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layout"><span class="nav-number">7.2.3.11.</span> <span class="nav-text">layout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layoutFactory"><span class="nav-number">7.2.3.12.</span> <span class="nav-text">layoutFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mainClass"><span class="nav-number">7.2.3.13.</span> <span class="nav-text">mainClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#outputDirectory"><span class="nav-number">7.2.3.14.</span> <span class="nav-text">outputDirectory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#outputTimestamp"><span class="nav-number">7.2.3.15.</span> <span class="nav-text">outputTimestamp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#requiresUnpack"><span class="nav-number">7.2.3.16.</span> <span class="nav-text">requiresUnpack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skip"><span class="nav-number">7.2.3.17.</span> <span class="nav-text">skip</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">7.3.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89Classfier"><span class="nav-number">7.3.1.</span> <span class="nav-text">自定义Classfier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%8D%E5%AD%97"><span class="nav-number">7.3.2.</span> <span class="nav-text">自定义名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85%E6%A1%A3%E6%A1%88"><span class="nav-number">7.3.3.</span> <span class="nav-text">本地重新打包档案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89Layout"><span class="nav-number">7.3.4.</span> <span class="nav-text">自定义Layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E6%8E%92%E9%99%A4"><span class="nav-number">7.3.5.</span> <span class="nav-text">依赖排除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B1%82Jar%E5%B7%A5%E5%85%B7"><span class="nav-number">7.3.6.</span> <span class="nav-text">分层Jar工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%82%E9%85%8D%E7%BD%AE-1"><span class="nav-number">7.3.7.</span> <span class="nav-text">自定义层配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%93%E5%8C%85OCI%E9%95%9C%E5%83%8F"><span class="nav-number">8.</span> <span class="nav-text">打包OCI镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="nav-number">8.1.</span> <span class="nav-text">Docker守护进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E5%AE%9A%E5%88%B6"><span class="nav-number">8.2.</span> <span class="nav-text">镜像定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-build-image"><span class="nav-number">8.3.</span> <span class="nav-text">spring-boot:build-image</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E8%A6%81%E5%8F%82%E6%95%B0"><span class="nav-number">8.3.1.</span> <span class="nav-text">必要参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0-1"><span class="nav-number">8.3.2.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0-1"><span class="nav-number">8.3.3.</span> <span class="nav-text">详细参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#classifier-1"><span class="nav-number">8.3.3.1.</span> <span class="nav-text">classifier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeDevtools-1"><span class="nav-number">8.3.3.2.</span> <span class="nav-text">excludeDevtools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeGroupIds-1"><span class="nav-number">8.3.3.3.</span> <span class="nav-text">excludeGroupIds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludes-1"><span class="nav-number">8.3.3.4.</span> <span class="nav-text">excludes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#image"><span class="nav-number">8.3.3.5.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includeSystemScope-1"><span class="nav-number">8.3.3.6.</span> <span class="nav-text">includeSystemScope</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includes-1"><span class="nav-number">8.3.3.7.</span> <span class="nav-text">includes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layers-1"><span class="nav-number">8.3.3.8.</span> <span class="nav-text">layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layout-1"><span class="nav-number">8.3.3.9.</span> <span class="nav-text">layout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layoutFactory-1"><span class="nav-number">8.3.3.10.</span> <span class="nav-text">layoutFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mainClass-1"><span class="nav-number">8.3.3.11.</span> <span class="nav-text">mainClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skip-1"><span class="nav-number">8.3.3.12.</span> <span class="nav-text">skip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sourceDirectory"><span class="nav-number">8.3.3.13.</span> <span class="nav-text">sourceDirectory</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples"><span class="nav-number">8.4.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E5%99%A8"><span class="nav-number">8.4.1.</span> <span class="nav-text">自定义镜像构建器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">8.4.2.</span> <span class="nav-text">构建器配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F%E5%90%8D%E7%A7%B0"><span class="nav-number">8.4.3.</span> <span class="nav-text">自定义镜像名称</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Maven%E8%BF%90%E8%A1%8CApplication"><span class="nav-number">9.</span> <span class="nav-text">使用Maven运行Application</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-run"><span class="nav-number">9.1.</span> <span class="nav-text">spring-boot:run</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E8%A6%81%E5%8F%82%E6%95%B0-1"><span class="nav-number">9.1.1.</span> <span class="nav-text">必要参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0-2"><span class="nav-number">9.1.2.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0-2"><span class="nav-number">9.1.3.</span> <span class="nav-text">详细参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#addResources"><span class="nav-number">9.1.3.1.</span> <span class="nav-text">addResources</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#agents"><span class="nav-number">9.1.3.2.</span> <span class="nav-text">agents</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arguments"><span class="nav-number">9.1.3.3.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#classesDirectory"><span class="nav-number">9.1.3.4.</span> <span class="nav-text">classesDirectory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commandlineArguments"><span class="nav-number">9.1.3.5.</span> <span class="nav-text">commandlineArguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#directories"><span class="nav-number">9.1.3.6.</span> <span class="nav-text">directories</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#environmentVariables"><span class="nav-number">9.1.3.7.</span> <span class="nav-text">environmentVariables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeGroupIds-2"><span class="nav-number">9.1.3.8.</span> <span class="nav-text">excludeGroupIds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludes-2"><span class="nav-number">9.1.3.9.</span> <span class="nav-text">excludes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#folders"><span class="nav-number">9.1.3.10.</span> <span class="nav-text">folders</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fork"><span class="nav-number">9.1.3.11.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includes-2"><span class="nav-number">9.1.3.12.</span> <span class="nav-text">includes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jvmArguments"><span class="nav-number">9.1.3.13.</span> <span class="nav-text">jvmArguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mainClass-2"><span class="nav-number">9.1.3.14.</span> <span class="nav-text">mainClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#noverify"><span class="nav-number">9.1.3.15.</span> <span class="nav-text">noverify</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#optimizedLaunch"><span class="nav-number">9.1.3.16.</span> <span class="nav-text">optimizedLaunch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#profiles"><span class="nav-number">9.1.3.17.</span> <span class="nav-text">profiles</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skip-2"><span class="nav-number">9.1.3.18.</span> <span class="nav-text">skip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#systemPropertyVariables"><span class="nav-number">9.1.3.19.</span> <span class="nav-text">systemPropertyVariables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#useTestClasspath"><span class="nav-number">9.1.3.20.</span> <span class="nav-text">useTestClasspath</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workingDirectory"><span class="nav-number">9.1.3.21.</span> <span class="nav-text">workingDirectory</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples-1"><span class="nav-number">9.2.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E5%BA%94%E7%94%A8"><span class="nav-number">9.2.1.</span> <span class="nav-text">调试应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E5%B1%9E%E6%80%A7"><span class="nav-number">9.2.2.</span> <span class="nav-text">使用系统属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">9.2.3.</span> <span class="nav-text">使用环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Application%E5%8F%82%E6%95%B0"><span class="nav-number">9.2.4.</span> <span class="nav-text">使用Application参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E6%B4%BB%E5%8A%A8%E6%A6%82%E8%A6%81%E6%96%87%E4%BB%B6"><span class="nav-number">9.2.5.</span> <span class="nav-text">指定活动概要文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95"><span class="nav-number">10.</span> <span class="nav-text">运行集成测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E6%88%90Actuator"><span class="nav-number">11.</span> <span class="nav-text">集成Actuator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9%E4%BF%A1%E6%81%AF"><span class="nav-number">12.</span> <span class="nav-text">帮助信息</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A5%E9%97%A8"><span class="nav-number">2.</span> <span class="nav-text">入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">使用插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF%E5%90%AF%E5%8A%A8%E5%99%A8%E7%88%B6POM"><span class="nav-number">4.</span> <span class="nav-text">继承启动器父POM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E7%BB%A7%E6%89%BF%E7%88%B6POM"><span class="nav-number">5.</span> <span class="nav-text">不继承父POM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Goals"><span class="nav-number">6.</span> <span class="nav-text">Goals</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%A1%A3%E6%A1%88"><span class="nav-number">7.</span> <span class="nav-text">打包可执行档案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B1%82%E7%9A%84Jars"><span class="nav-number">7.1.</span> <span class="nav-text">分层的Jars</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%82%E9%85%8D%E7%BD%AE"><span class="nav-number">7.1.1.</span> <span class="nav-text">自定义层配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-repackage"><span class="nav-number">7.2.</span> <span class="nav-text">spring-boot:repackage</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E8%A6%81%E6%B1%82"><span class="nav-number">7.2.1.</span> <span class="nav-text">参数要求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0"><span class="nav-number">7.2.2.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0"><span class="nav-number">7.2.3.</span> <span class="nav-text">详细参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#classifier"><span class="nav-number">7.2.3.1.</span> <span class="nav-text">classifier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#embeddedLaunchScript"><span class="nav-number">7.2.3.2.</span> <span class="nav-text">embeddedLaunchScript</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#embeddedLaunchScriptProperties"><span class="nav-number">7.2.3.3.</span> <span class="nav-text">embeddedLaunchScriptProperties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeDevtools"><span class="nav-number">7.2.3.4.</span> <span class="nav-text">excludeDevtools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeGroupIds"><span class="nav-number">7.2.3.5.</span> <span class="nav-text">excludeGroupIds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludes"><span class="nav-number">7.2.3.6.</span> <span class="nav-text">excludes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#executable"><span class="nav-number">7.2.3.7.</span> <span class="nav-text">executable</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includeSystemScope"><span class="nav-number">7.2.3.8.</span> <span class="nav-text">includeSystemScope</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includes"><span class="nav-number">7.2.3.9.</span> <span class="nav-text">includes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layers"><span class="nav-number">7.2.3.10.</span> <span class="nav-text">layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layout"><span class="nav-number">7.2.3.11.</span> <span class="nav-text">layout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layoutFactory"><span class="nav-number">7.2.3.12.</span> <span class="nav-text">layoutFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mainClass"><span class="nav-number">7.2.3.13.</span> <span class="nav-text">mainClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#outputDirectory"><span class="nav-number">7.2.3.14.</span> <span class="nav-text">outputDirectory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#outputTimestamp"><span class="nav-number">7.2.3.15.</span> <span class="nav-text">outputTimestamp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#requiresUnpack"><span class="nav-number">7.2.3.16.</span> <span class="nav-text">requiresUnpack</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skip"><span class="nav-number">7.2.3.17.</span> <span class="nav-text">skip</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Example"><span class="nav-number">7.3.</span> <span class="nav-text">Example</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89Classfier"><span class="nav-number">7.3.1.</span> <span class="nav-text">自定义Classfier</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%90%8D%E5%AD%97"><span class="nav-number">7.3.2.</span> <span class="nav-text">自定义名字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%AC%E5%9C%B0%E9%87%8D%E6%96%B0%E6%89%93%E5%8C%85%E6%A1%A3%E6%A1%88"><span class="nav-number">7.3.3.</span> <span class="nav-text">本地重新打包档案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89Layout"><span class="nav-number">7.3.4.</span> <span class="nav-text">自定义Layout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E6%8E%92%E9%99%A4"><span class="nav-number">7.3.5.</span> <span class="nav-text">依赖排除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%B1%82Jar%E5%B7%A5%E5%85%B7"><span class="nav-number">7.3.6.</span> <span class="nav-text">分层Jar工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%B1%82%E9%85%8D%E7%BD%AE-1"><span class="nav-number">7.3.7.</span> <span class="nav-text">自定义层配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%93%E5%8C%85OCI%E9%95%9C%E5%83%8F"><span class="nav-number">8.</span> <span class="nav-text">打包OCI镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B"><span class="nav-number">8.1.</span> <span class="nav-text">Docker守护进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%95%9C%E5%83%8F%E5%AE%9A%E5%88%B6"><span class="nav-number">8.2.</span> <span class="nav-text">镜像定制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-build-image"><span class="nav-number">8.3.</span> <span class="nav-text">spring-boot:build-image</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E8%A6%81%E5%8F%82%E6%95%B0"><span class="nav-number">8.3.1.</span> <span class="nav-text">必要参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0-1"><span class="nav-number">8.3.2.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0-1"><span class="nav-number">8.3.3.</span> <span class="nav-text">详细参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#classifier-1"><span class="nav-number">8.3.3.1.</span> <span class="nav-text">classifier</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeDevtools-1"><span class="nav-number">8.3.3.2.</span> <span class="nav-text">excludeDevtools</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeGroupIds-1"><span class="nav-number">8.3.3.3.</span> <span class="nav-text">excludeGroupIds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludes-1"><span class="nav-number">8.3.3.4.</span> <span class="nav-text">excludes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#image"><span class="nav-number">8.3.3.5.</span> <span class="nav-text">image</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includeSystemScope-1"><span class="nav-number">8.3.3.6.</span> <span class="nav-text">includeSystemScope</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includes-1"><span class="nav-number">8.3.3.7.</span> <span class="nav-text">includes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layers-1"><span class="nav-number">8.3.3.8.</span> <span class="nav-text">layers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layout-1"><span class="nav-number">8.3.3.9.</span> <span class="nav-text">layout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layoutFactory-1"><span class="nav-number">8.3.3.10.</span> <span class="nav-text">layoutFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mainClass-1"><span class="nav-number">8.3.3.11.</span> <span class="nav-text">mainClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skip-1"><span class="nav-number">8.3.3.12.</span> <span class="nav-text">skip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#sourceDirectory"><span class="nav-number">8.3.3.13.</span> <span class="nav-text">sourceDirectory</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples"><span class="nav-number">8.4.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E5%99%A8"><span class="nav-number">8.4.1.</span> <span class="nav-text">自定义镜像构建器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">8.4.2.</span> <span class="nav-text">构建器配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%95%9C%E5%83%8F%E5%90%8D%E7%A7%B0"><span class="nav-number">8.4.3.</span> <span class="nav-text">自定义镜像名称</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Maven%E8%BF%90%E8%A1%8CApplication"><span class="nav-number">9.</span> <span class="nav-text">使用Maven运行Application</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-run"><span class="nav-number">9.1.</span> <span class="nav-text">spring-boot:run</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E8%A6%81%E5%8F%82%E6%95%B0-1"><span class="nav-number">9.1.1.</span> <span class="nav-text">必要参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0-2"><span class="nav-number">9.1.2.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0-2"><span class="nav-number">9.1.3.</span> <span class="nav-text">详细参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#addResources"><span class="nav-number">9.1.3.1.</span> <span class="nav-text">addResources</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#agents"><span class="nav-number">9.1.3.2.</span> <span class="nav-text">agents</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arguments"><span class="nav-number">9.1.3.3.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#classesDirectory"><span class="nav-number">9.1.3.4.</span> <span class="nav-text">classesDirectory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commandlineArguments"><span class="nav-number">9.1.3.5.</span> <span class="nav-text">commandlineArguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#directories"><span class="nav-number">9.1.3.6.</span> <span class="nav-text">directories</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#environmentVariables"><span class="nav-number">9.1.3.7.</span> <span class="nav-text">environmentVariables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeGroupIds-2"><span class="nav-number">9.1.3.8.</span> <span class="nav-text">excludeGroupIds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludes-2"><span class="nav-number">9.1.3.9.</span> <span class="nav-text">excludes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#folders"><span class="nav-number">9.1.3.10.</span> <span class="nav-text">folders</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fork"><span class="nav-number">9.1.3.11.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includes-2"><span class="nav-number">9.1.3.12.</span> <span class="nav-text">includes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jvmArguments"><span class="nav-number">9.1.3.13.</span> <span class="nav-text">jvmArguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mainClass-2"><span class="nav-number">9.1.3.14.</span> <span class="nav-text">mainClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#noverify"><span class="nav-number">9.1.3.15.</span> <span class="nav-text">noverify</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#optimizedLaunch"><span class="nav-number">9.1.3.16.</span> <span class="nav-text">optimizedLaunch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#profiles"><span class="nav-number">9.1.3.17.</span> <span class="nav-text">profiles</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skip-2"><span class="nav-number">9.1.3.18.</span> <span class="nav-text">skip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#systemPropertyVariables"><span class="nav-number">9.1.3.19.</span> <span class="nav-text">systemPropertyVariables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#useTestClasspath"><span class="nav-number">9.1.3.20.</span> <span class="nav-text">useTestClasspath</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workingDirectory"><span class="nav-number">9.1.3.21.</span> <span class="nav-text">workingDirectory</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Examples-1"><span class="nav-number">9.2.</span> <span class="nav-text">Examples</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E8%AF%95%E5%BA%94%E7%94%A8"><span class="nav-number">9.2.1.</span> <span class="nav-text">调试应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E5%B1%9E%E6%80%A7"><span class="nav-number">9.2.2.</span> <span class="nav-text">使用系统属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">9.2.3.</span> <span class="nav-text">使用环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Application%E5%8F%82%E6%95%B0"><span class="nav-number">9.2.4.</span> <span class="nav-text">使用Application参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E5%AE%9A%E6%B4%BB%E5%8A%A8%E6%A6%82%E8%A6%81%E6%96%87%E4%BB%B6"><span class="nav-number">9.2.5.</span> <span class="nav-text">指定活动概要文件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95"><span class="nav-number">10.</span> <span class="nav-text">运行集成测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-start"><span class="nav-number">10.1.</span> <span class="nav-text">spring-boot:start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E8%A6%81%E5%8F%82%E6%95%B0-2"><span class="nav-number">10.1.1.</span> <span class="nav-text">必要参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0-3"><span class="nav-number">10.1.2.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0-3"><span class="nav-number">10.1.3.</span> <span class="nav-text">详细参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#addResources-1"><span class="nav-number">10.1.3.1.</span> <span class="nav-text">addResources</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#agents-1"><span class="nav-number">10.1.3.2.</span> <span class="nav-text">agents</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#arguments-1"><span class="nav-number">10.1.3.3.</span> <span class="nav-text">arguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#classesDirectory-1"><span class="nav-number">10.1.3.4.</span> <span class="nav-text">classesDirectory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#commandlineArguments-1"><span class="nav-number">10.1.3.5.</span> <span class="nav-text">commandlineArguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#directories-1"><span class="nav-number">10.1.3.6.</span> <span class="nav-text">directories</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#environmentVariables-1"><span class="nav-number">10.1.3.7.</span> <span class="nav-text">environmentVariables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludeGroupIds-3"><span class="nav-number">10.1.3.8.</span> <span class="nav-text">excludeGroupIds</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#excludes-3"><span class="nav-number">10.1.3.9.</span> <span class="nav-text">excludes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#folders-1"><span class="nav-number">10.1.3.10.</span> <span class="nav-text">folders</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fork-1"><span class="nav-number">10.1.3.11.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#includes-3"><span class="nav-number">10.1.3.12.</span> <span class="nav-text">includes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jmxName"><span class="nav-number">10.1.3.13.</span> <span class="nav-text">jmxName</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jmxPort"><span class="nav-number">10.1.3.14.</span> <span class="nav-text">jmxPort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jvmArguments-1"><span class="nav-number">10.1.3.15.</span> <span class="nav-text">jvmArguments</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mainClass-3"><span class="nav-number">10.1.3.16.</span> <span class="nav-text">mainClass</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#maxAttempts"><span class="nav-number">10.1.3.17.</span> <span class="nav-text">maxAttempts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#noverify-1"><span class="nav-number">10.1.3.18.</span> <span class="nav-text">noverify</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#profiles-1"><span class="nav-number">10.1.3.19.</span> <span class="nav-text">profiles</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skip-3"><span class="nav-number">10.1.3.20.</span> <span class="nav-text">skip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#systemPropertyVariables-1"><span class="nav-number">10.1.3.21.</span> <span class="nav-text">systemPropertyVariables</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#useTestClasspath-1"><span class="nav-number">10.1.3.22.</span> <span class="nav-text">useTestClasspath</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#wait"><span class="nav-number">10.1.3.23.</span> <span class="nav-text">wait</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#workingDirectory-1"><span class="nav-number">10.1.3.24.</span> <span class="nav-text">workingDirectory</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-stop"><span class="nav-number">10.2.</span> <span class="nav-text">spring-boot:stop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0-4"><span class="nav-number">10.2.1.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0-4"><span class="nav-number">10.2.2.</span> <span class="nav-text">详细参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fork-2"><span class="nav-number">10.2.2.1.</span> <span class="nav-text">fork</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jmxName-1"><span class="nav-number">10.2.2.2.</span> <span class="nav-text">jmxName</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#jmxPort-1"><span class="nav-number">10.2.2.3.</span> <span class="nav-text">jmxPort</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#skip-4"><span class="nav-number">10.2.2.4.</span> <span class="nav-text">skip</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Exampless"><span class="nav-number">10.3.</span> <span class="nav-text">Exampless</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E4%BA%8E%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95%E7%9A%84%E9%9A%8F%E6%9C%BA%E7%AB%AF%E5%8F%A3"><span class="nav-number">10.3.1.</span> <span class="nav-text">用于集成测试的随机端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89JMX%E7%AB%AF%E5%8F%A3"><span class="nav-number">10.3.2.</span> <span class="nav-text">自定义JMX端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%B3%E8%BF%87%E9%9B%86%E6%88%90%E6%B5%8B%E8%AF%95"><span class="nav-number">10.3.3.</span> <span class="nav-text">跳过集成测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E6%88%90Actuator"><span class="nav-number">11.</span> <span class="nav-text">集成Actuator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-boot-build-info"><span class="nav-number">11.1.</span> <span class="nav-text">spring-boot:build-info</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8F%82%E6%95%B0-5"><span class="nav-number">11.1.1.</span> <span class="nav-text">可选参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0-5"><span class="nav-number">11.1.2.</span> <span class="nav-text">详细参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#additionalProperties"><span class="nav-number">11.1.2.1.</span> <span class="nav-text">additionalProperties</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#outputFile"><span class="nav-number">11.1.2.2.</span> <span class="nav-text">outputFile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#time"><span class="nav-number">11.1.2.3.</span> <span class="nav-text">time</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%AE%E5%8A%A9%E4%BF%A1%E6%81%AF"><span class="nav-number">12.</span> <span class="nav-text">帮助信息</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
