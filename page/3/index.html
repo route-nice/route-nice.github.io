@@ -169,6 +169,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Route-nice">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Route-nice">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE/" class="post-title-link" itemprop="url">SpringFramework官方文档翻译-数据访问</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-25 08:30:19" itemprop="dateCreated datePublished" datetime="2020-08-25T08:30:19+08:00">2020-08-25</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-14 11:44:01" itemprop="dateModified" datetime="2020-09-14T11:44:01+08:00">2020-09-14</time>
+              </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/25/SpringFramework官方文档翻译-数据访问/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="数据访问"><a href="#数据访问" class="headerlink" title="数据访问"></a>数据访问</h1><h2 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h2><p>对于事务的全面支持是使用 Spring Framework 的最主要原因之一。Spring Framework 为事务管理提供了统一的抽象，这带来了如下好处：</p>
+<ul>
+<li>跨越不同 transaction API 的一致编程模型，例如 Java Transaction API(JTA)，JDBC，Hibernate 和 Java Persistence API(JPA)。</li>
+<li>对<a href="#声明式事务管理">声明式事务管理</a>的支持。</li>
+<li>一种相比于复杂事务API（例如JTA）要更简单的<a href="#编程式事物管理">编程式</a>事务管理。</li>
+<li>与 Spring 的数据访问抽象的完美整合。</li>
+</ul>
+<p>以下部分描述了 Spring Framework 的事务特性和术语：</p>
+<ul>
+<li><a href="#SpringFramework的事物支持model的优点">Spring Framework 的 transaction 支持 model 的优点</a>描述了为什么要使用 Spring Framework 的 transaction 抽象而不是 EJB Container-Managed Transactions(CMT)或选择通过专有 API 驱动本地 transactions，例如 Hibernate。</li>
+<li><a href="#理解SpringFramework事务抽象">理解 Spring Framework transaction 抽象</a>概述了核心 classes，并介绍了如何从各种来源配置和获取<code>DataSource</code>实例。</li>
+<li><a href="#使用transactions同步资源">使用 transactions 同步资源</a>描述了 application code 如何确保正确创建，重用和清理资源。</li>
+<li><a href="#声明式事务管理">声明式 transaction management</a>描述了对声明性 transaction management 的支持。</li>
+<li><a href="#编程式事务管理">程序化 transaction management</a>涵盖对程序化(即明确编码)transaction management 的支持。</li>
+<li><a href="#Transaction-bound事件">Transaction bound event</a>描述了如何在 transaction 中使用 application events。</li>
+</ul>
+<p>(该章还包括对最佳实践的讨论，<a href="#特定于应用服务器的集成">application server integration</a>和<a href="#Common问题的解决方案">常见问题的解决方案</a> .)</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%95%B0%E6%8D%AE%E8%AE%BF%E9%97%AE/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%B5%8B%E8%AF%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -374,7 +476,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-22 15:49:54" itemprop="dateModified" datetime="2020-09-22T15:49:54+08:00">2020-09-22</time>
+                <time title="修改时间：2020-09-22 16:20:24" itemprop="dateModified" datetime="2020-09-22T16:20:24+08:00">2020-09-22</time>
               </span>
 
           
@@ -756,7 +858,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
