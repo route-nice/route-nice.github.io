@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="先决条件Spring Security需要Java 8或更高版本的运行时环境。 由于Spring Security旨在以独立的方式运行，因此您无需在Java Runtime Environment中放置任何特殊的配置文件。 特别是，您无需配置特殊的Java身份验证和授权服务（JAAS）策略文件，也无需将Spring Security放置在公共类路径位置。 同样，如果使用EJB容器或Servlet容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-security">
+<meta property="og:url" content="http://yoursite.com/2020/09/23/Spring-security/index.html">
+<meta property="og:site_name" content="Route-nice">
+<meta property="og:description" content="先决条件Spring Security需要Java 8或更高版本的运行时环境。 由于Spring Security旨在以独立的方式运行，因此您无需在Java Runtime Environment中放置任何特殊的配置文件。 特别是，您无需配置特殊的Java身份验证和授权服务（JAAS）策略文件，也无需将Spring Security放置在公共类路径位置。 同样，如果使用EJB容器或Servlet容">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.3.4.RELEASE/reference/html5/images/servlet/architecture/filterchain.png">
+<meta property="article:published_time" content="2020-09-23T07:33:08.000Z">
+<meta property="article:modified_time" content="2020-09-23T08:02:31.426Z">
+<meta property="article:author" content="Route-nice">
+<meta property="article:tag" content="SpringSecurity">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docs.spring.io/spring-security/site/docs/5.3.4.RELEASE/reference/html5/images/servlet/architecture/filterchain.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/23/Spring-security/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Spring-security | Route-nice</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8b3aabf954a120e5a2920d31f3600013";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Route-nice</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/23/Spring-security/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Route-nice">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Route-nice">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring-security
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-23 15:33:08 / 修改时间：16:02:31" itemprop="dateCreated datePublished" datetime="2020-09-23T15:33:08+08:00">2020-09-23</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/09/23/Spring-security/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/23/Spring-security/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a>先决条件</h1><p>Spring Security需要Java 8或更高版本的运行时环境。</p>
+<p>由于Spring Security旨在以独立的方式运行，因此您无需在Java Runtime Environment中放置任何特殊的配置文件。 特别是，您无需配置特殊的Java身份验证和授权服务（JAAS）策略文件，也无需将Spring Security放置在公共类路径位置。</p>
+<p>同样，如果使用EJB容器或Servlet容器，则无需在任何地方放置任何特殊的配置文件，也无需在服务器类加载器中包含Spring Security。 所有必需的文件都包含在您的应用程序中。</p>
+<p>这种设计提供了最大的部署时间灵活性，因为您可以将目标工件（JAR，WAR或EAR）从一个系统复制到另一个系统，并且可以立即使用。</p>
+<a id="more"></a>
+<h1 id="Spring安全社区"><a href="#Spring安全社区" class="headerlink" title="Spring安全社区"></a>Spring安全社区</h1><p>欢迎来到Spring Security社区！ 本节讨论如何充分利用我们庞大的社区。</p>
+<h1 id="Spring-Security-5-3的新增功能"><a href="#Spring-Security-5-3的新增功能" class="headerlink" title="Spring Security 5.3的新增功能"></a>Spring Security 5.3的新增功能</h1><p>Spring Security 5.3提供了许多新功能。 以下是该版本的重点内容。</p>
+<h1 id="获得Spring-Security"><a href="#获得Spring-Security" class="headerlink" title="获得Spring Security"></a>获得Spring Security</h1><p>本节讨论了有关获取Spring Security二进制文件所需的所有知识。 有关如何获取源代码的信息，请参见源代码。</p>
+<h1 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h1><p>Spring Security为身份验证，授权和针对常见漏洞的防护提供了全面的支持。 它还提供与其他库的集成，以简化其使用。</p>
+<h1 id="项目模块"><a href="#项目模块" class="headerlink" title="项目模块"></a>项目模块</h1><p>在Spring Security 3.0中，代码库被细分为单独的jar，这些jar更清楚地分离了不同的功能区域和第三方依赖项。 如果使用Maven构建项目，则应将这些模块添加到pom.xml中。 即使您不使用Maven，我们也建议您查阅pom.xml文件以了解第三方依赖关系和版本。 另一个好主意是检查示例应用程序中包含的库。</p>
+<h1 id="Samples"><a href="#Samples" class="headerlink" title="Samples"></a>Samples</h1><p>Spring Security包含许多示例应用程序。</p>
+<h1 id="Servlet-Applications"><a href="#Servlet-Applications" class="headerlink" title="Servlet Applications"></a>Servlet Applications</h1><h1 id="Hello-Spring-Security"><a href="#Hello-Spring-Security" class="headerlink" title="Hello Spring Security"></a>Hello Spring Security</h1><p>本节介绍了如何将Spring Security与Spring Boot结合使用的最小设置。</p>
+<h1 id="Servlet安全性：大局"><a href="#Servlet安全性：大局" class="headerlink" title="Servlet安全性：大局"></a>Servlet安全性：大局</h1><p>本节讨论基于Servlet的应用程序中Spring Security的高级体系结构。 我们在参考的“身份验证，授权，防止利用漏洞”部分中建立了这种高级理解。</p>
+<h2 id="筛选器的回顾"><a href="#筛选器的回顾" class="headerlink" title="筛选器的回顾"></a>筛选器的回顾</h2><p>Spring Security的Servlet支持基于Servlet过滤器，因此通常首先了解过滤器的作用会很有帮助。 下图显示了单个HTTP请求的处理程序的典型分层。</p>
+<p><img src="https://docs.spring.io/spring-security/site/docs/5.3.4.RELEASE/reference/html5/images/servlet/architecture/filterchain.png" alt="filterchain"></p>
+<p>Figure 1. FilterChain</p>
+<p>客户端向应用程序发送请求，然后容器创建一个<code>FilterChain</code>，其中包含应基于请求URI的路径处理<code>HttpServletRequest</code>的过滤器和Servlet。 在Spring MVC应用程序中，Servlet是<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-Servlet-Stack%E4%B8%8A%E7%9A%84Web/#DispatcherServlet">DispatcherServlet</a>的实例。 一个Servlet最多只能处理一个HttpServletRequest和HttpServletResponse。 但是，可以使用多个过滤器来：</p>
+<ul>
+<li>防止下游过滤器或Servlet被调用。 在这种情况下，过滤器通常将编写HttpServletResponse。</li>
+</ul>
+<ul>
+<li>修改下游过滤器和Servlet使用的<code>HttpServletRequest</code>或<code>HttpServletResponse</code></li>
+</ul>
+<p>过滤器的功能来自传递给它的<code>FilterChain</code>。</p>
+<p><strong>Example 47.</strong> <code>FilterChain</code> <strong>Usage Example</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// do something before the rest of the application</span></span><br><span class="line">    chain.doFilter(request, response); <span class="comment">// invoke the rest of the application</span></span><br><span class="line">    <span class="comment">// do something after the rest of the application</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h1><p>Spring Security提供了对身份验证的全面支持。 本节讨论：</p>
+<h1 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h1><p>Spring Security中的高级授权功能代表了其受欢迎程度的最令人信服的原因之一。 无论选择哪种身份验证（使用Spring Security提供的机制和提供程序，还是与容器或其他非Spring Security身份验证机构集成），您都会发现可以在您的应用程序中一致且简单地使用授权服务。 方式。</p>
+<p>在这一部分中，我们将探索在第一部分中介绍的不同的AbstractSecurityInterceptor实现。然后，我们将继续探讨如何通过使用域访问控制列表来微调授权。</p>
+<h2 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h2><h2 id="OAuth-2-0登录"><a href="#OAuth-2-0登录" class="headerlink" title="OAuth 2.0登录"></a>OAuth 2.0登录</h2><p>OAuth 2.0登录功能为应用程序提供了让用户通过使用其在OAuth 2.0提供程序（例如GitHub）或OpenID Connect 1.0提供程序（例如Google）上的现有帐户登录该应用程序的功能。 OAuth 2.0登录实现了以下用例：“使用Google登录”或“使用GitHub登录”。</p>
+<h1 id="SAML2"><a href="#SAML2" class="headerlink" title="SAML2"></a>SAML2</h1><h2 id="SAML-2-0登录"><a href="#SAML-2-0登录" class="headerlink" title="SAML 2.0登录"></a>SAML 2.0登录</h2><p>SAML 2.0登录名<code>saml2Login()</code>功能为应用程序提供了使用户能够通过使用其在SAML 2.0身份提供程序（Okta，ADFS等）上的现有帐户登录到该应用程序的功能。</p>
+<h1 id="防止利用漏洞"><a href="#防止利用漏洞" class="headerlink" title="防止利用漏洞"></a>防止利用漏洞</h1><h2 id="Servlet环境的跨站点请求伪造（CSRF）"><a href="#Servlet环境的跨站点请求伪造（CSRF）" class="headerlink" title="Servlet环境的跨站点请求伪造（CSRF）"></a>Servlet环境的跨站点请求伪造（CSRF）</h2><p>本部分讨论了Spring Security对Servlet环境的跨站点请求伪造（CSRF）支持。</p>
+<h1 id="整合方式"><a href="#整合方式" class="headerlink" title="整合方式"></a>整合方式</h1><h2 id="Servlet-API集成"><a href="#Servlet-API集成" class="headerlink" title="Servlet API集成"></a>Servlet API集成</h2><p>本节描述了如何将Spring Security与Servlet API集成在一起。 servletapi-xml样本应用程序演示了每种方法的用法。</p>
+<h1 id="Java配置"><a href="#Java配置" class="headerlink" title="Java配置"></a>Java配置</h1><p>在Spring 3.1中，对Java配置的常规支持已添加到Spring Framework中。 从Spring Security 3.2开始，Spring Security Java Configuration支持使用户可以轻松配置Spring Security，而无需使用任何XML。</p>
+<p>如果您熟悉安全命名空间配置，则应该在它与安全Java配置支持之间找到很多相似之处。</p>
+<h1 id="Kotlin配置"><a href="#Kotlin配置" class="headerlink" title="Kotlin配置"></a>Kotlin配置</h1><p>从Spring Security 5.3开始，Spring Security Kotlin Configuration支持已经可用。 它使用户可以使用本地Kotlin DSL轻松配置Spring Security。</p>
+<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>本节描述了Spring Security提供的测试支持。</p>
+<blockquote>
+<p>Tip</p>
+<p>要使用Spring Security测试支持，必须包含spring-security-test-5.3.4.RELEASE.jar作为项目的依赖项。</p>
+</blockquote>
+<h1 id="Spring-Security加密模块"><a href="#Spring-Security加密模块" class="headerlink" title="Spring Security加密模块"></a>Spring Security加密模块</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Spring Security Crypto模块提供对对称加密，密钥生成和密码编码的支持。 该代码作为核心模块的一部分分发，但与任何其他Spring Security（或Spring）代码无关。</p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h1 id="安全数据库架构"><a href="#安全数据库架构" class="headerlink" title="安全数据库架构"></a>安全数据库架构</h1><p>框架使用了各种数据库模式，本附录为它们提供了单个参考点。 您只需要提供所需功能范围的表即可。</p>
+<p>为HSQLDB数据库提供了DDL语句。 您可以将这些用作定义正在使用的数据库的架构的准则。</p>
+<h1 id="Reactive-Applications"><a href="#Reactive-Applications" class="headerlink" title="Reactive Applications"></a>Reactive Applications</h1><h1 id="WebFlux安全"><a href="#WebFlux安全" class="headerlink" title="WebFlux安全"></a>WebFlux安全</h1><p>Spring Security的WebFlux支持依赖于WebFilter，并且对Spring WebFlux和Spring WebFlux.Fn相同。 您可以找到一些示例程序来演示以下代码：</p>
+<h1 id="防止利用漏洞-1"><a href="#防止利用漏洞-1" class="headerlink" title="防止利用漏洞"></a>防止利用漏洞</h1><h2 id="WebFlux环境的跨站点请求伪造（CSRF）"><a href="#WebFlux环境的跨站点请求伪造（CSRF）" class="headerlink" title="WebFlux环境的跨站点请求伪造（CSRF）"></a>WebFlux环境的跨站点请求伪造（CSRF）</h2><p>本节讨论Spring Security对WebFlux环境的跨站点请求伪造（CSRF）支持。</p>
+<h1 id="OAuth2-WebFlux"><a href="#OAuth2-WebFlux" class="headerlink" title="OAuth2 WebFlux"></a>OAuth2 WebFlux</h1><p>Spring Security为响应式应用程序提供了OAuth2和WebFlux集成。</p>
+<h1 id="RegisteredOAuth2AuthorizedClient"><a href="#RegisteredOAuth2AuthorizedClient" class="headerlink" title="@RegisteredOAuth2AuthorizedClient"></a>@RegisteredOAuth2AuthorizedClient</h1><p>Spring Security允许使用@ RegisteredOAuth2AuthorizedClient解析访问令牌。</p>
+<h1 id="响应式X-509身份验证"><a href="#响应式X-509身份验证" class="headerlink" title="响应式X.509身份验证"></a>响应式X.509身份验证</h1><p>与Servlet X.509身份验证类似，反应性x509身份验证过滤器允许从客户端提供的证书中提取身份验证令牌。</p>
+<h1 id="WebClient"><a href="#WebClient" class="headerlink" title="WebClient"></a>WebClient</h1><p>以下文档供在Reactive环境中使用。 对于Servlet环境，请参阅Servlet环境的WebClient。</p>
+<h1 id="EnableReactiveMethodSecurity"><a href="#EnableReactiveMethodSecurity" class="headerlink" title="EnableReactiveMethodSecurity"></a>EnableReactiveMethodSecurity</h1><p>Spring Security使用Reactor的Context支持方法安全，该上下文是使用ReactiveSecurityContextHolder设置的。 例如，这演示了如何检索当前登录用户的消息。</p>
+<h1 id="Reactive测试支持"><a href="#Reactive测试支持" class="headerlink" title="Reactive测试支持"></a>Reactive测试支持</h1><h1 id="测试Reactive方法的安全性"><a href="#测试Reactive方法的安全性" class="headerlink" title="测试Reactive方法的安全性"></a>测试Reactive方法的安全性</h1><p>例如，我们可以使用与测试方法安全性相同的设置和注释，从EnableReactiveMethodSecurity中测试示例。 这是我们可以做的最小样本：</p>
+<h1 id="RSocket安全"><a href="#RSocket安全" class="headerlink" title="RSocket安全"></a>RSocket安全</h1><p>Spring Security的RSocket支持依赖于SocketAcceptorInterceptor。 在PayloadSocketAcceptorInterceptor中可以找到安全性的主要入口点，该接口使RSocket API适应于允许通过PayloadInterceptor实现拦截PayloadExchange。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SpringSecurity/" rel="tag"># SpringSecurity</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/22/SpringCloud%E6%A6%82%E8%BF%B0/" rel="prev" title="SpringCloud概述">
+      <i class="fa fa-chevron-left"></i> SpringCloud概述
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E5%AE%89%E5%85%A8%E7%A4%BE%E5%8C%BA"><span class="nav-number">2.</span> <span class="nav-text">Spring安全社区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Security-5-3%E7%9A%84%E6%96%B0%E5%A2%9E%E5%8A%9F%E8%83%BD"><span class="nav-number">3.</span> <span class="nav-text">Spring Security 5.3的新增功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97Spring-Security"><span class="nav-number">4.</span> <span class="nav-text">获得Spring Security</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E5%BE%81"><span class="nav-number">5.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%A8%A1%E5%9D%97"><span class="nav-number">6.</span> <span class="nav-text">项目模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Samples"><span class="nav-number">7.</span> <span class="nav-text">Samples</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet-Applications"><span class="nav-number">8.</span> <span class="nav-text">Servlet Applications</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hello-Spring-Security"><span class="nav-number">9.</span> <span class="nav-text">Hello Spring Security</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet%E5%AE%89%E5%85%A8%E6%80%A7%EF%BC%9A%E5%A4%A7%E5%B1%80"><span class="nav-number">10.</span> <span class="nav-text">Servlet安全性：大局</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%9B%E9%80%89%E5%99%A8%E7%9A%84%E5%9B%9E%E9%A1%BE"><span class="nav-number">10.1.</span> <span class="nav-text">筛选器的回顾</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">11.</span> <span class="nav-text">认证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-number">12.</span> <span class="nav-text">授权</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth2"><span class="nav-number">12.1.</span> <span class="nav-text">OAuth2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth-2-0%E7%99%BB%E5%BD%95"><span class="nav-number">12.2.</span> <span class="nav-text">OAuth 2.0登录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SAML2"><span class="nav-number">13.</span> <span class="nav-text">SAML2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SAML-2-0%E7%99%BB%E5%BD%95"><span class="nav-number">13.1.</span> <span class="nav-text">SAML 2.0登录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9E"><span class="nav-number">14.</span> <span class="nav-text">防止利用漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet%E7%8E%AF%E5%A2%83%E7%9A%84%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%EF%BC%88CSRF%EF%BC%89"><span class="nav-number">14.1.</span> <span class="nav-text">Servlet环境的跨站点请求伪造（CSRF）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B4%E5%90%88%E6%96%B9%E5%BC%8F"><span class="nav-number">15.</span> <span class="nav-text">整合方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-API%E9%9B%86%E6%88%90"><span class="nav-number">15.1.</span> <span class="nav-text">Servlet API集成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%85%8D%E7%BD%AE"><span class="nav-number">16.</span> <span class="nav-text">Java配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kotlin%E9%85%8D%E7%BD%AE"><span class="nav-number">17.</span> <span class="nav-text">Kotlin配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">18.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Security%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%9D%97"><span class="nav-number">19.</span> <span class="nav-text">Spring Security加密模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">19.1.</span> <span class="nav-text">介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">20.</span> <span class="nav-text">附录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84"><span class="nav-number">21.</span> <span class="nav-text">安全数据库架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reactive-Applications"><span class="nav-number">22.</span> <span class="nav-text">Reactive Applications</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebFlux%E5%AE%89%E5%85%A8"><span class="nav-number">23.</span> <span class="nav-text">WebFlux安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9E-1"><span class="nav-number">24.</span> <span class="nav-text">防止利用漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebFlux%E7%8E%AF%E5%A2%83%E7%9A%84%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%EF%BC%88CSRF%EF%BC%89"><span class="nav-number">24.1.</span> <span class="nav-text">WebFlux环境的跨站点请求伪造（CSRF）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAuth2-WebFlux"><span class="nav-number">25.</span> <span class="nav-text">OAuth2 WebFlux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RegisteredOAuth2AuthorizedClient"><span class="nav-number">26.</span> <span class="nav-text">@RegisteredOAuth2AuthorizedClient</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8FX-509%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="nav-number">27.</span> <span class="nav-text">响应式X.509身份验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebClient"><span class="nav-number">28.</span> <span class="nav-text">WebClient</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EnableReactiveMethodSecurity"><span class="nav-number">29.</span> <span class="nav-text">EnableReactiveMethodSecurity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reactive%E6%B5%8B%E8%AF%95%E6%94%AF%E6%8C%81"><span class="nav-number">30.</span> <span class="nav-text">Reactive测试支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95Reactive%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">31.</span> <span class="nav-text">测试Reactive方法的安全性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RSocket%E5%AE%89%E5%85%A8"><span class="nav-number">32.</span> <span class="nav-text">RSocket安全</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Route-nice"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Route-nice</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/route-nice" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;route-nice" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:route.lvy.roman@gmail.com" title="E-Mail → mailto:route.lvy.roman@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Route-nice</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://route-nice.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2020/09/23/Spring-security/";
+    this.page.identifier = "2020/09/23/Spring-security/";
+    this.page.title = "Spring-security";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://route-nice.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
