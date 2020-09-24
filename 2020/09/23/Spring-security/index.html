@@ -28,8 +28,13 @@
 <meta property="og:description" content="先决条件Spring Security需要Java 8或更高版本的运行时环境。 由于Spring Security旨在以独立的方式运行，因此您无需在Java Runtime Environment中放置任何特殊的配置文件。 特别是，您无需配置特殊的Java身份验证和授权服务（JAAS）策略文件，也无需将Spring Security放置在公共类路径位置。 同样，如果使用EJB容器或Servlet容">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.3.4.RELEASE/reference/html5/images/servlet/architecture/filterchain.png">
+<meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/delegatingfilterproxy.png">
+<meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/filterchainproxy.png">
+<meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/securityfilterchain.png">
+<meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/multi-securityfilterchain.png">
+<meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/exceptiontranslationfilter.png">
 <meta property="article:published_time" content="2020-09-23T07:33:08.000Z">
-<meta property="article:modified_time" content="2020-09-23T09:29:38.557Z">
+<meta property="article:modified_time" content="2020-09-24T09:01:50.856Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringSecurity">
 <meta name="twitter:card" content="summary">
@@ -199,10 +204,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-09-23 15:33:08 / 修改时间：17:29:38" itemprop="dateCreated datePublished" datetime="2020-09-23T15:33:08+08:00">2020-09-23</time>
+              <time title="创建时间：2020-09-23 15:33:08" itemprop="dateCreated datePublished" datetime="2020-09-23T15:33:08+08:00">2020-09-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-24 17:01:50" itemprop="dateModified" datetime="2020-09-24T17:01:50+08:00">2020-09-24</time>
+              </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -293,6 +304,7 @@
 </li>
 </ul>
 <h2 id="与Maven结合使用"><a href="#与Maven结合使用" class="headerlink" title="与Maven结合使用"></a>与Maven结合使用</h2><p>与大多数开源项目一样，Spring Security将其依赖项部署为Maven工件。本节中的主题提供有关使用Maven时如何使用Spring Security的详细信息。</p>
+<p><span id="getting-maven-boot"></span></p>
 <h3 id="Spring-Boot-with-Maven"><a href="#Spring-Boot-with-Maven" class="headerlink" title="Spring Boot with Maven"></a>Spring Boot with Maven</h3><p>Spring Boot提供了一个<code>spring-boot-starter-security</code>入门程序，它将Spring Security相关的依赖项聚合在一起。使用启动程序的最简单且首选的方法是通过IDE集成（Eclipse，IntelliJ，NetBeans）或通过使用<a href="[https://start.spring.io](https://start.spring.io/">Spring Initializr</a>)。</p>
 <p>另外，您可以手动添加启动器，如以下示例所示：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- ... other dependency elements ... --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -319,6 +331,7 @@
 <p>如果使用里程碑版本或候选版本，则需要确保定义了Spring Milestone存储库，如以下示例所示：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">repositories</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- ... possibly other repository elements ... --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>spring-milestone<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>Spring Milestone Repository<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>https://repo.spring.io/milestone<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">repositories</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h2 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h2><p>与大多数开源项目一样，Spring Security将其依赖项部署为Maven工件，从而提供了一流的Gradle支持。 以下主题详细介绍了使用Gradle时如何使用Spring Security。</p>
+<p><span id="getting-gradle-boot"></span></p>
 <h3 id="Spring-Boot-with-Gradle"><a href="#Spring-Boot-with-Gradle" class="headerlink" title="Spring Boot with Gradle"></a>Spring Boot with Gradle</h3><p>Spring Boot提供了一个<code>spring-boot-starter-security</code>入门工具，它将Spring Security相关的依赖项聚合在一起。 使用启动程序的最简单且首选的方法是通过IDE集成（Eclipse，IntelliJ，NetBeans）或通过<a target="_blank" rel="noopener" href="https://start.spring.io使用Spring">https://start.spring.io使用Spring</a> Initializr。</p>
 <p>另外，您可以手动添加启动器，如以下示例所示：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    compile <span class="string">&quot;org.springframework.boot:spring-boot-starter-security&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -341,12 +354,867 @@
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">    maven &#123; url <span class="string">&#x27;https://repo.spring.io/snapshot&#x27;</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>如果使用里程碑版本或候选版本，则需要确保定义了Spring Milestone存储库，如以下示例所示：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">repositories &#123;</span><br><span class="line">    maven &#123; url <span class="string">&#x27;https://repo.spring.io/milestone&#x27;</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h1><p>Spring Security为身份验证，授权和针对常见漏洞的防护提供了全面的支持。 它还提供与其他库的集成，以简化其使用。</p>
-<h1 id="项目模块"><a href="#项目模块" class="headerlink" title="项目模块"></a>项目模块</h1><p>在Spring Security 3.0中，代码库被细分为单独的jar，这些jar更清楚地分离了不同的功能区域和第三方依赖项。 如果使用Maven构建项目，则应将这些模块添加到pom.xml中。 即使您不使用Maven，我们也建议您查阅pom.xml文件以了解第三方依赖关系和版本。 另一个好主意是检查示例应用程序中包含的库。</p>
-<h1 id="Samples"><a href="#Samples" class="headerlink" title="Samples"></a>Samples</h1><p>Spring Security包含许多示例应用程序。</p>
-<h1 id="Servlet-Applications"><a href="#Servlet-Applications" class="headerlink" title="Servlet Applications"></a>Servlet Applications</h1><h1 id="Hello-Spring-Security"><a href="#Hello-Spring-Security" class="headerlink" title="Hello Spring Security"></a>Hello Spring Security</h1><p>本节介绍了如何将Spring Security与Spring Boot结合使用的最小设置。</p>
+<h1 id="特征"><a href="#特征" class="headerlink" title="特征"></a>特征</h1><p>Spring Security为<a href="#authentication">身份验证</a>，授权和针对<a href="#exploits">常见漏洞</a>的防护提供了全面的支持。 它还提供与其他库的集成，以简化其使用。</p>
+<p><span id="authentication"></span></p>
+<h2 id="认证方式"><a href="#认证方式" class="headerlink" title="认证方式"></a>认证方式</h2><p>Spring Security为<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Authentication">身份验证</a>提供了全面的支持。 身份验证是我们验证谁试图访问特定资源的身份的方法。 验证用户身份的常用方法是要求用户输入用户名和密码。 一旦执行了身份验证，我们就会知道身份并可以执行授权。</p>
+<h3 id="认证支持"><a href="#认证支持" class="headerlink" title="认证支持"></a>认证支持</h3><p>Spring Security提供了用于验证用户的内置支持。有关每个堆栈支持的内容的详细信息，请参阅<a href="#servlet-authentication">Servlet</a>和WebFlux的身份验证部分。</p>
+<h3 id="密码储存"><a href="#密码储存" class="headerlink" title="密码储存"></a>密码储存</h3><p>Spring Security的<code>PasswordEncoder</code>接口用于对密码进行单向转换，以使密码可以安全地存储。鉴于<code>PasswordEncoder</code>是一种单向转换，因此当密码转换需要采用两种方式（即存储用于向数据库进行身份验证的凭据）时，则不打算使用它。通常，<code>PasswordEncoder</code>用于存储在身份验证时需要与用户提供的密码进行比较的密码。</p>
+<h4 id="密码存储历史"><a href="#密码存储历史" class="headerlink" title="密码存储历史"></a>密码存储历史</h4><p>多年来，用于存储密码的标准机制已经发展。最初，密码以纯文本格式存储。假定密码是安全的，因为数据存储密码已保存在访问它所需的凭据中。但是，恶意用户能够使用SQL Injection这样的攻击找到方法来获取用户名和密码的大型“数据转储”。随着越来越多的用户凭证成为公共安全专家，我们意识到我们需要做更多的工作来保护用户的密码。</p>
+<p>然后鼓励开发人员在通过诸如SHA-256之类的单向哈希运行密码后存储密码。当用户尝试进行身份验证时，会将哈希密码与他们键入的密码的哈希进行比较。这意味着系统仅需要存储密码的单向哈希。如果发生违规，则仅暴露密码的一种单列哈希。由于散列是一种方式，计算出给定哈希值的密码很难计算，因此找出系统中的每个密码都不值得。为了击败这个新系统，恶意用户决定创建称为Rainbow Tables的查找表。他们无需每次都猜测每个密码，而是只计算一次密码并将其存储在查找表中。</p>
+<p>为了减轻Rainbow Tables的有效性，鼓励开发人员使用加盐的密码。不仅将密码用作哈希函数的输入，还将为每个用户的密码生成随机字节（称为salt）。盐和用户密码将通过散列函数运行，从而产生唯一的散列。盐将以明文形式与用户密码一起存储。然后，当用户尝试进行身份验证时，会将哈希密码与存储的盐的哈希值和他们键入的密码进行比较。唯一的盐意味着<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Rainbow_table">Rainbow Tables</a>不再有效，因为每种盐和密码组合的哈希值都不同。</p>
+<p>在现代，我们意识到密码哈希（例如SHA-256）不再安全。原因是使用现代硬件，我们可以每秒执行数十亿次哈希计算。这意味着我们可以轻松地分别破解每个密码。</p>
+<p>现在鼓励开发人员利用自适应单向功能来存储密码。具有自适应单向功能的密码验证有意占用大量资源（即CPU，内存等）。自适应单向功能允许配置“工作因数”，该因数会随着硬件的改进而增加。建议将“工作因数”调整为大约1秒钟，以验证系统上的密码。这种权衡使攻击者难以破解密码，但代价却不那么高，这给您自己的系统增加了负担。 Spring Security试图为“工作因素”提供一个良好的起点，但是鼓励用户为自己的系统自定义“工作因素”，因为不同系统之间的性能会有很大的不同。应使用的自适应单向功能示例包括<a href="#authentication-password-storage-bcrypt">bcrypt</a>，<a href="#authentication-password-storage-pbkdf2">PBKDF2</a>，<a href="#authentication-password-storage-scrypt">scrypt</a>和<a href="#authentication-password-storage-argon2">argon2</a>。</p>
+<p>由于自适应单向功能有意占用大量资源，因此为每个请求验证用户名和密码都会大大降低应用程序的性能。 Spring Security（或任何其他库）无法执行任何操作来加快密码的验证速度，因为通过增加验证资源的强度来获得安全性。鼓励用户将长期凭证（即用户名和密码）交换为短期凭证（即会话，OAuth令牌等）。可以快速验证短期凭证，而不会损失任何安全性。</p>
+<h4 id="DelegatingPasswordEncoder"><a href="#DelegatingPasswordEncoder" class="headerlink" title="DelegatingPasswordEncoder"></a>DelegatingPasswordEncoder</h4><p>在Spring Security 5.0之前，默认的<code>PasswordEncoder</code>是<code>NoOpPasswordEncoder</code>，它需要纯文本密码。 根据“密码历史记录”部分，您可能希望默认的<code>PasswordEncoder</code>现在类似于<code>BCryptPasswordEncoder</code>。 但是，这忽略了三个现实问题：</p>
+<ul>
+<li>有许多使用旧密码编码的应用程序无法轻松迁移</li>
+</ul>
+<ul>
+<li>密码存储的最佳做法将再次更改。</li>
+</ul>
+<ul>
+<li>作为一个框架，Spring Security不能经常进行重大更改</li>
+</ul>
+<p>相反，Spring Security引入了<code>DelegatingPasswordEncoder</code>，它通过以下方式解决了所有问题：</p>
+<ul>
+<li>确保使用当前密码存储建议对密码进行编码</li>
+</ul>
+<ul>
+<li>允许以现代和旧式格式验证密码</li>
+</ul>
+<ul>
+<li>允许将来升级编码</li>
+</ul>
+<p>您可以使用<code>PasswordEncoderFactories</code>轻松构造<code>DelegatingPasswordEncoder</code>的实例。</p>
+<p>例子18.创建默认的DelegatingPasswordEncoder</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PasswordEncoder passwordEncoder &#x3D;</span><br><span class="line">    PasswordEncoderFactories.createDelegatingPasswordEncoder();</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">val passwordEncoder: PasswordEncoder &#x3D; PasswordEncoderFactories.createDelegatingPasswordEncoder()</span><br></pre></td></tr></table></figure>
+<p>或者，您可以创建自己的自定义实例。 例如：</p>
+<p>例子19.创建自定义DelegatingPasswordEncoder</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String idForEncode &#x3D; &quot;bcrypt&quot;;</span><br><span class="line">Map encoders &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">encoders.put(idForEncode, new BCryptPasswordEncoder());</span><br><span class="line">encoders.put(&quot;noop&quot;, NoOpPasswordEncoder.getInstance());</span><br><span class="line">encoders.put(&quot;pbkdf2&quot;, new Pbkdf2PasswordEncoder());</span><br><span class="line">encoders.put(&quot;scrypt&quot;, new SCryptPasswordEncoder());</span><br><span class="line">encoders.put(&quot;sha256&quot;, new StandardPasswordEncoder());</span><br><span class="line"></span><br><span class="line">PasswordEncoder passwordEncoder &#x3D;</span><br><span class="line">    new DelegatingPasswordEncoder(idForEncode, encoders);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">val idForEncode &#x3D; &quot;bcrypt&quot;</span><br><span class="line">val encoders: MutableMap&lt;String, PasswordEncoder&gt; &#x3D; mutableMapOf()</span><br><span class="line">encoders[idForEncode] &#x3D; BCryptPasswordEncoder()</span><br><span class="line">encoders[&quot;noop&quot;] &#x3D; NoOpPasswordEncoder.getInstance()</span><br><span class="line">encoders[&quot;pbkdf2&quot;] &#x3D; Pbkdf2PasswordEncoder()</span><br><span class="line">encoders[&quot;scrypt&quot;] &#x3D; SCryptPasswordEncoder()</span><br><span class="line">encoders[&quot;sha256&quot;] &#x3D; StandardPasswordEncoder()</span><br><span class="line"></span><br><span class="line">val passwordEncoder: PasswordEncoder &#x3D; DelegatingPasswordEncoder(idForEncode, encoders)</span><br></pre></td></tr></table></figure>
+<h5 id="密码存储格式"><a href="#密码存储格式" class="headerlink" title="密码存储格式"></a>密码存储格式</h5><p>密码的一般格式为：</p>
+<p>例子20. DelegatingPasswordEncoder存储格式</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;id&#125;encodedPassword</span><br></pre></td></tr></table></figure>
+<p>这样的id是用于查找应使用哪个<code>PasswordEncoder</code>的标识符，而<code>encodePassword</code>是所选<code>PasswordEncoder</code>的原始编码密码。 ID必须在密码的开头，以{开头，以}结尾。 如果找不到该ID，则该ID将为null。 例如，以下可能是使用不同ID编码的密码列表。 所有原始密码均为“密码”。</p>
+<p>例子21. DelegatingPasswordEncoder编码密码例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;bcrypt&#125;$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM&#x2F;BG 1</span><br><span class="line">&#123;noop&#125;password 2</span><br><span class="line">&#123;pbkdf2&#125;5d923b44a6d129f3ddf3e3c8d29412723dcbde72445e8ef6bf3b508fbf17fa4ed4d6b99ca763d8dc 3</span><br><span class="line">&#123;scrypt&#125;$e0801$8bWJaSu2IKSn9Z9kM+TPXfOc&#x2F;9bdYSrN1oD9qfVThWEwdRTnO7re7Ei+fUZRJ68k9lTyuTeUp4of4g24hHnazw&#x3D;&#x3D;$OAOec05+bXxvuu&#x2F;1qZ6NUR+xQYvYv7BeL1QxwRpY5Pc&#x3D;  4</span><br><span class="line">&#123;sha256&#125;97cde38028ad898ebc02e690819fa220e88c62e0699403e94fff291cfffaf8410849f27605abcbc0 5</span><br></pre></td></tr></table></figure>
+<ol>
+<li>第一个密码将具有bcrypt的<code>PasswordEncoder</code> id和编码密码为<code>$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM/BG</code>。<br>匹配时将委派给<code>BCryptPasswordEncoder</code></li>
+<li>第二个密码将具有noop的PasswordEncoder id和密码的encodePassword。<br>匹配时将委派给NoOpPasswordEncoder</li>
+<li>第三个密码的密码编码器ID为pbkdf2，编码密码为5d923b44a6d129f3ddf3e3c8d29412723dcbde72445e8ef6bf3b508fbf17fa4ed4d6b99ca763d8dc。<br>匹配时将委派给Pbkdf2PasswordEncoder</li>
+<li>第四个密码将具有scrypt的密码编码器ID，并且编码的密码为<code>$e0801$8bWJaSu2IKSn9Z9kM+TPXfOc/9bdYSrN1oD9qfVThWEwdRTnO7re7Ei+fUZRJ68k9lTyuTeUp4of4g24hHnazw==$OAOec05+bXxvuu/1qZ6NUR+xQYvYv7BeL1QxwRpY5Pc=</code><br>匹配时将委派给SCryptPasswordEncoder</li>
+<li>最终密码的密码编码器ID为sha256，编码密码为97cde38028ad898ebc02e690819fa220e88c62e0699403e94fff291cfffaf8410849f27605abcbc0。<br>匹配时将委派给StandardPasswordEncoder</li>
+</ol>
+<blockquote>
+<p>Note</p>
+<p>一些用户可能会担心为潜在的黑客提供了存储格式。不必担心，因为密码的存储不依赖于算法是秘密。此外，大多数格式很容易让攻击者在没有前缀的情况下弄清楚。例如，BCrypt密码通常以$ 2a $开头。</p>
+</blockquote>
+<h5 id="密码编码"><a href="#密码编码" class="headerlink" title="密码编码"></a>密码编码</h5><p>传递给构造函数的<code>idForEncode</code>确定将使用哪个<code>PasswordEncoder</code>编码密码。 在上面我们构造的<code>DelegatingPasswordEncoder</code>中，这意味着编码密码的结果将委派给<code>BCryptPasswordEncoder</code>并以<code>&#123;bcrypt&#125;</code>为前缀。 最终结果如下所示：</p>
+<p>例子22. DelegatingPasswordEncoder编码例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;bcrypt&#125;$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM&#x2F;BG</span><br></pre></td></tr></table></figure>
+<h5 id="密码匹配"><a href="#密码匹配" class="headerlink" title="密码匹配"></a>密码匹配</h5><p>匹配是基于<code>&#123;id&#125;</code>和<code>id</code>到构造函数中提供的<code>PasswordEncoder</code>的映射完成的。我们的“<a href="#authentication-password-storage-dpe-format">密码存储格式</a>”示例提供了如何完成此操作的示例。默认情况下，使用密码和未映射的ID（包括空ID）调用<code>match(CharSequence，String)</code>的结果将导致<code>IllegalArgumentException</code>。可以使用<code>DelegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(PasswordEncoder)</code>自定义此行为。</p>
+<p>通过使用<code>id</code>，我们可以匹配任何密码编码，但是使用最现代的密码编码对密码进行编码。这很重要，因为与加密不同，密码哈希被设计为没有简单的方法来恢复明文。由于无法恢复明文，因此很难迁移密码。虽然用户迁移NoOpPasswordEncoder很容易，但我们默认选择包含它，以使入门体验更简单。</p>
+<h5 id="入门经验"><a href="#入门经验" class="headerlink" title="入门经验"></a>入门经验</h5><p>如果您要编写演示或样本，那么花一些时间来哈希用户密码会很麻烦。有一些方便的机制可以简化此过程，但这仍然不适合生产。</p>
+<p>例子23. withDefaultPasswordEncoder例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">User user &#x3D; User.withDefaultPasswordEncoder()</span><br><span class="line">  .username(&quot;user&quot;)</span><br><span class="line">  .password(&quot;password&quot;)</span><br><span class="line">  .roles(&quot;user&quot;)</span><br><span class="line">  .build();</span><br><span class="line">System.out.println(user.getPassword());</span><br><span class="line">&#x2F;&#x2F; &#123;bcrypt&#125;$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM&#x2F;BG</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">val user &#x3D; User.withDefaultPasswordEncoder()</span><br><span class="line">    .username(&quot;user&quot;)</span><br><span class="line">    .password(&quot;password&quot;)</span><br><span class="line">    .roles(&quot;user&quot;)</span><br><span class="line">    .build()</span><br><span class="line">println(user.password)</span><br><span class="line">&#x2F;&#x2F; &#123;bcrypt&#125;$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM&#x2F;BG</span><br></pre></td></tr></table></figure>
+<p>如果要创建多个用户，则还可以重复使用该构建器。</p>
+<p>例子24. withDefaultPasswordEncoder重用构建器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">UserBuilder users &#x3D; User.withDefaultPasswordEncoder();</span><br><span class="line">User user &#x3D; users</span><br><span class="line">  .username(&quot;user&quot;)</span><br><span class="line">  .password(&quot;password&quot;)</span><br><span class="line">  .roles(&quot;USER&quot;)</span><br><span class="line">  .build();</span><br><span class="line">User admin &#x3D; users</span><br><span class="line">  .username(&quot;admin&quot;)</span><br><span class="line">  .password(&quot;password&quot;)</span><br><span class="line">  .roles(&quot;USER&quot;,&quot;ADMIN&quot;)</span><br><span class="line">  .build();</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> users = User.withDefaultPasswordEncoder()</span><br><span class="line"><span class="keyword">val</span> user = users</span><br><span class="line">    .username(<span class="string">&quot;user&quot;</span>)</span><br><span class="line">    .password(<span class="string">&quot;password&quot;</span>)</span><br><span class="line">    .roles(<span class="string">&quot;USER&quot;</span>)</span><br><span class="line">    .build()</span><br><span class="line"><span class="keyword">val</span> admin = users</span><br><span class="line">    .username(<span class="string">&quot;admin&quot;</span>)</span><br><span class="line">    .password(<span class="string">&quot;password&quot;</span>)</span><br><span class="line">    .roles(<span class="string">&quot;USER&quot;</span>, <span class="string">&quot;ADMIN&quot;</span>)</span><br><span class="line">    .build()</span><br></pre></td></tr></table></figure>
+<p>这会散列存储的密码，但是密码仍在内存和已编译的源代码中公开。 因此，对于生产环境，仍不认为它是安全的。 为了进行生产，您应该在<a href="#authentication-password-storage-boot-cli">外部对密码进行哈希处理</a>。</p>
+<h5 id="使用Spring-Boot-CLI编码"><a href="#使用Spring-Boot-CLI编码" class="headerlink" title="使用Spring Boot CLI编码"></a>使用Spring Boot CLI编码</h5><p>正确编码密码的最简单方法是使用<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/html/spring-boot-cli.html">Spring Boot CLI</a>。</p>
+<p>例如，以下代码将对与<a href="#authentication-password-storage-dpe">DelegatingPasswordEncoder</a>一起使用的<code>password</code>密码进行编码：</p>
+<p>例子25. Spring Boot CLI encodepassword例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">spring encodepassword password</span><br><span class="line">&#123;bcrypt&#125;$2a$10$X5wFBtLrL&#x2F;kHcmrOGGTrGufsBX8CJ0WpQpF3pgeuxBB&#x2F;H73BK1DW6</span><br></pre></td></tr></table></figure>
+<h5 id="故障排除"><a href="#故障排除" class="headerlink" title="故障排除"></a>故障排除</h5><p>当所存储的密码之一没有如“<a href="#authentication-password-storage-dpe-format">密码存储格式</a>”中所述的id时，会发生以下错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalArgumentException: There is no PasswordEncoder mapped for the id &quot;null&quot;</span><br><span class="line">    at org.springframework.security.crypto.password.DelegatingPasswordEncoder$UnmappedIdPasswordEncoder.matches(DelegatingPasswordEncoder.java:233)</span><br><span class="line">    at org.springframework.security.crypto.password.DelegatingPasswordEncoder.matches(DelegatingPasswordEncoder.java:196)</span><br></pre></td></tr></table></figure>
+<p>解决该错误的最简单方法是切换为显式提供用于编码密码的<code>PasswordEncoder</code>。 解决此问题的最简单方法是弄清楚密码的当前存储方式，并明确提供正确的<code>PasswordEncoder</code>。</p>
+<p>如果您是从Spring Security 4.2.x迁移的，则可以<a href="#authentication-password-storage-configuration">通过公开<code>NoOpPasswordEncoder</code></a> bean恢复到以前的行为。</p>
+<p>或者，您可以为所有密码加上正确的ID前缀，然后继续使用<code>DelegatingPasswordEncoder</code>。 例如，如果您使用的是BCrypt，则可以从以下方式迁移密码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM&#x2F;BG</span><br></pre></td></tr></table></figure>
+<p>到</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;bcrypt&#125;$2a$10$dXJ3SW6G7P50lGmMkkmwe.20cQQubK3.HZWzG3YB1tlRy.fqvM&#x2F;BG</span><br></pre></td></tr></table></figure>
+<p>有关映射的完整列表，请参阅<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/5.0.x/api/org/springframework/security/crypto/factory/PasswordEncoderFactories.html">PasswordEncoderFactories</a>上的Javadoc。</p>
+<h4 id="BCryptPasswordEncoder"><a href="#BCryptPasswordEncoder" class="headerlink" title="BCryptPasswordEncoder"></a>BCryptPasswordEncoder</h4><p><code>BCryptPasswordEncoder</code>实现使用广泛支持的<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Bcrypt">bcrypt</a>算法对密码进行哈希处理。 为了使其更能抵御密码破解，bcrypt故意降低了速度。 与其他自适应单向功能一样，应将其调整为大约1秒钟才能验证系统上的密码。 <code>BCryptPasswordEncoder</code>的默认实现使用强度10，如<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html">BCryptPasswordEncoder</a>的Javadoc中所述。 建议您在自己的系统上调整和测试强度参数，以使验证密码大约需要1秒钟。</p>
+<p>例子26. BCryptPasswordEncoder</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Create an encoder with strength 16</span><br><span class="line">BCryptPasswordEncoder encoder &#x3D; new BCryptPasswordEncoder(16);</span><br><span class="line">String result &#x3D; encoder.encode(&quot;myPassword&quot;);</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Create an encoder with strength 16</span><br><span class="line">val encoder &#x3D; BCryptPasswordEncoder(16)</span><br><span class="line">val result: String &#x3D; encoder.encode(&quot;myPassword&quot;)</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result))</span><br></pre></td></tr></table></figure>
+<h4 id="Argon2PasswordEncoder"><a href="#Argon2PasswordEncoder" class="headerlink" title="Argon2PasswordEncoder"></a>Argon2PasswordEncoder</h4><p><code>Argon2PasswordEncoder</code>实现使用<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Argon2">Argon2</a>算法对密码进行哈希处理。 Argon2是<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Password_Hashing_Competition">“密码哈希竞赛”</a>的获胜者。 为了克服自定义硬件上的密码破解问题，Argon2是一种故意慢速的算法，需要大量内存。 与其他自适应单向功能一样，应将其调整为大约1秒钟才能验证系统上的密码。 <code>Argon2PasswordEncoder</code>的当前实现需要BouncyCastle。</p>
+<p>例子27. Argon2PasswordEncoder</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F; Create an encoder with all the defaults</span><br><span class="line">Argon2PasswordEncoder encoder &#x3D; new Argon2PasswordEncoder();</span><br><span class="line">String result &#x3D; encoder.encode(&quot;myPassword&quot;);</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Create an encoder with all the defaults</span><br><span class="line">val encoder &#x3D; Argon2PasswordEncoder()</span><br><span class="line">val result: String &#x3D; encoder.encode(&quot;myPassword&quot;)</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result))</span><br></pre></td></tr></table></figure>
+<h4 id="Pbkdf2PasswordEncoder"><a href="#Pbkdf2PasswordEncoder" class="headerlink" title="Pbkdf2PasswordEncoder"></a>Pbkdf2PasswordEncoder</h4><p><code>Pbkdf2PasswordEncoder</code>实现使用<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/PBKDF2">PBKDF2</a>算法对密码进行哈希处理。 为了克服密码破解问题，PBKDF2是一种故意缓慢的算法。 与其他自适应单向功能一样，应将其调整为大约1秒钟才能验证系统上的密码。 当需要FIPS认证时，此算法是不错的选择。</p>
+<p>例子28. Pbkdf2PasswordEncoder</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Create an encoder with all the defaults</span><br><span class="line">Pbkdf2PasswordEncoder encoder &#x3D; new Pbkdf2PasswordEncoder();</span><br><span class="line">String result &#x3D; encoder.encode(&quot;myPassword&quot;);</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Create an encoder with all the defaults</span><br><span class="line">val encoder &#x3D; Pbkdf2PasswordEncoder()</span><br><span class="line">val result: String &#x3D; encoder.encode(&quot;myPassword&quot;)</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result))</span><br></pre></td></tr></table></figure>
+<h4 id="SCryptPasswordEncoder"><a href="#SCryptPasswordEncoder" class="headerlink" title="SCryptPasswordEncoder"></a>SCryptPasswordEncoder</h4><p><code>SCryptPasswordEncoder</code>实现使用<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Scrypt">scrypt</a>算法对密码进行哈希处理。 为了克服自定义硬件scrypt上的密码破解问题，这是一种故意缓慢的算法，需要大量内存。 与其他自适应单向功能一样，应将其调整为大约1秒钟才能验证系统上的密码。</p>
+<p>例子29. SCryptPasswordEncoder</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Create an encoder with all the defaults</span><br><span class="line">SCryptPasswordEncoder encoder &#x3D; new SCryptPasswordEncoder();</span><br><span class="line">String result &#x3D; encoder.encode(&quot;myPassword&quot;);</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Create an encoder with all the defaults</span><br><span class="line">val encoder &#x3D; SCryptPasswordEncoder()</span><br><span class="line">val result: String &#x3D; encoder.encode(&quot;myPassword&quot;)</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result))</span><br></pre></td></tr></table></figure>
+<h4 id="其他密码编码器"><a href="#其他密码编码器" class="headerlink" title="其他密码编码器"></a>其他密码编码器</h4><p>还有许多其他的<code>PasswordEncoder</code>实现完全是为了向后兼容而存在的。 不推荐使用它们，以表明它们不再被视为安全。 但是，由于很难迁移现有的旧系统，因此没有删除它们的计划。</p>
+<h4 id="密码存储配置"><a href="#密码存储配置" class="headerlink" title="密码存储配置"></a>密码存储配置</h4><p>Spring Security默认使用<a href="#authentication-password-storage-dpe">DelegatingPasswordEncoder</a>。 但是，可以通过将<code>PasswordEncoder</code>公开为Spring bean来对其进行自定义。</p>
+<p>如果您是从Spring Security 4.2.x迁移的，则可以通过公开<code>NoOpPasswordEncoder</code> bean恢复到以前的行为。</p>
+<blockquote>
+<p>Warning</p>
+<p>恢复为<code>NoOpPasswordEncoder</code>不被认为是安全的。 相反，您应该迁移到使用<code>DelegatingPasswordEncoder</code>支持安全密码编码。</p>
+</blockquote>
+<p>例子30. NoOpPasswordEncoder</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> NoOpPasswordEncoder <span class="title">passwordEncoder</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> NoOpPasswordEncoder.getInstance();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">b:bean</span> <span class="attr">id</span>=<span class="string">&quot;passwordEncoder&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">class</span>=<span class="string">&quot;org.springframework.security.crypto.password.NoOpPasswordEncoder&quot;</span> <span class="attr">factory-method</span>=<span class="string">&quot;getInstance&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">passwordEncoder</span><span class="params">()</span></span>: PasswordEncoder &#123;</span><br><span class="line">    <span class="keyword">return</span> NoOpPasswordEncoder.getInstance();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note</p>
+<p>XML配置要求<code>NoOpPasswordEncoder</code> Bean名称为<code>passwordEncoder</code>。</p>
+</blockquote>
+<h2 id="防止利用漏洞"><a href="#防止利用漏洞" class="headerlink" title="防止利用漏洞"></a>防止利用漏洞</h2><p>Spring Security提供了针对常见漏洞的保护。只要有可能，默认情况下就启用保护。在下面，您将找到Spring Security防御的各种利用的高级描述。</p>
+<p><span id="csrf"></span></p>
+<h3 id="跨站请求伪造（CSRF）"><a href="#跨站请求伪造（CSRF）" class="headerlink" title="跨站请求伪造（CSRF）"></a>跨站请求伪造（CSRF）</h3><p>Spring为防止<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">跨站请求伪造（CSRF）</a>攻击提供了全面的支持。在以下各节中，我们将探讨：</p>
+<ul>
+<li><p><a href="#csrf-explained">什么是CSRF攻击</a>？</p>
+</li>
+<li><p><a href="#csrf-protection">防范CSRF攻击</a></p>
+</li>
+<li><p><a href="#csrf-considerations">CSRF注意事项</a></p>
+</li>
+</ul>
+<blockquote>
+<p>Note</p>
+<p>本文档的这一部分讨论CSRF保护的一般主题。有关针对<a href="#servlet-csrf">Servlet</a>和基于<a href="#webflux-csrf">WebFlux</a>的应用程序的CSRF保护的特定信息，请参阅相关部分。</p>
+</blockquote>
+<p><span id="csrf-explained"></span></p>
+<h4 id="什么是CSRF攻击？"><a href="#什么是CSRF攻击？" class="headerlink" title="什么是CSRF攻击？"></a>什么是CSRF攻击？</h4><p>理解CSRF攻击的最佳方法是看一个具体示例。</p>
+<p>假设您银行的网站提供了一种表格，该表格允许将资金从当前登录的用户转移到另一个银行帐户。例如，转移表格可能如下所示：</p>
+<p>例子31.转移表格</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">action</span>=<span class="string">&quot;/transfer&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;amount&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;routingNumber&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;account&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">&quot;Transfer&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相应的HTTP请求可能如下所示：</p>
+<p>例子32.传输HTTP请求</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/transfer</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: bank.example.com</span><br><span class="line"><span class="attribute">Cookie</span>: JSESSIONID=randomid</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">amount=100.00&amp;routingNumber=1234&amp;account=9876</span><br></pre></td></tr></table></figure>
+<p>现在，假装您对银行的网站进行身份验证，然后无需注销即可访问一个邪恶的网站。 恶意网站包含具有以下格式的HTML页面：</p>
+<p>例子33.邪恶的转移表格</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">action</span>=<span class="string">&quot;https://bank.example.com/transfer&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;amount&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">&quot;100.00&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;routingNumber&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">&quot;evilsRoutingNumber&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;account&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">&quot;evilsAccountNumber&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">&quot;Win Money!&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>您想赢钱，因此单击“提交”按钮。在此过程中，您无意中将$ 100转让给了恶意用户。发生这种情况的原因是，尽管恶意网站无法看到您的cookie，但与您的银行关联的cookie仍与请求一起发送。</p>
+<p>最糟糕的是，使用JavaScript可以使整个过程自动化。这意味着您甚至不需要单击该按钮。此外，在访问受<a target="_blank" rel="noopener" href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS">XSS攻击</a>)的诚实站点时，也很容易发生这种情况。那么，我们如何保护用户免受此类攻击呢？</p>
+<h4 id="防范CSRF攻击"><a href="#防范CSRF攻击" class="headerlink" title="防范CSRF攻击"></a>防范CSRF攻击</h4><p>发生CSRF攻击的原因是受害者网站的HTTP请求与攻击者网站的请求完全相同。这意味着无法拒绝来自邪恶网站的请求，也不允许来自银行网站的请求。为了防御CSRF攻击，我们需要确保恶意站点无法提供请求中的某些内容，因此我们可以区分这两个请求。</p>
+<p>Spring提供了两种机制来防御CSRF攻击：</p>
+<ul>
+<li><p><a href="#csrf-protection-stp">同步器令牌模式</a></p>
+</li>
+<li><p>在会话Cookie上指定<a href="#csrf-protection-ssa">SameSite属性</a></p>
+</li>
+</ul>
+<blockquote>
+<p>Note</p>
+<p>两种保护都要求<a href="#csrf-protection-idempotent">安全方法必须是幂等的</a></p>
+</blockquote>
+<p><span id="csrf-protection-idempotent"></span></p>
+<h5 id="安全方法必须是幂等的"><a href="#安全方法必须是幂等的" class="headerlink" title="安全方法必须是幂等的"></a>安全方法必须是幂等的</h5><p>为了使针对CSRF的<a href="#csrf-protection">任何一种保护</a>都起作用，应用程序必须确保<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7231#section-4.2.1">“安全” HTTP方法是幂等的</a>。这意味着使用HTTP方法<code>GET</code>，<code>HEAD</code>，<code>OPTIONS</code>和<code>TRACE</code>进行的请求不应更改应用程序的状态。</p>
+<p><span id="csrf-protection-stp"></span></p>
+<h5 id="同步器令牌模式"><a href="#同步器令牌模式" class="headerlink" title="同步器令牌模式"></a>同步器令牌模式</h5><p>抵御CSRF攻击的最主要，最全面的方法是使用同步器令牌模式。该解决方案是为了确保每个HTTP请求除了我们的会话cookie之外，还必须在HTTP请求中包含一个安全的，随机生成的值，称为CSRF令牌。</p>
+<p>提交HTTP请求时，服务器必须查找预期的CSRF令牌，并将其与HTTP请求中的实际CSRF令牌进行比较。如果值不匹配，则应拒绝HTTP请求。</p>
+<p>这项工作的关键是，实际的CSRF令牌应该位于浏览器不会自动包含的HTTP请求的一部分中。例如，在HTTP参数或HTTP标头中要求实际的CSRF令牌将防止CSRF攻击。在cookie中要求实际CSRF令牌不起作用，因为浏览器会自动将cookie包含在HTTP请求中。</p>
+<p>我们可以放宽期望，仅对每个更新应用程序状态的HTTP请求仅要求实际的CSRF令牌。为此，我们的应用程序必须确保<a href="#csrf-protection-idempotent">安全的HTTP方法是幂等的</a>。因为我们希望允许使用外部站点的链接来链接到我们的网站，所以这提高了可用性。另外，我们不想在HTTP GET中包含随机令牌，因为这可能导致令牌泄漏。</p>
+<p>让我们看一下使用<a href="#csrf-explained">同步令牌模式</a>时示例将如何变化。假设实际的CSRF令牌必须位于名为_csrf的HTTP参数中。我们应用程序的转帐表格如下：</p>
+<p>例子34.同步器令牌形式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">action</span>=<span class="string">&quot;/transfer&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;_csrf&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">&quot;4bfd1575-3ad1-4d21-96c7-4ef2d9f86721&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;amount&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;routingNumber&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">name</span>=<span class="string">&quot;account&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">value</span>=<span class="string">&quot;Transfer&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>现在，该表单包含具有CSRF令牌值的隐藏输入。 外部站点无法读取CSRF令牌，因为相同的来源策略可确保恶意站点无法读取响应。</p>
+<p>相应的HTTP汇款请求如下所示：</p>
+<p>例子35.同步器令牌请求</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/transfer</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Host</span>: bank.example.com</span><br><span class="line"><span class="attribute">Cookie</span>: JSESSIONID=randomid</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">amount=100.00&amp;routingNumber=1234&amp;account=9876&amp;_csrf=4bfd1575-3ad1-4d21-96c7-4ef2d9f86721</span><br></pre></td></tr></table></figure>
+<p>您会注意到，HTTP请求现在包含带有安全随机值的<code>_csrf</code>参数。恶意网站将无法为<code>_csrf</code>参数提供正确的值（必须在邪恶网站上明确提供），并且当服务器将实际CSRF令牌与预期CSRF令牌进行比较时，传输将失败。</p>
+<h5 id="SameSite属性"><a href="#SameSite属性" class="headerlink" title="SameSite属性"></a>SameSite属性</h5><p>防止<a href="#csrf">CSRF攻击</a>的一种新兴方法是在cookie上指定SameSite属性。设置cookie时，服务器可以指定SameSite属性，以指示从外部站点发出时不应发送该cookie。</p>
+<blockquote>
+<p>Note</p>
+<p>Spring Security不直接控制会话cookie的创建，因此不提供对SameSite属性的支持。 <a target="_blank" rel="noopener" href="https://spring.io/projects/spring-session">Spring Session</a>在基于servlet的应用程序中为<code>SameSite</code>属性提供支持。 Spring Framework的<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/server/session/CookieWebSessionIdResolver.html">CookieWebSessionIdResolver</a>为基于WebFlux的应用程序中的SameSite属性提供了开箱即用的支持。</p>
+</blockquote>
+<p>一个示例，带有<code>SameSite</code>属性的HTTP响应标头可能类似于：</p>
+<p>例子36. SameSite HTTP响应</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: JSESSIONID&#x3D;randomid; Domain&#x3D;bank.example.com; Secure; HttpOnly; SameSite&#x3D;Lax</span><br></pre></td></tr></table></figure>
+<p><code>SameSite</code>属性的有效值为：</p>
+<ul>
+<li><p><code>Strict</code>-指定后，来自<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-2.1">同一站点</a>的任何请求都将包含cookie。否则，cookie将不会包含在HTTP请求中。</p>
+</li>
+<li><p><code>Lax</code>-当来自<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-2.1">同一个站点</a>的请求发送的cookie或来自顶层导航的请求且<a href="#csrf-protection-idempotent">方法是幂等</a>的时候。否则，cookie将不会包含在HTTP请求中。</p>
+</li>
+</ul>
+<p>让我们看一下如何使用<code>SameSite</code>属性保护我们的<a href="#csrf-explained">示例</a>。银行应用程序可以通过在会话cookie上指定<code>SameSite</code>属性来防御CSRF。</p>
+<p>在会话cookie上设置<code>SameSite</code>属性后，浏览器将继续发送<code>JSESSIONID</code> cookie和来自银行网站的请求。但是，浏览器将不再发送带有来自邪恶网站的传输请求的<code>JSESSIONID</code> cookie。由于会话不再存在于来自邪恶网站的传输请求中，因此可以保护应用程序免受CSRF攻击。</p>
+<p>使用<code>SameSite</code>属性防御CSRF攻击时，应注意一些重要<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/draft-west-first-party-cookies-07#section-5">注意事项</a>。</p>
+<p>将<code>SameSite</code>属性设置为<code>Strict</code>可以提供更强的防御能力，但会使用户感到困惑。考虑一个保持登录到托管在<a target="_blank" rel="noopener" href="https://social.example.com上的社交媒体网站的用户。用户在https://email.example.org上收到一封电子邮件，其中包含指向社交媒体网站的链接。如果用户单击链接，则他们理所当然地希望能够通过社交媒体站点进行身份验证。但是，如果`SameSite`属性为`Strict`，则不会发送cookie，因此不会对用户进行身份验证。">https://social.example.com上的社交媒体网站的用户。用户在https://email.example.org上收到一封电子邮件，其中包含指向社交媒体网站的链接。如果用户单击链接，则他们理所当然地希望能够通过社交媒体站点进行身份验证。但是，如果`SameSite`属性为`Strict`，则不会发送cookie，因此不会对用户进行身份验证。</a></p>
+<blockquote>
+<p>Note</p>
+<p>通过实施<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-security/issues/7537">gh-7537</a>，我们可以提高<code>SameSite</code>防御CSRF攻击的保护性和可用性。</p>
+</blockquote>
+<p>另一个明显的考虑因素是，为了使<code>SameSite</code>属性能够保护用户，浏览器必须支持<code>SameSite</code>属性。大多数现代浏览器都<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/headers/Set-Cookie#Browser_compatibility">支持SameSite属性</a>。但是，可能仍未使用较旧的浏览器。</p>
+<p>因此，通常建议将<code>SameSite</code>属性用作深度防御，而不是针对CSRF攻击的唯一防护。</p>
+<h4 id="何时使用CSRF保护"><a href="#何时使用CSRF保护" class="headerlink" title="何时使用CSRF保护"></a>何时使用CSRF保护</h4><p>什么时候应该使用CSRF保护？我们的建议是对普通用户可能由浏览器处理的任何请求使用CSRF保护。如果仅创建非浏览器客户端使用的服务，则可能需要禁用CSRF保护。</p>
+<h4 id="CSRF保护和JSON"><a href="#CSRF保护和JSON" class="headerlink" title="CSRF保护和JSON"></a>CSRF保护和JSON</h4><p>一个常见的问题是“我需要保护由javascript发出的JSON请求吗？”简短的答案是，这取决于。但是，您必须非常小心，因为有些CSRF漏洞会影响JSON请求。例如，恶意用户可以使用以下<a target="_blank" rel="noopener" href="http://blog.opensecurityresearch.com/2012/02/json-csrf-with-parameter-padding.html">格式使用JSON创建CSRF</a>：</p>
+<p>例子37. CSRF和JSON形式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;https://bank.example.com/transfer&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span> <span class="attr">enctype</span>=<span class="string">&quot;text/plain&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&#x27;&#123;&quot;amount&quot;:100,&quot;routingNumber&quot;:&quot;evilsRoutingNumber&quot;,&quot;account&quot;:&quot;evilsAccountNumber&quot;, &quot;ignore_me&quot;:&quot;&#x27;</span> <span class="attr">value</span>=<span class="string">&#x27;test&quot;&#125;&#x27;</span> <span class="attr">type</span>=<span class="string">&#x27;hidden&#x27;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">value</span>=<span class="string">&quot;Win Money!&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这将产生以下JSON结构</p>
+<p>例子38. CSRF和JSON请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">&quot;amount&quot;</span>: <span class="number">100</span>,</span><br><span class="line"><span class="string">&quot;routingNumber&quot;</span>: <span class="string">&quot;evilsRoutingNumber&quot;</span>,</span><br><span class="line"><span class="string">&quot;account&quot;</span>: <span class="string">&quot;evilsAccountNumber&quot;</span>,</span><br><span class="line"><span class="string">&quot;ignore_me&quot;</span>: <span class="string">&quot;=test&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果应用程序未验证Content-Type，则该应用程序将被暴露。 根据设置的不同，仍然可以通过更新URL后缀以<code>.json</code>结尾来利用验证内容类型的Spring MVC应用程序，如下所示：</p>
+<p>例子39. CSRF和JSON Spring MVC表单</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;https://bank.example.com/transfer.json&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span> <span class="attr">enctype</span>=<span class="string">&quot;text/plain&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&#x27;&#123;&quot;amount&quot;:100,&quot;routingNumber&quot;:&quot;evilsRoutingNumber&quot;,&quot;account&quot;:&quot;evilsAccountNumber&quot;, &quot;ignore_me&quot;:&quot;&#x27;</span> <span class="attr">value</span>=<span class="string">&#x27;test&quot;&#125;&#x27;</span> <span class="attr">type</span>=<span class="string">&#x27;hidden&#x27;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">value</span>=<span class="string">&quot;Win Money!&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h5 id="CSRF和无状态浏览器应用程序"><a href="#CSRF和无状态浏览器应用程序" class="headerlink" title="CSRF和无状态浏览器应用程序"></a>CSRF和无状态浏览器应用程序</h5><p>如果我的应用程序是无状态的怎么办？这并不一定意味着您受到保护。实际上，如果用户不需要针对给定请求在Web浏览器中执行任何操作，则他们可能仍然容易受到CSRF攻击。</p>
+<p>例如，考虑一个使用自定义cookie而不是JSESSIONID的应用程序，该自定义cookie包含其中的所有状态用于身份验证。进行CSRF攻击后，自定义cookie将与请求一起发送，其方式与在前面的示例中发送JSESSIONID cookie相同。此应用程序容易受到CSRF攻击。</p>
+<p>使用基本身份验证的应用程序也容易受到CSRF攻击。该应用程序容易受到攻击，因为浏览器将在所有请求中自动包含用户名和密码，就像在前面的示例中发送JSESSIONID cookie一样。</p>
+<h5 id="CSRF注意事项"><a href="#CSRF注意事项" class="headerlink" title="CSRF注意事项"></a>CSRF注意事项</h5><p>实施针对CSRF攻击的防护时，需要考虑一些特殊注意事项。</p>
+<h6 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h6><p>为了防止伪造登录请求，应该保护HTTP<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-site_request_forgery#Forging_login_requests">请求中的登录</a>免受CSRF攻击。必须防止伪造登录请求，以使恶意用户无法读取受害者的敏感信息。攻击执行如下：</p>
+<ul>
+<li>恶意用户使用恶意用户的凭据执行CSRF登录。现在，将受害者验证为恶意用户。</li>
+</ul>
+<ul>
+<li>然后，恶意用户诱骗受害者访问受感染的网站并输入敏感信息</li>
+</ul>
+<ul>
+<li>该信息与恶意用户的帐户相关联，因此恶意用户可以使用自己的凭据登录并查看vicitim的敏感信息</li>
+</ul>
+<p>确保保护登录的HTTP请求免受CSRF攻击的可能麻烦在于，用户可能会遇到会话超时，从而导致请求被拒绝。会话超时对于不需要登录就需要会话的用户来说是令人惊讶的。有关更多信息，请参阅<a href="#csrf-considerations-timeouts">CSRF和会话超时</a>。</p>
+<h6 id="注销"><a href="#注销" class="headerlink" title="注销"></a>注销</h6><p>为了防止伪造注销请求，应该保护注销HTTP请求免受CSRF攻击。必须防止伪造注销请求，以使恶意用户无法读取受害者的敏感信息。有关攻击的详细信息，请参阅此<a target="_blank" rel="noopener" href="https://labs.detectify.com/2017/03/15/loginlogout-csrf-time-to-reconsider/">博客文章</a>。</p>
+<p>确保注销HTTP请求免受CSRF攻击的可能并发症是用户可能会遇到会话超时，从而导致请求被拒绝。会话超时对于不希望需要会话才能注销的用户来说是令人惊讶的。有关更多信息，请参阅<a href="#csrf-considerations-timeouts">CSRF和会话超时</a>。</p>
+<p><span id="csrf-considerations-timeouts"></span></p>
+<h6 id="CSRF和会话超时"><a href="#CSRF和会话超时" class="headerlink" title="CSRF和会话超时"></a>CSRF和会话超时</h6><p>通常，预期的CSRF令牌存储在会话中。这意味着，会话期满后，服务器将不会找到预期的CSRF令牌并拒绝HTTP请求。有很多选项可以解决超时问题，每个选项都需要权衡取舍。</p>
+<ul>
+<li>减轻超时的最佳方法是使用JavaScript在表单提交时请求CSRF令牌。然后使用CSRF令牌更新该表单并提交。</li>
+</ul>
+<ul>
+<li>另一个选择是使用一些JavaScript，让用户知道他们的会话即将到期。用户可以单击一个按钮以继续并刷新会话。</li>
+</ul>
+<ul>
+<li><p>最后，预期的CSRF令牌可以存储在cookie中。这样可以使预期的CSRF令牌寿命更长。</p>
+<p>有人可能会问为什么默认情况下预期的CSRF令牌没有存储在Cookie中。这是因为存在已知的漏洞利用，其中另一个域可以设置标头（例如，用于指定cookie）。这与出现标题X-Requested-With时Ruby on Rails<a target="_blank" rel="noopener" href="https://weblog.rubyonrails.org/2011/2/8/csrf-protection-bypass-in-ruby-on-rails/">不再跳过CSRF检查的原因</a>相同。请参阅此<a target="_blank" rel="noopener" href="http://lists.webappsec.org/pipermail/websecurity_lists.webappsec.org/2011-February/007533.html">webappsec.org</a>线程以获取有关如何执行漏洞利用的详细信息。另一个缺点是，通过删除状态（即超时），您将失去在令牌遭到破坏时强制使令牌无效的能力。</p>
+</li>
+</ul>
+<h6 id="分段（文件上传）"><a href="#分段（文件上传）" class="headerlink" title="分段（文件上传）"></a>分段（文件上传）</h6><p>保护分段请求（文件上传）免受CSRF攻击会导致<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Chicken_or_the_egg">鸡和蛋</a>的问题。为了防止发生CSRF攻击，必须读取HTTP请求的正文以获得实际的CSRF令牌。但是，读取正文表示文件将被上传，这意味着外部站点可以上传文件。</p>
+<p>将CSRF保护与multipart / form-data一起使用有两种选择。每个选项都有其取舍。</p>
+<ul>
+<li>将CSRF令牌放入身体</li>
+</ul>
+<ul>
+<li>将CSRF令牌放入URL</li>
+</ul>
+<blockquote>
+<p>Note</p>
+<p>在将Spring Security的CSRF保护与分段文件上传集成之前，请确保您可以首先在没有CSRF保护的情况下进行上传。有关在Spring中使用多部分表单的更多信息，请参见Spring参考的<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-Servlet-Stack%E4%B8%8A%E7%9A%84Web/#Multipart解析器">Multipart Resolver部分</a>和<a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.2.x/javadoc-api/org/springframework/web/multipart/support/MultipartFilter.html">MultidocFilter javadoc</a>。</p>
+</blockquote>
+<p>将CSRF令牌放入身体<br>第一种选择是在请求正文中包含实际的CSRF令牌。通过将CSRF令牌放入正文中，将在执行授权之前读取正文。这意味着任何人都可以在您的服务器上放置临时文件。但是，只有授权用户才能提交由您的应用程序处理的文件。通常，这是推荐的方法，因为临时文件上传对大多数服务器的影响可以忽略不计。</p>
+<p>在网址中包含CSRF令牌<br>如果不允许未经授权的用户上传临时文件，则可以选择将预期的CSRF令牌作为查询参数包含在表单的action属性中。这种方法的缺点是查询参数可能会泄漏。更一般而言，将敏感数据放置在正文或标题中以确保不泄漏是最佳实践。可以在<a target="_blank" rel="noopener" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec15.html#sec15.1.3">RFC 2616第15.1.3节“在URI中编码敏感信息”</a>中找到其他信息。</p>
+<p>HiddenHttpMethodFilter<br>在某些应用程序中，可以使用form参数来覆盖HTTP方法。例如，下面的表格可用于将HTTP方法视为删除而不是发布。</p>
+<p>例子40. CSRF隐藏的HTTP方法表格</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/process&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">name</span>=<span class="string">&quot;_method&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">value</span>=<span class="string">&quot;delete&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>覆盖HTTP方法在过滤器中进行。该过滤器必须放在Spring Security支持之前。请注意，覆盖仅发生在<code>POST</code>上，因此实际上不太可能引起任何实际问题。但是，仍然最好的方法是确保将其放置在Spring Security的过滤器之前。</p>
+<h3 id="安全HTTP响应标头"><a href="#安全HTTP响应标头" class="headerlink" title="安全HTTP响应标头"></a>安全HTTP响应标头</h3><blockquote>
+<p>Note</p>
+<p>文档的此部分讨论安全HTTP响应标头的一般主题。有关安全HTTP响应标头Servlet和基于WebFlux的应用程序的特定信息，请参阅相关部分。</p>
+</blockquote>
+<p>有许多<a target="_blank" rel="noopener" href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#tab=Headers">HTTP响应标头</a>可用于提高Web应用程序的安全性。本节专门介绍Spring Security提供显式支持的各种HTTP响应标头。如有必要，还可以将Spring Security配置为提供<a href="#headers-custom">自定义标头</a>。</p>
+<h4 id="默认安全Headers"><a href="#默认安全Headers" class="headerlink" title="默认安全Headers"></a>默认安全Headers</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何为基于<a href="#servlet-headers-default">servlet</a>和基于<a href="#webflux-headers-default">webflux</a>的应用程序定制默认值。</p>
+</blockquote>
+<p>Spring Security提供了一组默认的与安全性相关的HTTP响应标头，以提供安全的默认值。</p>
+<p>Spring Security的默认值为包含以下标头：</p>
+<p>例子41.默认的安全HTTP响应头</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cache-Control</span>: no-cache, no-store, max-age=0, must-revalidate</span><br><span class="line"><span class="attribute">Pragma</span>: no-cache</span><br><span class="line"><span class="attribute">Expires</span>: 0</span><br><span class="line"><span class="attribute">X-Content-Type-Options</span>: nosniff</span><br><span class="line"><span class="attribute">Strict-Transport-Security</span>: max-age=31536000 ; includeSubDomains</span><br><span class="line"><span class="attribute">X-Frame-Options</span>: DENY</span><br><span class="line"><span class="attribute">X-XSS-Protection</span>: 1; mode=block</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note</p>
+<p>仅在HTTPS请求上添加严格传输安全性</p>
+</blockquote>
+<p>如果默认设置不能满足您的需要，则可以轻松地从这些默认设置中删除，修改或添加标题。 有关这些标题中的每个标题的更多详细信息，请参阅相应的部分：</p>
+<ul>
+<li><p><a href="#headers-cache-control">缓存控制</a></p>
+</li>
+<li><p><a href="#headers-content-type-options">内容类型选项</a></p>
+</li>
+<li><p><a href="#headers-hsts">HTTP严格传输安全</a></p>
+</li>
+<li><p><a href="#headers-frame-options">X-Frame-Options</a></p>
+</li>
+<li><p><a href="#headers-xss-protection">X-XSS-Protection</a></p>
+</li>
+</ul>
+<p><span id="headers-cache-control"></span></p>
+<h4 id="缓存控制"><a href="#缓存控制" class="headerlink" title="缓存控制"></a>缓存控制</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何为基于<a href="#servlet-headers-cache-control">servlet</a>和基于<a href="#webflux-headers-cache-control">webflux</a>的应用程序定制默认值。</p>
+</blockquote>
+<p>Spring Security的默认设置是禁用缓存以保护用户的内容。</p>
+<p>如果用户通过身份验证可以查看敏感信息然后注销，则我们不希望恶意用户能够单击“后退”按钮查看敏感信息。 默认情况下发送的缓存控制标头是：</p>
+<p>例子42.默认的缓存控制HTTP响应头</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Cache-Control</span>: no-cache, no-store, max-age=0, must-revalidate</span><br><span class="line"><span class="attribute">Pragma</span>: no-cache</span><br><span class="line"><span class="attribute">Expires</span>: 0</span><br></pre></td></tr></table></figure>
+<p>为了默认安全，Spring Security默认添加这些头。但是，如果您的应用程序提供了自己的缓存控制标头，Spring Security将会退出。这允许应用程序确保可以缓存CSS和JavaScript之类的静态资源。</p>
+<p><span id="headers-content-type-options"></span></p>
+<h4 id="内容类型选项"><a href="#内容类型选项" class="headerlink" title="内容类型选项"></a>内容类型选项</h4><p>请参阅相关部分，以了解如何为基于<a href="#servlet-headers-content-type-options">servlet</a>和基于<a href="#webflux-headers-content-type-options">webflux</a>的应用程序定制默认值。</p>
+<p>从历史上看，包括Internet Explorer在内的浏览器都会尝试使用<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Content_sniffing">内容嗅探</a>来猜测请求的内容类型。这允许浏览器通过猜测未指定内容类型的资源上的内容类型来改善用户体验。例如，如果浏览器遇到一个未指定内容类型的JavaScript文件，它将能够猜测该内容类型然后运行它。</p>
+<blockquote>
+<p>Note</p>
+<p>允许上传内容时，还有许多其他事情（即，仅在不同的域中显示文档，确保设置了Content-Type标头，清理文档等）。但是，这些措施不在Spring Security提供的范围之内。同样重要的是要指出在禁用内容嗅探时，必须指定内容类型才能使内容正常工作。</p>
+</blockquote>
+<p>内容嗅探的问题在于，这允许恶意用户使用多义标记（即，可以作为多种内容类型有效的文件）执行XSS攻击。例如，某些网站可能允许用户向网站提交有效的附言文档并进行查看。恶意用户可能会创建一个也是<a target="_blank" rel="noopener" href="http://webblaze.cs.berkeley.edu/papers/barth-caballero-song.pdf">有效JavaScript文件的Postscript文档</a>，并对其进行XSS攻击。</p>
+<p>Spring Security通过在HTTP响应中添加以下标头来默认禁用内容嗅探：</p>
+<p>例子43. nosniff HTTP响应头</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-Content-Type-Options: nosniff</span><br></pre></td></tr></table></figure>
+<p><span id="headers-hsts"></span></p>
+<h4 id="HTTP严格传输安全性（HSTS）"><a href="#HTTP严格传输安全性（HSTS）" class="headerlink" title="HTTP严格传输安全性（HSTS）"></a>HTTP严格传输安全性（HSTS）</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何为基于<a href="#servlet-headers-content-type-options">servlet</a>和基于<a href="#webflux-headers-content-type-options">webflux</a>的应用程序定制默认值。</p>
+</blockquote>
+<p>当您输入银行的网站时，您输入的是mybank.example.com还是输入<a href="https://mybank.example.com？如果省略https协议，则可能会受到[中间人攻击](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)。即使网站执行了重定向到https://mybank.example.com的行为，恶意用户也可能拦截了初始HTTP请求并操纵了响应（例如，重定向到https://mibank.example.com并窃取了其凭据）。">https://mybank.example.com？如果省略https协议，则可能会受到[中间人攻击](https://en.wikipedia.org/wiki/Man-in-the-middle_attack)。即使网站执行了重定向到https://mybank.example.com的行为，恶意用户也可能拦截了初始HTTP请求并操纵了响应（例如，重定向到https://mibank.example.com并窃取了其凭据）。</a></p>
+<p>许多用户忽略了https协议，这就是创建<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6797">HTTP严格传输安全性（HSTS）</a>的原因。将mybank.example.com添加为<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6797#section-5.1">HSTS主机</a>后，浏览器可以提前知道对mybank.example.com的任何请求都应解释为<a target="_blank" rel="noopener" href="https://mybank.example.com。这大大降低了发生中间人攻击的可能性。">https://mybank.example.com。这大大降低了发生中间人攻击的可能性。</a></p>
+<blockquote>
+<p>Note</p>
+<p>根据<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc6797#section-7.2">RFC6797</a>，HSTS标头仅注入HTTPS响应中。为了使浏览器能够确认标头，浏览器必须首先信任对用于建立连接的SSL证书（不仅仅是SSL证书）进行签名的CA。</p>
+</blockquote>
+<p>将站点标记为HSTS主机的一种方法是将主机预加载到浏览器中。另一个是将<code>Strict-Transport-Security</code>标头添加到响应中。例如，Spring Security的默认行为是添加以下标头，该标头指示浏览器将域视为一年的HSTS主机（一年大约31536000秒）：</p>
+<p>例子44.严格的传输安全HTTP响应头</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Strict-Transport-Security: max-age&#x3D;31536000 ; includeSubDomains ; preload</span><br></pre></td></tr></table></figure>
+<p>可选的<code>includeSubDomains</code>指令可指示浏览器子域（例如secure.mybank.example.com）也应被视为HSTS域。</p>
+<p>可选的preload指令指示浏览器将域作为HSTS域预加载到浏览器中。有关HSTS预加载的更多详细信息，请参见<a target="_blank" rel="noopener" href="https://hstspreload.org">https://hstspreload.org</a>。</p>
+<p><span id="headers-hpkp"></span></p>
+<h4 id="HTTP公钥固定（HPKP）"><a href="#HTTP公钥固定（HPKP）" class="headerlink" title="HTTP公钥固定（HPKP）"></a>HTTP公钥固定（HPKP）</h4><blockquote>
+<p>Note</p>
+<p>为了保持被动，Spring Security仍在<a href="#servlet-headers-hpkp">servlet环境中提供对HPKP的支持</a>，但是由于上述原因，安全团队不再推荐HPKP。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Public_Key_Pinning">HTTP公共密钥固定（HPKP）</a>向Web客户端指定要与某些Web服务器一起使用的公共密钥，以防止使用伪造证书的中间人（MITM）攻击。如果使用得当，HPKP可以添加更多保护层，以防止受到破坏的证书。但是，由于HPKP的复杂性，许多专家不再建议使用它，<a target="_blank" rel="noopener" href="https://www.chromestatus.com/feature/5903385005916160">Chrome甚至取消了对它的支持</a>。</p>
+<p>有关为何不再推荐HPKP的更多详细信息，请阅读<a target="_blank" rel="noopener" href="https://blog.qualys.com/ssllabs/2016/09/06/is-http-public-key-pinning-dead">HTTP公钥固定已死吗？</a>和<a target="_blank" rel="noopener" href="https://scotthelme.co.uk/im-giving-up-on-hpkp/">我放弃了HPKP</a>。</p>
+<p><span id="headers-frame-options"></span></p>
+<h4 id="X-Frame-Options"><a href="#X-Frame-Options" class="headerlink" title="X-Frame-Options"></a>X-Frame-Options</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何为基于<a href="#servlet-headers-content-type-options">servlet</a>和基于<a href="#webflux-headers-content-type-options">webflux</a>的应用程序定制默认值。</p>
+</blockquote>
+<p>允许将您的网站添加到框架可能是一个安全问题。例如，使用聪明的CSS样式用户可能会被诱骗点击他们不想要的东西。例如，登录到其银行的用户可以单击将按钮授予其他用户访问权限。这种攻击称为<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Clickjacking">Clickjacking</a>。</p>
+<blockquote>
+<p>Note</p>
+<p>处理点击劫持的另一种现代方法是使用<a href="#headers-csp">内容安全策略（CSP）</a>。</p>
+</blockquote>
+<p>有许多方法可以缓解点击劫持攻击。例如，要保护旧版浏览器免遭点击劫持攻击，可以使用<a target="_blank" rel="noopener" href="https://www.owasp.org/index.php/Clickjacking_Defense_Cheat_Sheet#Best-for-now_Legacy_Browser_Frame_Breaking_Script">分帧代码</a>。虽然不完美，但是对于传统浏览器而言，破帧代码是最好的选择。</p>
+<p>解决点击劫持的更现代方法是使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/HTTP/X-Frame-Options">X-Frame-Options</a>标头。默认情况下，Spring Security使用以下标头禁用iframe中的呈现页面：</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">X-Frame-Options</span>: DENY</span><br></pre></td></tr></table></figure>
+<p><span id="headers-xss-protection"></span></p>
+<h4 id="X-XSS-Protection"><a href="#X-XSS-Protection" class="headerlink" title="X-XSS-Protection"></a>X-XSS-Protection</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何为基于<a href="#servlet-headers-content-type-options">servlet</a>和基于<a href="#webflux-headers-content-type-options">webflux</a>的应用程序定制默认值。</p>
+</blockquote>
+<p>一些浏览器内置了对过滤掉<a target="_blank" rel="noopener" href="https://www.owasp.org/index.php/Testing_for_Reflected_Cross_site_scripting_(OWASP-DV-001">反射的XSS攻击</a>)的支持。 这绝非万无一失，但确实有助于XSS保护。</p>
+<p>通常默认情况下会启用过滤，因此添加标头通常只会确保标头已启用，并指示浏览器在检测到XSS攻击时应采取的措施。 例如，过滤器可能会尝试以最小侵入性的方式更改内容以仍然呈现所有内容。 有时，这种替换本身可能会成为<a target="_blank" rel="noopener" href="https://hackademix.net/2009/11/21/ies-xss-filter-creates-xss-vulnerabilities/">XSS漏洞</a>。 相反，最好是阻止内容，而不要尝试对其进行修复。 默认情况下，Spring Security使用以下标头阻止内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X-XSS-Protection: 1; mode&#x3D;block</span><br></pre></td></tr></table></figure>
+<p><span id="headers-csp"></span></p>
+<h4 id="Content-Security-Policy-CSP"><a href="#Content-Security-Policy-CSP" class="headerlink" title="Content Security Policy (CSP)"></a>Content Security Policy (CSP)</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何配置基于<a href="#servlet-headers-content-type-options">servlet</a>和基于<a href="#webflux-headers-content-type-options">webflux</a>的应用程序。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/CSP2/">内容安全策略（CSP）</a>是Web应用程序可以用来减轻诸如跨站点脚本（XSS）之类的内容注入漏洞的机制。 CSP是一种声明性策略，为Web应用程序作者提供了一种工具，可以声明该Web应用程序希望从中加载资源的来源，并最终将这些信息通知客户端（用户代理）。</p>
+<blockquote>
+<p>Note</p>
+<p>内容安全策略并非旨在解决所有内容注入漏洞。取而代之的是，可以利用CSP帮助减少内容注入攻击所造成的危害。作为第一道防线，Web应用程序作者应验证其输入并对输出进行编码。</p>
+</blockquote>
+<p>Web应用程序可以通过在响应中包括以下HTTP标头之一来使用CSP：</p>
+<ul>
+<li><p><code>Content-Security-Policy</code></p>
+</li>
+<li><p><code>Content-Security-Policy-Report-Only</code></p>
+</li>
+</ul>
+<p>这些标头中的每一个都用作将安全策略传递给客户端的机制。安全策略包含一组安全策略指令，每个指令负责声明对特定资源表示形式的限制。</p>
+<p>例如，Web应用程序可以通过在响应中包括以下标头来声明它希望从特定的受信任源中加载脚本：</p>
+<p>例子45.内容安全策略例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy: script-src https:&#x2F;&#x2F;trustedscripts.example.com</span><br></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/CSP2/#violation-reports">违规报告</a>是标准的JSON结构，可以由Web应用程序自己的API或公共托管的CSP违规报告服务（例如<a target="_blank" rel="noopener" href="https://report-uri.io/">https://report-uri.io/</a>）捕获。</p>
+<p><code>Content-Security-Policy-Report-Only</code>标头为Web应用程序作者和管理员提供了监视安全策略而不是强制执行这些策略的功能。 该标题通常在试验和/或开发站点的安全策略时使用。 当某个策略被认为有效时，可以通过使用<code>Content-Security-Policy</code>标头字段来强制实施。</p>
+<p>给定以下响应头，该策略声明可以从两个可能的来源之一加载脚本。</p>
+<p>例子47.仅内容安全策略报告</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Content-Security-Policy-Report-Only: script-src &#39;self&#39; https:&#x2F;&#x2F;trustedscripts.example.com; report-uri &#x2F;csp-report-endpoint&#x2F;</span><br></pre></td></tr></table></figure>
+<p>如果该站点违反了此策略，则通过尝试从evil.com加载脚本，用户代理会将违规报告发送到report-uri指令指定的声明URL，但是仍然允许违规资源加载。</p>
+<p>将内容安全策略应用于Web应用程序通常是一项艰巨的任务。 以下资源可以为您的站点制定有效的安全策略提供进一步的帮助。</p>
+<p><a target="_blank" rel="noopener" href="https://www.html5rocks.com/en/tutorials/security/content-security-policy/">内容安全策略简介</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/Security/CSP">CSP指南-Mozilla开发人员网络</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/CSP2/">W3C候选人推荐</a></p>
+<p><span id="headers-referrer"></span></p>
+<h4 id="Referrer-Policy"><a href="#Referrer-Policy" class="headerlink" title="Referrer Policy"></a>Referrer Policy</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何配置基于<a href="#servlet-headers-content-type-options">servlet</a>和基于<a href="#webflux-headers-content-type-options">webflux</a>的应用程序。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/referrer-policy">引荐来源网址政策</a>是一种机制，Web应用程序可以利用该机制来管理引荐来源网址字段，该字段包含用户所在的最后一页。</p>
+<p>Spring Security的方法是使用<a target="_blank" rel="noopener" href="https://www.w3.org/TR/referrer-policy/">Referrer Policy</a>标头，该标头提供了不同的<a target="_blank" rel="noopener" href="https://www.w3.org/TR/referrer-policy/#referrer-policies">策略</a>：</p>
+<p>例子48.推荐人策略例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Referrer-Policy: same-origin</span><br></pre></td></tr></table></figure>
+<p>Referrer-Policy响应标头指示浏览器让目的地知道用户先前所在的源。</p>
+<p><span id="headers-feature"></span></p>
+<h4 id="功能政策"><a href="#功能政策" class="headerlink" title="功能政策"></a>功能政策</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何配置基于<a href="#servlet-headers-content-type-options">servlet</a>和基于<a href="#webflux-headers-content-type-options">webflux</a>的应用程序。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://wicg.github.io/feature-policy/">功能策略</a>是一种机制，它允许Web开发人员有选择地启用，禁用和修改浏览器中某些API和Web功能的行为。</p>
+<p>例子49.功能策略例子</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Feature-Policy: geolocation &#39;self&#39;</span><br></pre></td></tr></table></figure>
+<p>借助功能策略，开发人员可以为浏览器选择一套“策略”，以实施整个站点中使用的特定功能。 这些政策限制了网站可以访问或修改某些功能的浏览器默认行为的API。</p>
+<p><span id="headers-clear-site-data"></span></p>
+<h4 id="清除网站数据"><a href="#清除网站数据" class="headerlink" title="清除网站数据"></a>清除网站数据</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何配置基于servlet和基于webflux的应用程序。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://www.w3.org/TR/clear-site-data/">清除站点数据</a>是一种机制，通过该机制，当HTTP响应包含以下标头时，可以删除所有浏览器端数据（cookie，本地存储等）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Clear-Site-Data: &quot;cache&quot;, &quot;cookies&quot;, &quot;storage&quot;, &quot;executionContexts&quot;</span><br></pre></td></tr></table></figure>
+<p>这是注销时执行的不错的清理操作。</p>
+<h4 id="自定义标题"><a href="#自定义标题" class="headerlink" title="自定义标题"></a>自定义标题</h4><blockquote>
+<p>Note</p>
+<p>请参阅相关部分，以了解如何配置两个基于<a href="#servlet-headers-custom">Servlet</a>的应用程序。</p>
+</blockquote>
+<p>Spring Security具有使您可以方便地将更常见的安全标头添加到您的应用程序的机制。 但是，它也提供了挂钩来启用添加自定义标头。</p>
+<h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><p>所有基于HTTP的通信，包括<a target="_blank" rel="noopener" href="https://www.troyhunt.com/heres-why-your-static-website-needs-https/">静态资源</a>，都应<a target="_blank" rel="noopener" href="https://cheatsheetseries.owasp.org/cheatsheets/Transport_Layer_Protection_Cheat_Sheet.html">使用TLS保护</a>。</p>
+<p>作为一个框架，Spring Security不处理HTTP连接，因此不直接提供对HTTPS的支持。但是，它确实提供了许多有助于HTTPS使用的功能。</p>
+<p><span id="http-redirect"></span></p>
+<h4 id="重定向到HTTPS"><a href="#重定向到HTTPS" class="headerlink" title="重定向到HTTPS"></a>重定向到HTTPS</h4><p>当客户端使用HTTP时，Spring Security可以配置为在Servlet和WebFlux环境中都重定向到HTTPS。</p>
+<h4 id="严格的传输安全"><a href="#严格的传输安全" class="headerlink" title="严格的传输安全"></a>严格的传输安全</h4><p>Spring Security提供对<a href="#headers-hsts">严格传输安全性</a>的支持，并默认启用它。</p>
+<h4 id="代理服务器配置"><a href="#代理服务器配置" class="headerlink" title="代理服务器配置"></a>代理服务器配置</h4><p>使用代理服务器时，确保已正确配置应用程序很重要。例如，许多应用程序将具有负载平衡器，该负载平衡器通过将请求转发到位于https：//192.168.1：8080的应用服务器来响应对<a target="_blank" rel="noopener" href="https://example.com/的请求。知道负载均衡器存在，并将请求视为客户端请求https：//192.168.1：8080。">https://example.com/的请求。知道负载均衡器存在，并将请求视为客户端请求https：//192.168.1：8080。</a></p>
+<p>要解决此问题，您可以使用<a target="_blank" rel="noopener" href="https://tools.ietf.org/html/rfc7239">RFC 7239</a>指定正在使用负载平衡器。为了使应用程序意识到这一点，您需要配置应用程序服务器以了解X-Forwarded标头。例如，Tomcat使用<a target="_blank" rel="noopener" href="https://tomcat.apache.org/tomcat-8.0-doc/api/org/apache/catalina/valves/RemoteIpValve.html">RemoteIpValve</a>，而Jetty使用<a target="_blank" rel="noopener" href="https://download.eclipse.org/jetty/stable-9/apidocs/org/eclipse/jetty/server/ForwardedRequestCustomizer.html">ForwardedRequestCustomizer</a>。另外，Spring用户可以利用<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-framework/blob/v4.3.3.RELEASE/spring-web/src/main/java/org/springframework/web/filter/ForwardedHeaderFilter.java">ForwardedHeaderFilter</a>。</p>
+<p>Spring Boot用户可以使用<code>server.use-forward-headers</code>属性配置应用程序。有关更多详细信息，请参见<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-use-tomcat-behind-a-proxy-server">Spring Boot文档</a>。</p>
+<p><span id="modules"></span></p>
+<h1 id="项目模块和依赖"><a href="#项目模块和依赖" class="headerlink" title="项目模块和依赖"></a>项目模块和依赖</h1><p>在Spring Security 3.0中，代码库被细分为单独的jar，这些jar更清楚地分离了不同的功能区域和第三方依赖项。 如果使用Maven构建项目，则应将这些模块添加到<code>pom.xm</code>l中。 即使您不使用Maven，我们也建议您查阅<code>pom.xml</code>文件以了解第三方依赖关系和版本。 另一个好主意是检查示例应用程序中包含的库。</p>
+<p>本部分提供了Spring Security中的模块以及它们在运行中的应用程序中运行所需要的其他依赖项的参考。我们不包括仅在构建或测试Spring Security本身时使用的依赖项。我们也没有包括外部依赖项所要求的传递性依赖项。</p>
+<p>项目网站上列出了所需的Spring版本，因此下面的Spring依赖项省略了特定版本。请注意，Spring应用程序中的其他非安全功能可能仍需要下面列出为“可选”的某些依赖项。另外，如果大多数应用程序中都使用了列为“可选”的依赖项，则在项目的Maven POM文件中可能实际上并未将其标记为此类。除非您使用指定的功能，否则它们仅在不需要它们的意义上是“可选的”。</p>
+<p>在模块依赖于另一个Spring Security模块的情况下，也假定该模块所依赖的模块的非可选依赖关系是必需的，因此未单独列出。</p>
+<p><span id="spring-security-core"></span></p>
+<h2 id="核心-spring-security-core-jar"><a href="#核心-spring-security-core-jar" class="headerlink" title="核心-spring-security-core.jar"></a>核心-<code>spring-security-core.jar</code></h2><p>该模块包含核心身份验证和访问控制类和接口，远程支持和基本配置API。 使用Spring Security的任何应用程序都需要它。 它支持独立的应用程序，远程客户端，方法（服务层）安全性和JDBC用户配置。 它包含以下顶级程序包：</p>
+<ul>
+<li><code>org.springframework.security.core</code></li>
+<li><code>org.springframework.security.access</code></li>
+<li><code>org.springframework.security.authentication</code></li>
+<li><code>org.springframework.security.provisioning</code></li>
+</ul>
+<p><strong>Table 1. Core Dependencies</strong></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dependency</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ehcache</td>
+<td style="text-align:left">1.6.2</td>
+<td style="text-align:left">Required if the Ehcache-based user cache implementation is used (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-aop</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Method security is based on Spring AOP</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-beans</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required for Spring configuration</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-expression</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required for expression-based method security (optional)</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-jdbc</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required if using a database to store user data (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-tx</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required if using a database to store user data (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">aspectjrt</td>
+<td style="text-align:left">1.6.10</td>
+<td style="text-align:left">Required if using AspectJ support (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">jsr250-api</td>
+<td style="text-align:left">1.0</td>
+<td style="text-align:left">Required if you are using JSR-250 method-security annotations (optional).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="spring-security-remoting"></span></p>
+<h2 id="Remoting-spring-security-remoting-jar"><a href="#Remoting-spring-security-remoting-jar" class="headerlink" title="Remoting-spring-security-remoting.jar"></a>Remoting-<code>spring-security-remoting.jar</code></h2><p>该模块提供了与Spring Remoting的集成。 除非您要编写使用Spring Remoting的远程客户端，否则您不需要这样做。 主要包是<code>org.springframework.security.remoting</code>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dependency</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">spring-security-core</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">spring-web</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required for clients which use HTTP remoting support.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="spring-security-web"></span></p>
+<h2 id="Web-spring-security-web-jar"><a href="#Web-spring-security-web-jar" class="headerlink" title="Web-spring-security-web.jar"></a>Web-<code>spring-security-web.jar</code></h2><p>该模块包含过滤器和相关的Web安全基础结构代码。 它包含任何与Servlet API相关的内容。 如果您需要Spring Security Web认证服务和基于URL的访问控制，则需要它。 主要软件包是<code>org.springframework.security.web</code>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dependency</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">spring-security-core</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">spring-web</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Spring web support classes are used extensively.</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-jdbc</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required for JDBC-based persistent remember-me token repository (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-tx</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required by remember-me persistent token repository implementations (optional).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="spring-security-config"></span></p>
+<h2 id="配置-spring-security-config-jar"><a href="#配置-spring-security-config-jar" class="headerlink" title="配置-spring-security-config.jar"></a>配置-<code>spring-security-config.jar</code></h2><p>该模块包含安全名称空间解析代码和Java配置代码。 如果您使用Spring Security XML名称空间进行配置或Spring Security的Java配置支持，则需要它。 主要软件包是<code>org.springframework.security.config</code>。 这些类都不打算直接在应用程序中使用。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dependency</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">spring-security-core</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">spring-security-web</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required if you are using any web-related namespace configuration (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-security-ldap</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required if you are using the LDAP namespace options (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-security-openid</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required if you are using OpenID authentication (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">aspectjweaver</td>
+<td style="text-align:left">1.6.10</td>
+<td style="text-align:left">Required if using the protect-pointcut namespace syntax (optional).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="spring-security-ldap"></span></p>
+<h2 id="LDAP-spring-security-ldap-jar"><a href="#LDAP-spring-security-ldap-jar" class="headerlink" title="LDAP-spring-security-ldap.jar"></a>LDAP-<code>spring-security-ldap.jar</code></h2><p>该模块提供LDAP身份验证和供应代码。 如果您需要使用LDAP认证或管理LDAP用户条目，则为必填项。 顶级包是<code>org.springframework.security.ldap</code>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dependency</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">spring-security-core</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">spring-ldap-core</td>
+<td style="text-align:left">1.3.0</td>
+<td style="text-align:left">LDAP support is based on Spring LDAP.</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-tx</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Data exception classes are required.</td>
+</tr>
+<tr>
+<td style="text-align:left">apache-ds [<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/#_footnotedef_1">1</a>]</td>
+<td style="text-align:left">1.5.5</td>
+<td style="text-align:left">Required if you are using an embedded LDAP server (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">shared-ldap</td>
+<td style="text-align:left">0.9.15</td>
+<td style="text-align:left">Required if you are using an embedded LDAP server (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">ldapsdk</td>
+<td style="text-align:left">4.1</td>
+<td style="text-align:left">Mozilla LdapSDK. Used for decoding LDAP password policy controls if you are using password-policy functionality with OpenLDAP, for example.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="spring-security-oauth2-core"></span></p>
+<h2 id="OAuth-2-0-Core-spring-security-oauth2-core-jar"><a href="#OAuth-2-0-Core-spring-security-oauth2-core-jar" class="headerlink" title="OAuth 2.0 Core-spring-security-oauth2-core.jar"></a>OAuth 2.0 Core-<code>spring-security-oauth2-core.jar</code></h2><p>spring-security-oauth2-core.jar包含核心类和接口，这些类和接口提供对OAuth 2.0授权框架和OpenID Connect Core 1.0的支持。 使用OAuth 2.0或OpenID Connect Core 1.0的应用程序（例如客户端，资源服务器和授权服务器）需要它。 顶级软件包是<code>org.springframework.security.oauth2.core</code>。</p>
+<p><span id="spring-security-oauth2-client"></span></p>
+<h2 id="OAuth-2-0-Client-spring-security-oauth2-client-jar"><a href="#OAuth-2-0-Client-spring-security-oauth2-client-jar" class="headerlink" title="OAuth 2.0 Client-spring-security-oauth2-client.jar"></a>OAuth 2.0 Client-<code>spring-security-oauth2-client.jar</code></h2><p><code>spring-security-oauth2-client.jar</code>包含Spring Security对OAuth 2.0授权框架和OpenID Connect Core 1.0的客户端支持。 使用OAuth 2.0登录或OAuth客户端支持的应用程序需要使用它。 顶级软件包是<code>org.springframework.security.oauth2.client</code>。</p>
+<p><span id="spring-security-oauth2-jose"></span></p>
+<h2 id="OAuth-2-0-JOSE-—-spring-security-oauth2-jose-jar"><a href="#OAuth-2-0-JOSE-—-spring-security-oauth2-jose-jar" class="headerlink" title="OAuth 2.0 JOSE — spring-security-oauth2-jose.jar"></a>OAuth 2.0 JOSE — <code>spring-security-oauth2-jose.jar</code></h2><p>spring-security-oauth2-jose.jar包含Spring Security对JOSE（Javascript对象签名和加密）框架的支持。 JOSE框架旨在提供一种在各方之间安全地转移声明的方法。 它是根据一系列规范构建的：</p>
+<ul>
+<li>JSON Web Token (JWT)</li>
+<li>JSON Web Signature (JWS)</li>
+<li>JSON Web Encryption (JWE)</li>
+<li>JSON Web Key (JWK)</li>
+</ul>
+<p>包括以下的顶级软件包:</p>
+<ul>
+<li><code>org.springframework.security.oauth2.jwt</code></li>
+<li><code>org.springframework.security.oauth2.jose</code></li>
+</ul>
+<p><span id="spring-security-oauth2-resource-server"></span></p>
+<h2 id="OAuth-2-0-Resource-Server-—-spring-security-oauth2-resource-server-jar"><a href="#OAuth-2-0-Resource-Server-—-spring-security-oauth2-resource-server-jar" class="headerlink" title="OAuth 2.0 Resource Server — spring-security-oauth2-resource-server.jar"></a>OAuth 2.0 Resource Server — <code>spring-security-oauth2-resource-server.jar</code></h2><p><code>spring-security-oauth2-resource-server.jar</code>包含Spring Security对OAuth 2.0资源服务器的支持。 它用于通过OAuth 2.0承载令牌保护API。 顶级软件包是<code>org.springframework.security.oauth2.server.resource</code>。</p>
+<p><span id="spring-security-acl"></span></p>
+<h2 id="ACL-—-spring-security-acl-jar"><a href="#ACL-—-spring-security-acl-jar" class="headerlink" title="ACL — spring-security-acl.jar"></a>ACL — <code>spring-security-acl.jar</code></h2><p>该模块包含专门的域对象ACL实现。 它用于将安全性应用于应用程序中的特定域对象实例。 顶级包是<code>org.springframework.security.acls</code>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dependency</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">spring-security-core</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">ehcache</td>
+<td style="text-align:left">1.6.2</td>
+<td style="text-align:left">如果使用基于Ehcache的ACL缓存实现，则为必需（如果使用自己的实现，则为可选）。</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-jdbc</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">如果使用的是默认的基于JDBC的AclService，则为必需（如果实现自己的，则为可选）。</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-tx</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">如果使用的是默认的基于JDBC的AclService，则为必需（如果实现自己的，则为可选）。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="spring-security-cas"></span></p>
+<h2 id="CAS-—-spring-security-cas-jar"><a href="#CAS-—-spring-security-cas-jar" class="headerlink" title="CAS — spring-security-cas.jar"></a>CAS — <code>spring-security-cas.jar</code></h2><p>该模块包含Spring Security的CAS客户端集成。 如果要对CAS单点登录服务器使用Spring Security Web认证，则应该使用它。 顶级包是<code>org.springframework.security.cas</code>。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dependency</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">spring-security-core</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">spring-security-web</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">cas-client-core</td>
+<td style="text-align:left">3.1.12</td>
+<td style="text-align:left">The JA-SIG CAS Client. This is the basis of the Spring Security integration.</td>
+</tr>
+<tr>
+<td style="text-align:left">ehcache</td>
+<td style="text-align:left">1.6.2</td>
+<td style="text-align:left">Required if you are using the Ehcache-based ticket cache (optional).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="spring-security-openid"></span></p>
+<h2 id="OpenID-—-spring-security-openid-jar"><a href="#OpenID-—-spring-security-openid-jar" class="headerlink" title="OpenID — spring-security-openid.jar"></a>OpenID — <code>spring-security-openid.jar</code></h2><blockquote>
+<p>Note</p>
+<p>已弃用OpenID 1.0和2.0协议，并鼓励用户迁移到Spring-security-oauth2支持的OpenID Connect。</p>
+</blockquote>
+<p>此模块包含OpenID Web身份验证支持。 它用于根据外部OpenID服务器对用户进行身份验证。 顶级包是<code>org.springframework.security.openid</code>。 它需要OpenID4Java。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dependency</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">spring-security-core</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">spring-security-web</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">openid4java-nodeps</td>
+<td style="text-align:left">0.9.6</td>
+<td style="text-align:left">Spring Security’s OpenID integration uses OpenID4Java.</td>
+</tr>
+<tr>
+<td style="text-align:left">httpclient</td>
+<td style="text-align:left">4.1.1</td>
+<td style="text-align:left">openid4java-nodeps depends on HttpClient 4.</td>
+</tr>
+<tr>
+<td style="text-align:left">guice</td>
+<td style="text-align:left">2.0</td>
+<td style="text-align:left">openid4java-nodeps depends on Guice 2.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id="spring-security-test"></span></p>
+<h2 id="Test-—-spring-security-test-jar"><a href="#Test-—-spring-security-test-jar" class="headerlink" title="Test — spring-security-test.jar"></a>Test — <code>spring-security-test.jar</code></h2><p>该模块包含对使用Spring Security进行测试的支持。</p>
+<p><span id="spring-security-taglibs"></span></p>
+<h2 id="Taglibs-—-spring-secuity-taglibs-jar"><a href="#Taglibs-—-spring-secuity-taglibs-jar" class="headerlink" title="Taglibs — spring-secuity-taglibs.jar"></a>Taglibs — <code>spring-secuity-taglibs.jar</code></h2><p>提供Spring Security的JSP标签实现。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dependency</th>
+<th style="text-align:left">Version</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">spring-security-core</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">spring-security-web</td>
+<td style="text-align:left"></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">spring-security-acl</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required if you are using the <code>accesscontrollist</code> tag or <code>hasPermission()</code> expressions with ACLs (optional).</td>
+</tr>
+<tr>
+<td style="text-align:left">spring-expression</td>
+<td style="text-align:left"></td>
+<td style="text-align:left">Required if you are using SPEL expressions in your tag access constraints.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><span id=""></span></p>
+<h1 id="Samples"><a href="#Samples" class="headerlink" title="Samples"></a>Samples</h1><p>Spring Security包含许多<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-security/tree/5.4.0/samples">示例应用程序</a>。</p>
+<p><span id="servlet-applications"></span></p>
+<h1 id="Servlet-Applications"><a href="#Servlet-Applications" class="headerlink" title="Servlet Applications"></a>Servlet Applications</h1><p>Spring Security通过使用标准的Servlet过滤器与Servlet容器集成。 这意味着它可以与在Servlet容器中运行的任何应用程序一起使用。 更具体地说，您无需在基于Servlet的应用程序中使用Spring即可利用Spring Security。</p>
+<p>servlet-hello</p>
+<h1 id="Hello-Spring-Security"><a href="#Hello-Spring-Security" class="headerlink" title="Hello Spring Security"></a>Hello Spring Security</h1><p>本节介绍了如何将Spring Security与Spring Boot结合使用的最小设置。</p>
+<blockquote>
+<p>Note</p>
+<p>完整的应用程序可以在<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-security/tree/5.4.0/samples/boot/helloworld">sample/boot/helloworld</a>中找到。为方便起见，您可以通过<a target="_blank" rel="noopener" href="https://start.spring.io/starter.zip?type=maven-project&amp;language=java&amp;packaging=jar&amp;jvmVersion=1.8&amp;groupId=example&amp;artifactId=hello-security&amp;name=hello-security&amp;description=Hello%20Security&amp;packageName=example.hello-security&amp;dependencies=web,security">单击此处下载</a>最小的Spring Boot + Spring Security应用程序。</p>
+</blockquote>
+<h2 id="更新依赖项"><a href="#更新依赖项" class="headerlink" title="更新依赖项"></a>更新依赖项</h2><p>您唯一需要做的步骤就是使用<a href="#getting-maven-boot">Maven</a>或<a href="#getting-gradle-boot">Gradle</a>更新依赖关系。</p>
+<h2 id="启动Hello-Spring安全启动"><a href="#启动Hello-Spring安全启动" class="headerlink" title="启动Hello Spring安全启动"></a>启动Hello Spring安全启动</h2><p>现在，您可以使用Maven插件的运行目标来<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/31/SpringBoot%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E4%BD%BF%E7%94%A8SpringBoot/#使用Maven插件">运行Spring Boot应用程序</a>。 以下示例显示了如何执行此操作（以及执行此操作的输出的开头）：</p>
+<p>例子50.运行Spring Boot应用程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ./mvn spring-boot:run</span><br><span class="line">...</span><br><span class="line">INFO 23689 --- [  restartedMain] .s.s.UserDetailsServiceAutoConfiguration :</span><br><span class="line"></span><br><span class="line">Using generated security password: 8e557245-73e2-4286-969a-ff57fe326336</span><br><span class="line"></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="Spring-Boot自动配置"><a href="#Spring-Boot自动配置" class="headerlink" title="Spring Boot自动配置"></a>Spring Boot自动配置</h2><p>Spring Boot自动：</p>
+<ul>
+<li>启用Spring Security的默认配置，该配置将Servlet过滤器创建为名为<code>springSecurityFilterChain</code>的bean。该bean负责应用程序内的所有安全性（保护应用程序URL，验证提交的用户名和密码，重定向到登录表单等）。</li>
+</ul>
+<ul>
+<li>创建一个<code>UserDetailsService</code> Bean，其中包含用户名user和随机生成的密码，并记录到控制台。</li>
+</ul>
+<ul>
+<li>针对每个请求，使用Servlet容器向名为<code>springSecurityFilterChain</code>的bean注册过滤器。</li>
+</ul>
+<p>Spring Boot的配置不多，但功能很多。功能摘要如下：</p>
+<ul>
+<li><p>要求经过身份验证的用户才能与应用程序进行任何交互</p>
+</li>
+<li><p>为您生成一个默认的登录表单</p>
+</li>
+<li><p>让用户使用用户名<code>user</code>和密码登录到控制台以使用基于表单的身份验证进行身份验证（在前面的示例中，密码为<code>8e557245-73e2-4286-969a-ff57fe326336</code>）</p>
+</li>
+<li><p>使用BCrypt保护密码存储</p>
+</li>
+<li><p>让用户注销</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF攻击</a>预防</p>
+</li>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Session_fixation">会话固定</a>保护</li>
+<li><p>安全Header集成</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security">HTTP严格传输安全性</a>用于安全请求</li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/ie/gg622941(v=vs.85">X-Content-Type-Options</a>.aspx)集成</li>
+<li>缓存控制（以后可以被您的应用程序覆盖以允许缓存您的静态资源）</li>
+<li><a target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/dd565647(v=vs.85">X-XSS-Protection</a>.aspx)集成</li>
+<li>X-Frame-Options集成有助于防止<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Clickjacking">Clickjacking</a></li>
+</ul>
+</li>
+<li><p>与以下Servlet API方法集成：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#getRemoteUser("><code>HttpServletRequest#getRemoteUser()</code></a>)</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#getUserPrincipal("><code>HttpServletRequest.html#getUserPrincipal()</code></a>)</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#isUserInRole(java.lang.String"><code>HttpServletRequest.html#isUserInRole(java.lang.String)</code></a>)</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#login(java.lang.String, java.lang.String"><code>HttpServletRequest.html#login(java.lang.String, java.lang.String)</code></a>)</li>
+<li><a target="_blank" rel="noopener" href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html#logout("><code>HttpServletRequest.html#logout()</code></a>)</li>
+</ul>
+</li>
+</ul>
 <p><span id="#servlet-architecture"></span></p>
-<h1 id="Servlet安全性：大局"><a href="#Servlet安全性：大局" class="headerlink" title="Servlet安全性：大局"></a>Servlet安全性：大局</h1><p>本节讨论基于Servlet的应用程序中Spring Security的高级体系结构。 我们在参考的“身份验证，授权，防止利用漏洞”部分中建立了这种高级理解。</p>
+<h1 id="Servlet安全性：大局"><a href="#Servlet安全性：大局" class="headerlink" title="Servlet安全性：大局"></a>Servlet安全性：大局</h1><p>本节讨论基于Servlet的应用程序中Spring Security的高级体系结构。 我们在参考的“<a href="#servlet-authentication">身份验证</a>，<a href="#servlet-authorization">授权</a>，<a href="#servlet-exploits">防止利用漏洞”</a>部分中建立了这种高级理解。</p>
+<p><span id="servlet-filters-review"></span></p>
 <h2 id="筛选器的回顾"><a href="#筛选器的回顾" class="headerlink" title="筛选器的回顾"></a>筛选器的回顾</h2><p>Spring Security的Servlet支持基于Servlet过滤器，因此通常首先了解过滤器的作用会很有帮助。 下图显示了单个HTTP请求的处理程序的典型分层。</p>
 <p><img src="https://docs.spring.io/spring-security/site/docs/5.3.4.RELEASE/reference/html5/images/servlet/architecture/filterchain.png" alt="filterchain"></p>
 <p>Figure 1. FilterChain</p>
@@ -360,30 +1228,183 @@
 <p>过滤器的功能来自传递给它的<code>FilterChain</code>。</p>
 <p><strong>Example 47.</strong> <code>FilterChain</code> <strong>Usage Example</strong></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doFilter</span><span class="params">(ServletRequest request, ServletResponse response, FilterChain chain)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// do something before the rest of the application</span></span><br><span class="line">    chain.doFilter(request, response); <span class="comment">// invoke the rest of the application</span></span><br><span class="line">    <span class="comment">// do something after the rest of the application</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">doFilter</span><span class="params">(request: <span class="type">ServletRequest</span>, response: <span class="type">ServletResponse</span>, chain: <span class="type">FilterChain</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// do something before the rest of the application</span></span><br><span class="line">    chain.doFilter(request, response) <span class="comment">// invoke the rest of the application</span></span><br><span class="line">    <span class="comment">// do something after the rest of the application</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于过滤器仅影响下游过滤器和Servlet，因此调用每个过滤器的顺序非常重要。</p>
+<p><span id="servlet-delegatingfilterproxy"></span></p>
+<h2 id="DelegatingFilterProxy"><a href="#DelegatingFilterProxy" class="headerlink" title="DelegatingFilterProxy"></a>DelegatingFilterProxy</h2><p>Spring提供了一个名为DelegatingFilterProxy的Filter实现，可以在Servlet容器的生命周期和Spring的<code>ApplicationContext</code>之间进行桥接。 Servlet容器允许使用其自己的标准注册Filters，但它不了解Spring定义的Bean。 <code>DelegatingFilterProxy</code>可以通过标准的Servlet容器机制进行注册，但是可以将所有工作委托给实现<code>Filter</code>的Spring Bean。</p>
+<p>这是<code>DelegatingFilterProxy</code>如何适合<a href="#servlet-filters-review">Filters和FilterChain</a>的图片。</p>
+<p><img src="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/delegatingfilterproxy.png" alt=""></p>
+<p><code>DelegatingFilterProxy</code>从<code>ApplicationContext</code>查找Bean Filter0，然后调用Bean Filter0。 <code>DelegatingFilterProxy</code>的伪代码如下所示。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) &#123;</span><br><span class="line">    &#x2F;&#x2F; Lazily get Filter that was registered as a Spring Bean</span><br><span class="line">    &#x2F;&#x2F; For the example in DelegatingFilterProxy delegate is an instance of Bean Filter0</span><br><span class="line">    Filter delegate &#x3D; getFilterBean(someBeanName);</span><br><span class="line">    &#x2F;&#x2F; delegate work to the Spring Bean</span><br><span class="line">    delegate.doFilter(request, response);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) &#123;</span><br><span class="line">    &#x2F;&#x2F; Lazily get Filter that was registered as a Spring Bean</span><br><span class="line">    &#x2F;&#x2F; For the example in DelegatingFilterProxy delegate is an instance of Bean Filter0</span><br><span class="line">    val delegate: Filter &#x3D; getFilterBean(someBeanName)</span><br><span class="line">    &#x2F;&#x2F; delegate work to the Spring Bean</span><br><span class="line">    delegate.doFilter(request, response)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>DelegatingFilterProxy</code>的另一个好处是它允许延迟查找Filter bean实例。 这很重要，因为容器需要在启动容器之前注册Filter实例。 但是，Spring通常使用<code>ContextLoaderListener</code>加载Spring Bean，直到需要注册Filter实例之后才可以加载。</p>
+<p><span id="servlet-filterchainproxy"></span></p>
+<h2 id="FilterChainProxy"><a href="#FilterChainProxy" class="headerlink" title="FilterChainProxy"></a>FilterChainProxy</h2><p>Spring Security的Servlet支持包含在<code>FilterChainProxy</code>中。 FilterChainProxy是Spring Security提供的特殊过滤器，允许通过<a href="#servlet-securityfilterchain">SecurityFilterChain</a>委派许多过滤器实例。 由于FilterChainProxy是Bean，因此通常将其包装在<a href="#servlet-delegatingfilterproxy">DelegatingFilterProxy</a>中。</p>
+<p><img src="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/filterchainproxy.png" alt=""></p>
+<p><span id="servlet-securityfilterchain"></span></p>
+<h2 id="SecurityFilterChain"><a href="#SecurityFilterChain" class="headerlink" title="SecurityFilterChain"></a>SecurityFilterChain</h2><p>FilterChainProxy使用<a href="#servlet-filterchainproxy">SecurityFilterChain</a>来确定应对此请求调用哪些Spring Security过滤器。</p>
+<p><img src="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/securityfilterchain.png" alt=""></p>
+<p><code>SecurityFilterChain</code>中的<a href="#servlet-security-filters">安全过滤器</a>通常是Bean，但它们是使用<code>FilterChainProxy</code>而不是<a href="#servlet-delegatingfilterproxy">DelegatingFilterProxy</a>注册的。 <code>FilterChainProxy</code>为直接向Servlet容器或<a href="#servlet-delegatingfilterproxy">DelegatingFilterProxy</a>注册提供了许多优势。首先，它为Spring Security的所有Servlet支持提供了一个起点。因此，如果您想对Spring Security的Servlet支持进行故障排除，那么在<code>FilterChainProxy</code>中添加调试点是一个很好的起点。</p>
+<p>其次，由于<code>FilterChainProxy</code>对于Spring Security的使用至关重要，因此它可以执行不被视为可选任务的任务。例如，它清除<code>SecurityContext</code>以避免内存泄漏。它还使用Spring Security的<a href="#servlet-httpfirewall">HttpFirewall</a>来保护应用程序免受某些类型的攻击。</p>
+<p>此外，它在确定何时应调用<code>SecurityFilterChain</code>时提供了更大的灵活性。在Servlet容器中，仅根据URL调用过滤器。但是，<code>FilterChainProxy</code>可以利用<code>RequestMatcher</code>接口，根据<code>HttpServletRequest</code>中的任何内容确定调用。</p>
+<p>实际上，<code>FilterChainProxy</code>可用于确定应使用哪个<code>SecurityFilterChain</code>。这允许为您的应用程序的不同部分提供完全独立的配置。</p>
+<p><span id="servlet-multi-securityfilterchain-figure"></span></p>
+<p><img src="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/multi-securityfilterchain.png" alt=""></p>
+<p>在“<a href="#servlet-multi-securityfilterchain-figure">多个SecurityFilterChain</a>”图中，<code>FilterChainProxy</code>决定应使用哪个<code>SecurityFilterChain</code>。仅匹配的第一个<code>SecurityFilterChain</code>将被调用。如果请求的URL是<code>/api/messages/</code>，则它将首先与<code>SecurityFilterChain0</code>的<code>/api/**</code> 模式匹配，因此即使<code>SecurityFilterChain0</code>也与<code>SecurityFilterChainn</code>匹配，也只会调用<code>SecurityFilterChain0</code>。如果请求的URL是<code>/messages/</code>，则与<code>SecurityFilterChain0</code>的<code>/api/**</code>模式不匹配，因此<code>FilterChainProxy</code>将继续尝试每个<code>SecurityFilterChain</code>。假设没有其他匹配<code>SecurityFilterChainn</code>的<code>SecurityFilterChain</code>实例将被调用。</p>
+<p>请注意，<code>SecurityFilterChain0</code>仅配置了三个安全筛选器实例。但是，<code>SecurityFilterChainn</code>配置了四个安全筛选器。重要的是要注意，每个<code>SecurityFilterChain</code>可以是唯一的，并且可以独立配置。实际上，如果应用程序希望Spring Security忽略某些请求，则<code>SecurityFilterChain</code>可能具有零个安全过滤器。</p>
+<p><span id="servlet-security-filters"></span></p>
+<h2 id="Security-Filters"><a href="#Security-Filters" class="headerlink" title="Security Filters"></a>Security Filters</h2><p>安全过滤器通过SecurityFilterChain API插入到<a href="#servlet-filterchainproxy">FilterChainProxy</a>中。 <a href="#servlet-filters-review">过滤器的顺序</a>很重要。 通常不必知道Spring Security的过滤器的顺序。 但是，有时候知道订购是有益的</p>
+<p>以下是Spring Security过滤器订购的完整列表：</p>
+<ul>
+<li>ChannelProcessingFilter</li>
+<li>WebAsyncManagerIntegrationFilter</li>
+<li>SecurityContextPersistenceFilter</li>
+<li>HeaderWriterFilter</li>
+<li>CorsFilter</li>
+<li>CsrfFilter</li>
+<li>LogoutFilter</li>
+<li>OAuth2AuthorizationRequestRedirectFilter</li>
+<li>Saml2WebSsoAuthenticationRequestFilter</li>
+<li>X509AuthenticationFilter</li>
+<li>AbstractPreAuthenticatedProcessingFilter</li>
+<li>CasAuthenticationFilter</li>
+<li>OAuth2LoginAuthenticationFilter</li>
+<li>Saml2WebSsoAuthenticationFilter</li>
+<li><a href="#servlet-authentication-usernamepasswordauthenticationfilter"><code>UsernamePasswordAuthenticationFilter</code></a></li>
+<li>OpenIDAuthenticationFilter</li>
+<li>DefaultLoginPageGeneratingFilter</li>
+<li>DefaultLogoutPageGeneratingFilter</li>
+<li>ConcurrentSessionFilter</li>
+<li><a href="#servlet-authentication-digest"><code>DigestAuthenticationFilter</code></a></li>
+<li>BearerTokenAuthenticationFilter</li>
+<li><a href="#servlet-authentication-basic"><code>BasicAuthenticationFilter</code></a></li>
+<li>RequestCacheAwareFilter</li>
+<li>SecurityContextHolderAwareRequestFilter</li>
+<li>JaasApiIntegrationFilter</li>
+<li>RememberMeAuthenticationFilter</li>
+<li>AnonymousAuthenticationFilter</li>
+<li>OAuth2AuthorizationCodeGrantFilter</li>
+<li>SessionManagementFilter</li>
+<li><a href="#servlet-exceptiontranslationfilter"><code>ExceptionTranslationFilter</code></a></li>
+<li><a href="#servlet-authorization-filtersecurityinterceptor"><code>FilterSecurityInterceptor</code></a></li>
+<li>SwitchUserFilter</li>
+</ul>
+<p><span id="servlet-exceptiontranslationfilter"></span></p>
+<h2 id="Handling-Security-Exceptions"><a href="#Handling-Security-Exceptions" class="headerlink" title="Handling Security Exceptions"></a>Handling Security Exceptions</h2><p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/web/access/ExceptionTranslationFilter.html">ExceptionTranslationFilter</a>允许将<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/access/AccessDeniedException.html">AccessDeniedException</a>和<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api//org/springframework/security/core/AuthenticationException.html">AuthenticationException</a>转换为HTTP响应。</p>
+<p><code>ExceptionTranslationFilter</code>作为<a href="#servlet-security-filters">安全筛选器</a>之一插入到<a href="#servlet-filterchainproxy">FilterChainProxy</a>中。</p>
+<p><img src="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/exceptiontranslationfilter.png" alt=""></p>
+<ul>
+<li>首先，<code>ExceptionTranslationFilter</code>调用<code>FilterChain.doFilter(request，response)</code>来调用应用程序的其余部分。</li>
+</ul>
+<ul>
+<li><p>如果用户未通过身份验证或它是<code>AuthenticationException</code>，则启动身份验证。</p>
+<ul>
+<li>已清除<a href="#servlet-authentication-securitycontextholder">SecurityContextHolder</a></li>
+<li><code>HttpServletRequest</code>保存在<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/web/savedrequest/RequestCache.html">RequestCache</a>中。 用户成功进行身份验证后，将使用<code>RequestCache</code>重播原始请求。</li>
+<li><code>AuthenticationEntryPoint</code>用于从客户端请求凭据。 例如，它可能重定向到登录页面或发送<code>WWW-Authenticate</code>标头。</li>
+</ul>
+</li>
+<li><p>否则，如果它是<code>AccessDeniedException</code>，则拒绝访问。 调用<code>AccessDeniedHandler</code>以处理拒绝的访问。</p>
+</li>
+</ul>
+<blockquote>
+<p>如果应用程序未引发<code>AccessDeniedException</code>或<code>AuthenticationException</code>，则<code>ExceptionTranslationFilter</code>不执行任何操作。</p>
+</blockquote>
+<p><code>ExceptionTranslationFilter</code>的伪代码如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    filterChain.doFilter(request, response); <span class="number">1</span></span><br><span class="line">&#125; <span class="keyword">catch</span> (AccessDeniedException | AuthenticationException ex) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!authenticated || ex <span class="keyword">instanceof</span> AuthenticationException) &#123;</span><br><span class="line">        startAuthentication(); <span class="number">2</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        accessDenied(); <span class="number">3</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>您会从<a href="#servlet-filters-review">“筛选器回顾”</a>中回顾到，调用<code>FilterChain.doFilter(request，response)</code>等同于调用应用程序的其余部分。<br>这意味着如果应用程序的另一部分（即<a href="#servlet-authorization-filtersecurityinterceptor">FilterSecurityInterceptor</a>或方法安全性）引发<code>AuthenticationException</code>或<code>AccessDeniedException</code>，则会在此处捕获并处理。</li>
+<li>如果用户未通过身份验证或它是<code>AuthenticationException</code>，则启动身份验证。</li>
+<li>否则，访问被拒绝</li>
+</ol>
 <p><span id="servlet-authentication"></span></p>
-<h1 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h1><p>Spring Security提供了对身份验证的全面支持。 本节讨论：</p>
-<h1 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h1><p>Spring Security中的高级授权功能代表了其受欢迎程度的最令人信服的原因之一。 无论选择哪种身份验证（使用Spring Security提供的机制和提供程序，还是与容器或其他非Spring Security身份验证机构集成），您都会发现可以在您的应用程序中一致且简单地使用授权服务。 方式。</p>
-<p>在这一部分中，我们将探索在第一部分中介绍的不同的AbstractSecurityInterceptor实现。然后，我们将继续探讨如何通过使用域访问控制列表来微调授权。</p>
-<h2 id="方法安全性"><a href="#方法安全性" class="headerlink" title="方法安全性"></a>方法安全性</h2><p>从2.0版开始，Spring Security大大改善了对为服务层方法增加安全性的支持。 它提供对JSR-250注释安全性以及框架原始<code>@Secured</code>注解的支持。 从3.0开始，您还可以使用新的基于表达式的注释。 您可以使用<code>Intercept-methods</code>元素装饰Bean声明，从而对单个Bean应用安全性，或者可以使用AspectJ样式切入点在整个服务层中保护多个Bean。</p>
-<h3 id="EnableGlobalMethodSecurity"><a href="#EnableGlobalMethodSecurity" class="headerlink" title="EnableGlobalMethodSecurity"></a>EnableGlobalMethodSecurity</h3><p>我们可以在任何<code>@Configuration</code>实例上使用<code>@EnableGlobalMethodSecurity</code>批注启用基于批注的安全性。 例如，以下将启用Spring Security的<code>@Secured</code>注解。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@EnableGlobalMethodSecurity(securedEnabled = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MethodSecurityConfig</span> </span>&#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h2><h2 id="OAuth-2-0登录"><a href="#OAuth-2-0登录" class="headerlink" title="OAuth 2.0登录"></a>OAuth 2.0登录</h2><p>OAuth 2.0登录功能为应用程序提供了让用户通过使用其在OAuth 2.0提供程序（例如GitHub）或OpenID Connect 1.0提供程序（例如Google）上的现有帐户登录该应用程序的功能。 OAuth 2.0登录实现了以下用例：“使用Google登录”或“使用GitHub登录”。</p>
-<h1 id="SAML2"><a href="#SAML2" class="headerlink" title="SAML2"></a>SAML2</h1><h2 id="SAML-2-0登录"><a href="#SAML-2-0登录" class="headerlink" title="SAML 2.0登录"></a>SAML 2.0登录</h2><p>SAML 2.0登录名<code>saml2Login()</code>功能为应用程序提供了使用户能够通过使用其在SAML 2.0身份提供程序（Okta，ADFS等）上的现有帐户登录到该应用程序的功能。</p>
-<h1 id="防止利用漏洞"><a href="#防止利用漏洞" class="headerlink" title="防止利用漏洞"></a>防止利用漏洞</h1><h2 id="Servlet环境的跨站点请求伪造（CSRF）"><a href="#Servlet环境的跨站点请求伪造（CSRF）" class="headerlink" title="Servlet环境的跨站点请求伪造（CSRF）"></a>Servlet环境的跨站点请求伪造（CSRF）</h2><p>本部分讨论了Spring Security对Servlet环境的跨站点请求伪造（CSRF）支持。</p>
+<h1 id="认证"><a href="#认证" class="headerlink" title="认证"></a>认证</h1><p>Spring Security提供了对<a href="#authentication">身份验证</a>的全面支持。 本节讨论：</p>
+<p><strong>架构组件</strong></p>
+<p>本部分描述了Servlet身份验证中使用的Spring Security的主要架构组件。如果您需要解释这些部分如何组合的具体流程，请查看<a href="#servlet-authentication-mechanisms">“身份验证机制”</a>特定部分。</p>
+<ul>
+<li><a href="#servlet-authentication-securitycontextholder">SecurityContextHolder</a>-Spring Security在其中存储通过<a href="#authentication">身份验证</a>的人员的详细信息。</li>
+<li><a href="#servlet-authentication-securitycontext">SecurityContext</a>-从<code>SecurityContextHolder</code>获得，并包含当前经过身份验证的用户的身份验证。</li>
+<li><a href="#servlet-authentication-authentication">Authentication</a>-可以是<code>AuthenticationManager</code>的输入，以提供用户提供的用于身份验证的凭据或来自<code>SecurityContext</code>的当前用户。</li>
+<li><a href="#servlet-authentication-granted-authority">GrantedAuthority</a>-授予身份验证主体的权限（即角色，范围等）</li>
+<li><a href="#servlet-authentication-authenticationmanager">AuthenticationManager</a>-定义Spring Security的过滤器如何执行身份<a href="#authentication">验证</a>的API。</li>
+<li><a href="#servlet-authentication-providermanager">ProviderManager</a>-<code>AuthenticationManager</code>的最常见实现。</li>
+<li><a href="#servlet-authentication-authenticationprovider">AuthenticationProvider</a>-由<code>ProviderManager</code>用于执行特定类型的身份验证。</li>
+<li><a href="#servlet-authentication-authenticationentrypoint">带AuthenticationEntryPoint的请求凭据</a>-用于从客户端请求凭据（即重定向到登录页面，发送<code>WWW-Authenticate</code>响应等）</li>
+<li><a href="#servlet-authentication-abstractprocessingfilter">AbstractAuthenticationProcessingFilter</a>-用于身份验证的基本过滤器。这也为高级身份验证流程以及各个部分如何协同工作提供了一个好主意。</li>
+</ul>
+<p><strong>认证机制</strong></p>
+<ul>
+<li><a href="#servlet-authentication-unpwd">用户名和密码</a>-如何使用用户名/密码进行身份验证</li>
+<li><a href="#oauth2login">OAuth 2.0登录</a>-使用OpenID Connect和非标准OAuth 2.0登录进行OAuth 2.0登录（即GitHub）</li>
+<li><a href="#servlet-saml2">SAML 2.0登录</a>-SAML 2.0登录</li>
+<li><a href="#servlet-cas">中央身份验证服务器（CAS）</a>-中央身份验证服务器（CAS）支持</li>
+<li><a href="#servlet-rememberme">记住我</a>-如何记住用户过期的会话</li>
+<li><a href="#servlet-jaas">JAAS认证</a>-使用JAAS进行认证</li>
+<li><a href="#servlet-openid">OpenID</a>-OpenID身份验证（请勿与OpenID Connect混淆）</li>
+<li><a href="#servlet-preauth">预先身份验证方案</a>-使用诸如SiteMinder或Java EE安全性之类的外部机制进行身份验证，但仍使用Spring Security进行授权和防范常见漏洞。</li>
+<li><a href="#servlet-x509">X509验证</a>-X509验证</li>
+</ul>
+<p><span id="servlet-authentication-securitycontextholder"></span></p>
+<h2 id="SecurityContextHolder"><a href="#SecurityContextHolder" class="headerlink" title="SecurityContextHolder"></a>SecurityContextHolder</h2><p><span id="servlet-authentication-securitycontext"></span></p>
+<h2 id="SecurityContext"><a href="#SecurityContext" class="headerlink" title="SecurityContext"></a>SecurityContext</h2><p><span id="servlet-authentication-authentication"></span></p>
+<h2 id="Authentication"><a href="#Authentication" class="headerlink" title="Authentication"></a>Authentication</h2><p><span id="servlet-authentication-granted-authority"></span></p>
+<h2 id="GrantedAuthority"><a href="#GrantedAuthority" class="headerlink" title="GrantedAuthority"></a>GrantedAuthority</h2><p><span id="servlet-authentication-authenticationmanager"></span></p>
+<h2 id="AuthenticationManager"><a href="#AuthenticationManager" class="headerlink" title="AuthenticationManager"></a>AuthenticationManager</h2><p><span id="servlet-authentication-providermanager"></span></p>
+<h2 id="ProviderManager"><a href="#ProviderManager" class="headerlink" title="ProviderManager"></a>ProviderManager</h2><p><span id="servlet-authentication-authenticationprovider"></span></p>
+<h2 id="AuthenticationProvider"><a href="#AuthenticationProvider" class="headerlink" title="AuthenticationProvider"></a>AuthenticationProvider</h2><p><span id="servlet-authentication-authenticationentrypoint"></span></p>
+<h2 id="Request-Credentials-with-AuthenticationEntryPoint"><a href="#Request-Credentials-with-AuthenticationEntryPoint" class="headerlink" title="Request Credentials with AuthenticationEntryPoint"></a>Request Credentials with <code>AuthenticationEntryPoint</code></h2><p><span id="servlet-authentication-abstractprocessingfilter"></span></p>
+<h2 id="AbstractAuthenticationProcessingFilter"><a href="#AbstractAuthenticationProcessingFilter" class="headerlink" title="AbstractAuthenticationProcessingFilter"></a>AbstractAuthenticationProcessingFilter</h2><p><span id="servlet-authentication-unpwd"></span></p>
+<h2 id="Username-Password-Authentication"><a href="#Username-Password-Authentication" class="headerlink" title="Username/Password Authentication"></a>Username/Password Authentication</h2><p><span id="#session-mgmt"></span></p>
+<h2 id="Session管理"><a href="#Session管理" class="headerlink" title="Session管理"></a>Session管理</h2><p><span id="#servlet-rememberme"></span></p>
+<h2 id="Remember-Me-Authentication"><a href="#Remember-Me-Authentication" class="headerlink" title="Remember-Me Authentication"></a>Remember-Me Authentication</h2><p><span id="servlet-openid"></span></p>
+<h2 id="OpenID支持"><a href="#OpenID支持" class="headerlink" title="OpenID支持"></a>OpenID支持</h2><p><span id="anonymous"></span></p>
+<h2 id="匿名身份验证"><a href="#匿名身份验证" class="headerlink" title="匿名身份验证"></a>匿名身份验证</h2><p><span id="servlet-preauth"></span></p>
+<h2 id="验证前方案-Pre-Authentication-Scenarios"><a href="#验证前方案-Pre-Authentication-Scenarios" class="headerlink" title="验证前方案(Pre-Authentication Scenarios)"></a>验证前方案(Pre-Authentication Scenarios)</h2><p><span id="servlet-jaas"></span></p>
+<h2 id="Java身份验证和授权服务（JAAS）提供程序"><a href="#Java身份验证和授权服务（JAAS）提供程序" class="headerlink" title="Java身份验证和授权服务（JAAS）提供程序"></a>Java身份验证和授权服务（JAAS）提供程序</h2><p><span id="#servlet-cas"></span></p>
+<h2 id="CAS-Authentication"><a href="#CAS-Authentication" class="headerlink" title="CAS Authentication"></a>CAS Authentication</h2><p><span id="servlet-x509"></span></p>
+<h2 id="X-509-Authentication"><a href="#X-509-Authentication" class="headerlink" title="X.509 Authentication"></a>X.509 Authentication</h2><p><span id="runas"></span></p>
+<h2 id="运行身份验证替换"><a href="#运行身份验证替换" class="headerlink" title="运行身份验证替换"></a>运行身份验证替换</h2><p><span id="jc-logout"></span></p>
+<h2 id="处理登出"><a href="#处理登出" class="headerlink" title="处理登出"></a>处理登出</h2><p><span id="servlet-events"></span></p>
+<h2 id="身份验证事件"><a href="#身份验证事件" class="headerlink" title="身份验证事件"></a>身份验证事件</h2><p><span id="servlet-authorization"></span></p>
+<h1 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h1><p>Spring Security中的高级授权功能代表了其受欢迎程度的最令人信服的原因之一。 无论选择哪种身份验证（使用Spring Security提供的机制和提供程序，还是与容器或其他非Spring Security身份验证机构集成），您都会发现可以在您的应用程序中一致且简单地使用授权服务方式。</p>
+<p>在这一部分中，我们将探索在第一部分中介绍的不同的<code>AbstractSecurityInterceptor</code>实现。然后，我们将继续探讨如何通过使用域访问控制列表来微调授权。</p>
+<p><span id="authz-arch"></span></p>
+<h2 id="Authorization架构"><a href="#Authorization架构" class="headerlink" title="Authorization架构"></a>Authorization架构</h2><p><span id="servlet-authorization-filtersecurityinterceptor"></span></p>
+<h2 id="使用FilterSecurityInterceptor授权HttpServletRequest"><a href="#使用FilterSecurityInterceptor授权HttpServletRequest" class="headerlink" title="使用FilterSecurityInterceptor授权HttpServletRequest"></a>使用FilterSecurityInterceptor授权HttpServletRequest</h2><p><span id="el-access"></span></p>
+<h2 id="基于表达式的访问控制"><a href="#基于表达式的访问控制" class="headerlink" title="基于表达式的访问控制"></a>基于表达式的访问控制</h2><p><span id="secure-object-impls"></span></p>
+<h2 id="Secure-Object-Implementations"><a href="#Secure-Object-Implementations" class="headerlink" title="Secure Object Implementations"></a>Secure Object Implementations</h2><p><span id="jc-method"></span></p>
+<h2 id="Method-Security"><a href="#Method-Security" class="headerlink" title="Method Security"></a>Method Security</h2><p><span id="domain-acls"></span></p>
+<h2 id="Domain-Object-Security-ACLs"><a href="#Domain-Object-Security-ACLs" class="headerlink" title="Domain Object Security (ACLs)"></a>Domain Object Security (ACLs)</h2><p><span id="oauth2"></span></p>
+<h1 id="OAuth2"><a href="#OAuth2" class="headerlink" title="OAuth2"></a>OAuth2</h1><p><span id=""></span></p>
+<h2 id="OAuth-2-0登录"><a href="#OAuth-2-0登录" class="headerlink" title="OAuth 2.0登录"></a>OAuth 2.0登录</h2><p>OAuth 2.0登录功能为应用程序提供了让用户通过使用其在OAuth 2.0提供程序（例如GitHub）或OpenID Connect 1.0提供程序（例如Google）上的现有帐户登录该应用程序的功能。 OAuth 2.0登录实现了以下用例：“使用Google登录”或“使用GitHub登录”。</p>
+<p><span id=""></span></p>
+<p><span id=""></span></p>
+<p><span id=""></span></p>
+<h1 id="SAML2"><a href="#SAML2" class="headerlink" title="SAML2"></a>SAML2</h1><p><span id=""></span></p>
+<h2 id="SAML-2-0登录"><a href="#SAML-2-0登录" class="headerlink" title="SAML 2.0登录"></a>SAML 2.0登录</h2><p>SAML 2.0登录名<code>saml2Login()</code>功能为应用程序提供了使用户能够通过使用其在SAML 2.0身份提供程序（Okta，ADFS等）上的现有帐户登录到该应用程序的功能。</p>
+<p><span id="servlet-exploits"></span></p>
+<h1 id="防止利用漏洞-1"><a href="#防止利用漏洞-1" class="headerlink" title="防止利用漏洞"></a>防止利用漏洞</h1><h2 id="Servlet环境的跨站点请求伪造（CSRF）"><a href="#Servlet环境的跨站点请求伪造（CSRF）" class="headerlink" title="Servlet环境的跨站点请求伪造（CSRF）"></a>Servlet环境的跨站点请求伪造（CSRF）</h2><p>本部分讨论了Spring Security对Servlet环境的跨站点请求伪造（CSRF）支持。</p>
+<p><span id="integrations"></span></p>
 <h1 id="整合方式"><a href="#整合方式" class="headerlink" title="整合方式"></a>整合方式</h1><h2 id="Servlet-API集成"><a href="#Servlet-API集成" class="headerlink" title="Servlet API集成"></a>Servlet API集成</h2><p>本节描述了如何将Spring Security与Servlet API集成在一起。 servletapi-xml样本应用程序演示了每种方法的用法。</p>
+<p><span id="jc"></span></p>
 <h1 id="Java配置"><a href="#Java配置" class="headerlink" title="Java配置"></a>Java配置</h1><p>在Spring 3.1中，对Java配置的常规支持已添加到Spring Framework中。 从Spring Security 3.2开始，Spring Security Java Configuration支持使用户可以轻松配置Spring Security，而无需使用任何XML。</p>
 <p>如果您熟悉安全命名空间配置，则应该在它与安全Java配置支持之间找到很多相似之处。</p>
+<p><span id="kotlin-config"></span></p>
 <h1 id="Kotlin配置"><a href="#Kotlin配置" class="headerlink" title="Kotlin配置"></a>Kotlin配置</h1><p>从Spring Security 5.3开始，Spring Security Kotlin Configuration支持已经可用。 它使用户可以使用本地Kotlin DSL轻松配置Spring Security。</p>
+<p><span id="test"></span></p>
 <h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>本节描述了Spring Security提供的测试支持。</p>
 <blockquote>
 <p>Tip</p>
 <p>要使用Spring Security测试支持，必须包含spring-security-test-5.3.4.RELEASE.jar作为项目的依赖项。</p>
 </blockquote>
+<p><span id="crypto"></span></p>
 <h1 id="Spring-Security加密模块"><a href="#Spring-Security加密模块" class="headerlink" title="Spring Security加密模块"></a>Spring Security加密模块</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Spring Security Crypto模块提供对对称加密，密钥生成和密码编码的支持。 该代码作为核心模块的一部分分发，但与任何其他Spring Security（或Spring）代码无关。</p>
-<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><h1 id="安全数据库架构"><a href="#安全数据库架构" class="headerlink" title="安全数据库架构"></a>安全数据库架构</h1><p>框架使用了各种数据库模式，本附录为它们提供了单个参考点。 您只需要提供所需功能范围的表即可。</p>
+<p><span id="appendix"></span></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><span id="appendix-schema"></span></p>
+<h1 id="安全数据库模式"><a href="#安全数据库模式" class="headerlink" title="安全数据库模式"></a>安全数据库模式</h1><p>框架使用了各种数据库模式，本附录为它们提供了单个参考点。 您只需要提供所需功能范围的表即可。</p>
 <p>为HSQLDB数据库提供了DDL语句。 您可以将这些用作定义正在使用的数据库的架构的准则。</p>
 <h1 id="Reactive-Applications"><a href="#Reactive-Applications" class="headerlink" title="Reactive Applications"></a>Reactive Applications</h1><h1 id="WebFlux安全"><a href="#WebFlux安全" class="headerlink" title="WebFlux安全"></a>WebFlux安全</h1><p>Spring Security的WebFlux支持依赖于WebFilter，并且对Spring WebFlux和Spring WebFlux.Fn相同。 您可以找到一些示例程序来演示以下代码：</p>
-<h1 id="防止利用漏洞-1"><a href="#防止利用漏洞-1" class="headerlink" title="防止利用漏洞"></a>防止利用漏洞</h1><h2 id="WebFlux环境的跨站点请求伪造（CSRF）"><a href="#WebFlux环境的跨站点请求伪造（CSRF）" class="headerlink" title="WebFlux环境的跨站点请求伪造（CSRF）"></a>WebFlux环境的跨站点请求伪造（CSRF）</h2><p>本节讨论Spring Security对WebFlux环境的跨站点请求伪造（CSRF）支持。</p>
+<h1 id="防止利用漏洞-2"><a href="#防止利用漏洞-2" class="headerlink" title="防止利用漏洞"></a>防止利用漏洞</h1><h2 id="WebFlux环境的跨站点请求伪造（CSRF）"><a href="#WebFlux环境的跨站点请求伪造（CSRF）" class="headerlink" title="WebFlux环境的跨站点请求伪造（CSRF）"></a>WebFlux环境的跨站点请求伪造（CSRF）</h2><p>本节讨论Spring Security对WebFlux环境的跨站点请求伪造（CSRF）支持。</p>
 <h1 id="OAuth2-WebFlux"><a href="#OAuth2-WebFlux" class="headerlink" title="OAuth2 WebFlux"></a>OAuth2 WebFlux</h1><p>Spring Security为响应式应用程序提供了OAuth2和WebFlux集成。</p>
 <h1 id="RegisteredOAuth2AuthorizedClient"><a href="#RegisteredOAuth2AuthorizedClient" class="headerlink" title="@RegisteredOAuth2AuthorizedClient"></a>@RegisteredOAuth2AuthorizedClient</h1><p>Spring Security允许使用@ RegisteredOAuth2AuthorizedClient解析访问令牌。</p>
 <h1 id="响应式X-509身份验证"><a href="#响应式X-509身份验证" class="headerlink" title="响应式X.509身份验证"></a>响应式X.509身份验证</h1><p>与Servlet X.509身份验证类似，反应性x509身份验证过滤器允许从客户端提供的证书中提取身份验证令牌。</p>
@@ -481,7 +1502,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E5%AE%89%E5%85%A8%E7%A4%BE%E5%8C%BA"><span class="nav-number">2.</span> <span class="nav-text">Spring安全社区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E5%B8%AE%E5%8A%A9"><span class="nav-number">2.1.</span> <span class="nav-text">获得帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E5%85%B6%E4%B8%AD"><span class="nav-number">2.2.</span> <span class="nav-text">参与其中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">2.3.</span> <span class="nav-text">源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache-2%E8%AE%B8%E5%8F%AF%E8%AF%81"><span class="nav-number">2.4.</span> <span class="nav-text">Apache 2许可证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93"><span class="nav-number">2.5.</span> <span class="nav-text">社交媒体</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Security-5-3%E7%9A%84%E6%96%B0%E5%A2%9E%E5%8A%9F%E8%83%BD"><span class="nav-number">3.</span> <span class="nav-text">Spring Security 5.3的新增功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%9B%B4%E6%96%B0"><span class="nav-number">3.1.</span> <span class="nav-text">文档更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97Spring-Security"><span class="nav-number">4.</span> <span class="nav-text">获得Spring Security</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E7%BC%96%E5%8F%B7"><span class="nav-number">4.1.</span> <span class="nav-text">发布编号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8EMaven%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">与Maven结合使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Boot-with-Maven"><span class="nav-number">4.2.1.</span> <span class="nav-text">Spring Boot with Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89Spring-Boot%E7%9A%84Maven"><span class="nav-number">4.2.2.</span> <span class="nav-text">没有Spring Boot的Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven%E4%BB%93%E5%BA%93"><span class="nav-number">4.2.3.</span> <span class="nav-text">Maven仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle"><span class="nav-number">4.3.</span> <span class="nav-text">Gradle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Boot-with-Gradle"><span class="nav-number">4.3.1.</span> <span class="nav-text">Spring Boot with Gradle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle-Without-Spring-Boot"><span class="nav-number">4.3.2.</span> <span class="nav-text">Gradle Without Spring Boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle%E4%BB%93%E5%BA%93"><span class="nav-number">4.3.3.</span> <span class="nav-text">Gradle仓库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E5%BE%81"><span class="nav-number">5.</span> <span class="nav-text">特征</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%A8%A1%E5%9D%97"><span class="nav-number">6.</span> <span class="nav-text">项目模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Samples"><span class="nav-number">7.</span> <span class="nav-text">Samples</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet-Applications"><span class="nav-number">8.</span> <span class="nav-text">Servlet Applications</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hello-Spring-Security"><span class="nav-number">9.</span> <span class="nav-text">Hello Spring Security</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet%E5%AE%89%E5%85%A8%E6%80%A7%EF%BC%9A%E5%A4%A7%E5%B1%80"><span class="nav-number">10.</span> <span class="nav-text">Servlet安全性：大局</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%9B%E9%80%89%E5%99%A8%E7%9A%84%E5%9B%9E%E9%A1%BE"><span class="nav-number">10.1.</span> <span class="nav-text">筛选器的回顾</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">11.</span> <span class="nav-text">认证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-number">12.</span> <span class="nav-text">授权</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">12.1.</span> <span class="nav-text">方法安全性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#EnableGlobalMethodSecurity"><span class="nav-number">12.1.1.</span> <span class="nav-text">EnableGlobalMethodSecurity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth2"><span class="nav-number">12.2.</span> <span class="nav-text">OAuth2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth-2-0%E7%99%BB%E5%BD%95"><span class="nav-number">12.3.</span> <span class="nav-text">OAuth 2.0登录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SAML2"><span class="nav-number">13.</span> <span class="nav-text">SAML2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SAML-2-0%E7%99%BB%E5%BD%95"><span class="nav-number">13.1.</span> <span class="nav-text">SAML 2.0登录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9E"><span class="nav-number">14.</span> <span class="nav-text">防止利用漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet%E7%8E%AF%E5%A2%83%E7%9A%84%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%EF%BC%88CSRF%EF%BC%89"><span class="nav-number">14.1.</span> <span class="nav-text">Servlet环境的跨站点请求伪造（CSRF）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B4%E5%90%88%E6%96%B9%E5%BC%8F"><span class="nav-number">15.</span> <span class="nav-text">整合方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-API%E9%9B%86%E6%88%90"><span class="nav-number">15.1.</span> <span class="nav-text">Servlet API集成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%85%8D%E7%BD%AE"><span class="nav-number">16.</span> <span class="nav-text">Java配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kotlin%E9%85%8D%E7%BD%AE"><span class="nav-number">17.</span> <span class="nav-text">Kotlin配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">18.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Security%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%9D%97"><span class="nav-number">19.</span> <span class="nav-text">Spring Security加密模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">19.1.</span> <span class="nav-text">介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">20.</span> <span class="nav-text">附录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84"><span class="nav-number">21.</span> <span class="nav-text">安全数据库架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reactive-Applications"><span class="nav-number">22.</span> <span class="nav-text">Reactive Applications</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebFlux%E5%AE%89%E5%85%A8"><span class="nav-number">23.</span> <span class="nav-text">WebFlux安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9E-1"><span class="nav-number">24.</span> <span class="nav-text">防止利用漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebFlux%E7%8E%AF%E5%A2%83%E7%9A%84%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%EF%BC%88CSRF%EF%BC%89"><span class="nav-number">24.1.</span> <span class="nav-text">WebFlux环境的跨站点请求伪造（CSRF）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAuth2-WebFlux"><span class="nav-number">25.</span> <span class="nav-text">OAuth2 WebFlux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RegisteredOAuth2AuthorizedClient"><span class="nav-number">26.</span> <span class="nav-text">@RegisteredOAuth2AuthorizedClient</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8FX-509%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="nav-number">27.</span> <span class="nav-text">响应式X.509身份验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebClient"><span class="nav-number">28.</span> <span class="nav-text">WebClient</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EnableReactiveMethodSecurity"><span class="nav-number">29.</span> <span class="nav-text">EnableReactiveMethodSecurity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reactive%E6%B5%8B%E8%AF%95%E6%94%AF%E6%8C%81"><span class="nav-number">30.</span> <span class="nav-text">Reactive测试支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95Reactive%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">31.</span> <span class="nav-text">测试Reactive方法的安全性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RSocket%E5%AE%89%E5%85%A8"><span class="nav-number">32.</span> <span class="nav-text">RSocket安全</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%88%E5%86%B3%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">先决条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring%E5%AE%89%E5%85%A8%E7%A4%BE%E5%8C%BA"><span class="nav-number">2.</span> <span class="nav-text">Spring安全社区</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97%E5%B8%AE%E5%8A%A9"><span class="nav-number">2.1.</span> <span class="nav-text">获得帮助</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E5%85%B6%E4%B8%AD"><span class="nav-number">2.2.</span> <span class="nav-text">参与其中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">2.3.</span> <span class="nav-text">源代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Apache-2%E8%AE%B8%E5%8F%AF%E8%AF%81"><span class="nav-number">2.4.</span> <span class="nav-text">Apache 2许可证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BE%E4%BA%A4%E5%AA%92%E4%BD%93"><span class="nav-number">2.5.</span> <span class="nav-text">社交媒体</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Security-5-3%E7%9A%84%E6%96%B0%E5%A2%9E%E5%8A%9F%E8%83%BD"><span class="nav-number">3.</span> <span class="nav-text">Spring Security 5.3的新增功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%9B%B4%E6%96%B0"><span class="nav-number">3.1.</span> <span class="nav-text">文档更新</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%BE%97Spring-Security"><span class="nav-number">4.</span> <span class="nav-text">获得Spring Security</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E7%BC%96%E5%8F%B7"><span class="nav-number">4.1.</span> <span class="nav-text">发布编号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8EMaven%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8"><span class="nav-number">4.2.</span> <span class="nav-text">与Maven结合使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Boot-with-Maven"><span class="nav-number">4.2.1.</span> <span class="nav-text">Spring Boot with Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89Spring-Boot%E7%9A%84Maven"><span class="nav-number">4.2.2.</span> <span class="nav-text">没有Spring Boot的Maven</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven%E4%BB%93%E5%BA%93"><span class="nav-number">4.2.3.</span> <span class="nav-text">Maven仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle"><span class="nav-number">4.3.</span> <span class="nav-text">Gradle</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Boot-with-Gradle"><span class="nav-number">4.3.1.</span> <span class="nav-text">Spring Boot with Gradle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle-Without-Spring-Boot"><span class="nav-number">4.3.2.</span> <span class="nav-text">Gradle Without Spring Boot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradle%E4%BB%93%E5%BA%93"><span class="nav-number">4.3.3.</span> <span class="nav-text">Gradle仓库</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%89%B9%E5%BE%81"><span class="nav-number">5.</span> <span class="nav-text">特征</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E6%96%B9%E5%BC%8F"><span class="nav-number">5.1.</span> <span class="nav-text">认证方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81%E6%94%AF%E6%8C%81"><span class="nav-number">5.1.1.</span> <span class="nav-text">认证支持</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%82%A8%E5%AD%98"><span class="nav-number">5.1.2.</span> <span class="nav-text">密码储存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%AD%98%E5%82%A8%E5%8E%86%E5%8F%B2"><span class="nav-number">5.1.2.1.</span> <span class="nav-text">密码存储历史</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DelegatingPasswordEncoder"><span class="nav-number">5.1.2.2.</span> <span class="nav-text">DelegatingPasswordEncoder</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%AD%98%E5%82%A8%E6%A0%BC%E5%BC%8F"><span class="nav-number">5.1.2.2.1.</span> <span class="nav-text">密码存储格式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E7%BC%96%E7%A0%81"><span class="nav-number">5.1.2.2.2.</span> <span class="nav-text">密码编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%8C%B9%E9%85%8D"><span class="nav-number">5.1.2.2.3.</span> <span class="nav-text">密码匹配</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%85%A5%E9%97%A8%E7%BB%8F%E9%AA%8C"><span class="nav-number">5.1.2.2.4.</span> <span class="nav-text">入门经验</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Spring-Boot-CLI%E7%BC%96%E7%A0%81"><span class="nav-number">5.1.2.2.5.</span> <span class="nav-text">使用Spring Boot CLI编码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%95%85%E9%9A%9C%E6%8E%92%E9%99%A4"><span class="nav-number">5.1.2.2.6.</span> <span class="nav-text">故障排除</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BCryptPasswordEncoder"><span class="nav-number">5.1.2.3.</span> <span class="nav-text">BCryptPasswordEncoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Argon2PasswordEncoder"><span class="nav-number">5.1.2.4.</span> <span class="nav-text">Argon2PasswordEncoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pbkdf2PasswordEncoder"><span class="nav-number">5.1.2.5.</span> <span class="nav-text">Pbkdf2PasswordEncoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SCryptPasswordEncoder"><span class="nav-number">5.1.2.6.</span> <span class="nav-text">SCryptPasswordEncoder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%AF%86%E7%A0%81%E7%BC%96%E7%A0%81%E5%99%A8"><span class="nav-number">5.1.2.7.</span> <span class="nav-text">其他密码编码器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%86%E7%A0%81%E5%AD%98%E5%82%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">5.1.2.8.</span> <span class="nav-text">密码存储配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9E"><span class="nav-number">5.2.</span> <span class="nav-text">防止利用漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%EF%BC%88CSRF%EF%BC%89"><span class="nav-number">5.2.1.</span> <span class="nav-text">跨站请求伪造（CSRF）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFCSRF%E6%94%BB%E5%87%BB%EF%BC%9F"><span class="nav-number">5.2.1.1.</span> <span class="nav-text">什么是CSRF攻击？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%98%B2%E8%8C%83CSRF%E6%94%BB%E5%87%BB"><span class="nav-number">5.2.1.2.</span> <span class="nav-text">防范CSRF攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%96%B9%E6%B3%95%E5%BF%85%E9%A1%BB%E6%98%AF%E5%B9%82%E7%AD%89%E7%9A%84"><span class="nav-number">5.2.1.2.1.</span> <span class="nav-text">安全方法必须是幂等的</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E5%99%A8%E4%BB%A4%E7%89%8C%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.2.1.2.2.</span> <span class="nav-text">同步器令牌模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SameSite%E5%B1%9E%E6%80%A7"><span class="nav-number">5.2.1.2.3.</span> <span class="nav-text">SameSite属性</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8CSRF%E4%BF%9D%E6%8A%A4"><span class="nav-number">5.2.1.3.</span> <span class="nav-text">何时使用CSRF保护</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CSRF%E4%BF%9D%E6%8A%A4%E5%92%8CJSON"><span class="nav-number">5.2.1.4.</span> <span class="nav-text">CSRF保护和JSON</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CSRF%E5%92%8C%E6%97%A0%E7%8A%B6%E6%80%81%E6%B5%8F%E8%A7%88%E5%99%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">5.2.1.4.1.</span> <span class="nav-text">CSRF和无状态浏览器应用程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CSRF%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">5.2.1.4.2.</span> <span class="nav-text">CSRF注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E7%99%BB%E5%BD%95"><span class="nav-number">5.2.1.4.2.1.</span> <span class="nav-text">登录</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%B3%A8%E9%94%80"><span class="nav-number">5.2.1.4.2.2.</span> <span class="nav-text">注销</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#CSRF%E5%92%8C%E4%BC%9A%E8%AF%9D%E8%B6%85%E6%97%B6"><span class="nav-number">5.2.1.4.2.3.</span> <span class="nav-text">CSRF和会话超时</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%EF%BC%88%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%EF%BC%89"><span class="nav-number">5.2.1.4.2.4.</span> <span class="nav-text">分段（文件上传）</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8HTTP%E5%93%8D%E5%BA%94%E6%A0%87%E5%A4%B4"><span class="nav-number">5.2.2.</span> <span class="nav-text">安全HTTP响应标头</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%AE%89%E5%85%A8Headers"><span class="nav-number">5.2.2.1.</span> <span class="nav-text">默认安全Headers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E6%8E%A7%E5%88%B6"><span class="nav-number">5.2.2.2.</span> <span class="nav-text">缓存控制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E7%B1%BB%E5%9E%8B%E9%80%89%E9%A1%B9"><span class="nav-number">5.2.2.3.</span> <span class="nav-text">内容类型选项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP%E4%B8%A5%E6%A0%BC%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8%E6%80%A7%EF%BC%88HSTS%EF%BC%89"><span class="nav-number">5.2.2.4.</span> <span class="nav-text">HTTP严格传输安全性（HSTS）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP%E5%85%AC%E9%92%A5%E5%9B%BA%E5%AE%9A%EF%BC%88HPKP%EF%BC%89"><span class="nav-number">5.2.2.5.</span> <span class="nav-text">HTTP公钥固定（HPKP）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#X-Frame-Options"><span class="nav-number">5.2.2.6.</span> <span class="nav-text">X-Frame-Options</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#X-XSS-Protection"><span class="nav-number">5.2.2.7.</span> <span class="nav-text">X-XSS-Protection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Content-Security-Policy-CSP"><span class="nav-number">5.2.2.8.</span> <span class="nav-text">Content Security Policy (CSP)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Referrer-Policy"><span class="nav-number">5.2.2.9.</span> <span class="nav-text">Referrer Policy</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E6%94%BF%E7%AD%96"><span class="nav-number">5.2.2.10.</span> <span class="nav-text">功能政策</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B8%85%E9%99%A4%E7%BD%91%E7%AB%99%E6%95%B0%E6%8D%AE"><span class="nav-number">5.2.2.11.</span> <span class="nav-text">清除网站数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%87%E9%A2%98"><span class="nav-number">5.2.2.12.</span> <span class="nav-text">自定义标题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP"><span class="nav-number">5.2.3.</span> <span class="nav-text">HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS"><span class="nav-number">5.2.3.1.</span> <span class="nav-text">重定向到HTTPS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A5%E6%A0%BC%E7%9A%84%E4%BC%A0%E8%BE%93%E5%AE%89%E5%85%A8"><span class="nav-number">5.2.3.2.</span> <span class="nav-text">严格的传输安全</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">5.2.3.3.</span> <span class="nav-text">代理服务器配置</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%A8%A1%E5%9D%97%E5%92%8C%E4%BE%9D%E8%B5%96"><span class="nav-number">6.</span> <span class="nav-text">项目模块和依赖</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B8%E5%BF%83-spring-security-core-jar"><span class="nav-number">6.1.</span> <span class="nav-text">核心-spring-security-core.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Remoting-spring-security-remoting-jar"><span class="nav-number">6.2.</span> <span class="nav-text">Remoting-spring-security-remoting.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-spring-security-web-jar"><span class="nav-number">6.3.</span> <span class="nav-text">Web-spring-security-web.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-spring-security-config-jar"><span class="nav-number">6.4.</span> <span class="nav-text">配置-spring-security-config.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LDAP-spring-security-ldap-jar"><span class="nav-number">6.5.</span> <span class="nav-text">LDAP-spring-security-ldap.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth-2-0-Core-spring-security-oauth2-core-jar"><span class="nav-number">6.6.</span> <span class="nav-text">OAuth 2.0 Core-spring-security-oauth2-core.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth-2-0-Client-spring-security-oauth2-client-jar"><span class="nav-number">6.7.</span> <span class="nav-text">OAuth 2.0 Client-spring-security-oauth2-client.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth-2-0-JOSE-%E2%80%94-spring-security-oauth2-jose-jar"><span class="nav-number">6.8.</span> <span class="nav-text">OAuth 2.0 JOSE — spring-security-oauth2-jose.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth-2-0-Resource-Server-%E2%80%94-spring-security-oauth2-resource-server-jar"><span class="nav-number">6.9.</span> <span class="nav-text">OAuth 2.0 Resource Server — spring-security-oauth2-resource-server.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ACL-%E2%80%94-spring-security-acl-jar"><span class="nav-number">6.10.</span> <span class="nav-text">ACL — spring-security-acl.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS-%E2%80%94-spring-security-cas-jar"><span class="nav-number">6.11.</span> <span class="nav-text">CAS — spring-security-cas.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenID-%E2%80%94-spring-security-openid-jar"><span class="nav-number">6.12.</span> <span class="nav-text">OpenID — spring-security-openid.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Test-%E2%80%94-spring-security-test-jar"><span class="nav-number">6.13.</span> <span class="nav-text">Test — spring-security-test.jar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Taglibs-%E2%80%94-spring-secuity-taglibs-jar"><span class="nav-number">6.14.</span> <span class="nav-text">Taglibs — spring-secuity-taglibs.jar</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Samples"><span class="nav-number">7.</span> <span class="nav-text">Samples</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet-Applications"><span class="nav-number">8.</span> <span class="nav-text">Servlet Applications</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hello-Spring-Security"><span class="nav-number">9.</span> <span class="nav-text">Hello Spring Security</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%BE%9D%E8%B5%96%E9%A1%B9"><span class="nav-number">9.1.</span> <span class="nav-text">更新依赖项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8Hello-Spring%E5%AE%89%E5%85%A8%E5%90%AF%E5%8A%A8"><span class="nav-number">9.2.</span> <span class="nav-text">启动Hello Spring安全启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring-Boot%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">9.3.</span> <span class="nav-text">Spring Boot自动配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Servlet%E5%AE%89%E5%85%A8%E6%80%A7%EF%BC%9A%E5%A4%A7%E5%B1%80"><span class="nav-number">10.</span> <span class="nav-text">Servlet安全性：大局</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AD%9B%E9%80%89%E5%99%A8%E7%9A%84%E5%9B%9E%E9%A1%BE"><span class="nav-number">10.1.</span> <span class="nav-text">筛选器的回顾</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DelegatingFilterProxy"><span class="nav-number">10.2.</span> <span class="nav-text">DelegatingFilterProxy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FilterChainProxy"><span class="nav-number">10.3.</span> <span class="nav-text">FilterChainProxy</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SecurityFilterChain"><span class="nav-number">10.4.</span> <span class="nav-text">SecurityFilterChain</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Security-Filters"><span class="nav-number">10.5.</span> <span class="nav-text">Security Filters</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handling-Security-Exceptions"><span class="nav-number">10.6.</span> <span class="nav-text">Handling Security Exceptions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A4%E8%AF%81"><span class="nav-number">11.</span> <span class="nav-text">认证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SecurityContextHolder"><span class="nav-number">11.1.</span> <span class="nav-text">SecurityContextHolder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SecurityContext"><span class="nav-number">11.2.</span> <span class="nav-text">SecurityContext</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Authentication"><span class="nav-number">11.3.</span> <span class="nav-text">Authentication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GrantedAuthority"><span class="nav-number">11.4.</span> <span class="nav-text">GrantedAuthority</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AuthenticationManager"><span class="nav-number">11.5.</span> <span class="nav-text">AuthenticationManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ProviderManager"><span class="nav-number">11.6.</span> <span class="nav-text">ProviderManager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AuthenticationProvider"><span class="nav-number">11.7.</span> <span class="nav-text">AuthenticationProvider</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Request-Credentials-with-AuthenticationEntryPoint"><span class="nav-number">11.8.</span> <span class="nav-text">Request Credentials with AuthenticationEntryPoint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AbstractAuthenticationProcessingFilter"><span class="nav-number">11.9.</span> <span class="nav-text">AbstractAuthenticationProcessingFilter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Username-Password-Authentication"><span class="nav-number">11.10.</span> <span class="nav-text">Username&#x2F;Password Authentication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session%E7%AE%A1%E7%90%86"><span class="nav-number">11.11.</span> <span class="nav-text">Session管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Remember-Me-Authentication"><span class="nav-number">11.12.</span> <span class="nav-text">Remember-Me Authentication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OpenID%E6%94%AF%E6%8C%81"><span class="nav-number">11.13.</span> <span class="nav-text">OpenID支持</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%BF%E5%90%8D%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="nav-number">11.14.</span> <span class="nav-text">匿名身份验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%89%8D%E6%96%B9%E6%A1%88-Pre-Authentication-Scenarios"><span class="nav-number">11.15.</span> <span class="nav-text">验证前方案(Pre-Authentication Scenarios)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E5%92%8C%E6%8E%88%E6%9D%83%E6%9C%8D%E5%8A%A1%EF%BC%88JAAS%EF%BC%89%E6%8F%90%E4%BE%9B%E7%A8%8B%E5%BA%8F"><span class="nav-number">11.16.</span> <span class="nav-text">Java身份验证和授权服务（JAAS）提供程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CAS-Authentication"><span class="nav-number">11.17.</span> <span class="nav-text">CAS Authentication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#X-509-Authentication"><span class="nav-number">11.18.</span> <span class="nav-text">X.509 Authentication</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E6%9B%BF%E6%8D%A2"><span class="nav-number">11.19.</span> <span class="nav-text">运行身份验证替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%99%BB%E5%87%BA"><span class="nav-number">11.20.</span> <span class="nav-text">处理登出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81%E4%BA%8B%E4%BB%B6"><span class="nav-number">11.21.</span> <span class="nav-text">身份验证事件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%88%E6%9D%83"><span class="nav-number">12.</span> <span class="nav-text">授权</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Authorization%E6%9E%B6%E6%9E%84"><span class="nav-number">12.1.</span> <span class="nav-text">Authorization架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8FilterSecurityInterceptor%E6%8E%88%E6%9D%83HttpServletRequest"><span class="nav-number">12.2.</span> <span class="nav-text">使用FilterSecurityInterceptor授权HttpServletRequest</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6"><span class="nav-number">12.3.</span> <span class="nav-text">基于表达式的访问控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Secure-Object-Implementations"><span class="nav-number">12.4.</span> <span class="nav-text">Secure Object Implementations</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Method-Security"><span class="nav-number">12.5.</span> <span class="nav-text">Method Security</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Domain-Object-Security-ACLs"><span class="nav-number">12.6.</span> <span class="nav-text">Domain Object Security (ACLs)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAuth2"><span class="nav-number">13.</span> <span class="nav-text">OAuth2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OAuth-2-0%E7%99%BB%E5%BD%95"><span class="nav-number">13.1.</span> <span class="nav-text">OAuth 2.0登录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SAML2"><span class="nav-number">14.</span> <span class="nav-text">SAML2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SAML-2-0%E7%99%BB%E5%BD%95"><span class="nav-number">14.1.</span> <span class="nav-text">SAML 2.0登录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9E-1"><span class="nav-number">15.</span> <span class="nav-text">防止利用漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet%E7%8E%AF%E5%A2%83%E7%9A%84%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%EF%BC%88CSRF%EF%BC%89"><span class="nav-number">15.1.</span> <span class="nav-text">Servlet环境的跨站点请求伪造（CSRF）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B4%E5%90%88%E6%96%B9%E5%BC%8F"><span class="nav-number">16.</span> <span class="nav-text">整合方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Servlet-API%E9%9B%86%E6%88%90"><span class="nav-number">16.1.</span> <span class="nav-text">Servlet API集成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Java%E9%85%8D%E7%BD%AE"><span class="nav-number">17.</span> <span class="nav-text">Java配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kotlin%E9%85%8D%E7%BD%AE"><span class="nav-number">18.</span> <span class="nav-text">Kotlin配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">19.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spring-Security%E5%8A%A0%E5%AF%86%E6%A8%A1%E5%9D%97"><span class="nav-number">20.</span> <span class="nav-text">Spring Security加密模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">20.1.</span> <span class="nav-text">介绍</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">21.</span> <span class="nav-text">附录</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A8%A1%E5%BC%8F"><span class="nav-number">22.</span> <span class="nav-text">安全数据库模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reactive-Applications"><span class="nav-number">23.</span> <span class="nav-text">Reactive Applications</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebFlux%E5%AE%89%E5%85%A8"><span class="nav-number">24.</span> <span class="nav-text">WebFlux安全</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B2%E6%AD%A2%E5%88%A9%E7%94%A8%E6%BC%8F%E6%B4%9E-2"><span class="nav-number">25.</span> <span class="nav-text">防止利用漏洞</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#WebFlux%E7%8E%AF%E5%A2%83%E7%9A%84%E8%B7%A8%E7%AB%99%E7%82%B9%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0%EF%BC%88CSRF%EF%BC%89"><span class="nav-number">25.1.</span> <span class="nav-text">WebFlux环境的跨站点请求伪造（CSRF）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAuth2-WebFlux"><span class="nav-number">26.</span> <span class="nav-text">OAuth2 WebFlux</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RegisteredOAuth2AuthorizedClient"><span class="nav-number">27.</span> <span class="nav-text">@RegisteredOAuth2AuthorizedClient</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8FX-509%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="nav-number">28.</span> <span class="nav-text">响应式X.509身份验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WebClient"><span class="nav-number">29.</span> <span class="nav-text">WebClient</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EnableReactiveMethodSecurity"><span class="nav-number">30.</span> <span class="nav-text">EnableReactiveMethodSecurity</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reactive%E6%B5%8B%E8%AF%95%E6%94%AF%E6%8C%81"><span class="nav-number">31.</span> <span class="nav-text">Reactive测试支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95Reactive%E6%96%B9%E6%B3%95%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7"><span class="nav-number">32.</span> <span class="nav-text">测试Reactive方法的安全性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RSocket%E5%AE%89%E5%85%A8"><span class="nav-number">33.</span> <span class="nav-text">RSocket安全</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
