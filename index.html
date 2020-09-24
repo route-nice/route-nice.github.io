@@ -194,7 +194,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-09-24 08:11:11 / 修改时间：08:42:13" itemprop="dateCreated datePublished" datetime="2020-09-24T08:11:11+08:00">2020-09-24</time>
+              <time title="创建时间：2020-09-24 08:11:11 / 修改时间：10:05:22" itemprop="dateCreated datePublished" datetime="2020-09-24T08:11:11+08:00">2020-09-24</time>
             </span>
 
           
@@ -222,43 +222,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p><strong>基础</strong></p>
-<h1 id="入门"><a href="#入门" class="headerlink" title="入门"></a>入门</h1><p>Java技术简介和安装Java开发软件并使用它创建简单程序的课程。</p>
-<h1 id="学习Java语言"><a href="#学习Java语言" class="headerlink" title="学习Java语言"></a>学习Java语言</h1><p><a href="">面向对象的编程概念</a>教您面向对象的编程背后的核心概念：对象，消息，类和继承。 本课最后向您展示这些概念如何转换为代码。 如果您已经熟悉面向对象的编程，请随时跳过本课程。</p>
-<p><a href="">语言基础</a>描述了语言的传统功能，包括变量，数组，数据类型，运算符和控制流。</p>
-<p><a href="">类和对象</a>描述了如何编写从中创建对象的类，以及如何创建和使用对象。</p>
-<p><a href="">注解</a>是元数据的一种形式，为编译器提供信息。 本课描述了在程序中的何处以及如何有效使用注释。</p>
-<p><a href="">接口和继承</a>描述了接口-它们是什么，为什么要编写一个接口以及如何编写一个接口。 本节还描述了可以从另一个类派生一个类的方法。 也就是说，子类如何可以从超类继承字段和方法。 您将了解所有类都派生自Object类，以及如何修改子类从超类继承的方法。</p>
-<p><a href="">Numbers和Strings</a>本课程描述如何使用数字和字符串对象。本课程还向您展示如何格式化数据以输出。</p>
-<p><a href="">泛型</a>是Java编程语言的强大功能。 它们提高了代码的类型安全性，使您在编译时可以检测到更多错误。</p>
-<p><a href="">包</a>是Java编程语言的一项功能，可帮助您组织和构造类及其之间的关系。</p>
-<h2 id="面向对象编程概念"><a href="#面向对象编程概念" class="headerlink" title="面向对象编程概念"></a>面向对象编程概念</h2><p>如果您以前从未使用过面向对象的编程语言，则需要学习一些基本概念，然后才能开始编写任何代码。本课将向您介绍对象，类，继承，接口和包。每个讨论都集中在这些概念如何与现实世界相关的同时，同时提供对Java编程语言语法的介绍。</p>
-<p><a href="#什么是对象">什么是对象</a>？<br>对象是具有相关状态和行为的软件包。软件对象通常用于建模您在日常生活中发现的现实世界对象。本课说明了对象中状态和行为的表示方式，介绍了数据封装的概念，并说明了以这种方式设计软件的好处。</p>
-<p><a href="#什么是类">什么是类</a>？<br>类是从中创建对象的蓝图或原型。本节定义了一个模型，用于对实际对象的状态和行为进行建模。它特意侧重于基础知识，展示了即使是简单的类也可以如何清晰地对状态和行为进行建模。</p>
-<p><a href="#什么是继承">什么是继承</a>？<br>继承为组织和构造软件提供了强大而自然的机制。本节说明类如何从其超类继承状态和行为，并说明如何使用Java编程语言提供的简单语法从另一个类派生一个类。</p>
-<p><a href="#什么是接口">什么是接口</a>？<br>接口是类与外界之间的契约。当一个类实现一个接口时，它承诺提供该接口发布的行为。本节定义了一个简单的接口，并说明了实现该接口的任何类的必要更改。</p>
-<p><a href="#什么是包">什么是包</a>？<br>包是用于以逻辑方式组织类和接口的名称空间。将您的代码放入程序包使大型软件项目更易于管理。本节说明了这样做的用处，并向您介绍Java平台提供的应用程序编程接口（API）。</p>
-<p>问题与练习：面向对象的编程概念<br>使用本节中提出的问题和练习来测试您对对象，类，继承，接口和包的理解。</p>
-<h3 id="什么是对象"><a href="#什么是对象" class="headerlink" title="什么是对象"></a>什么是对象</h3><p>对象是理解面向对象技术的关键。现在环顾四周，您会发现许多真实物体的示例：您的狗，书桌，电视机，自行车。</p>
-<p>现实世界中的对象共有两个特征：它们都具有状态和行为。狗具有状态（名称，颜色，品种，饥饿）和行为（吠叫，抓捕，摇尾巴）。自行车还具有状态（当前档位，当前踏板节奏，当前速度）和行为（换档，改变踏板节奏，施加制动）。识别现实世界对象的状态和行为是从面向对象编程的角度出发思考的一种好方法。</p>
-<p>现在花一分钟时间观察您附近区域中的真实对象。对于您看到的每个对象，问自己两个问题：“该对象可能处于什么状态？”和“此对象可能执行什么行为？”。确保写下您的观察结果。在执行操作时，您会注意到现实世界中对象的复杂性各不相同。您的台式机灯可能只有两种可能的状态（打开和关闭）和两种可能的行为（打开，关闭），但是您的台式收音机可能具有其他状态（打开，关闭，当前音量，当前电台）和行为（打开） ，关闭，增加音量，减少音量，搜索，扫描和调整）。您可能还会注意到，某些对象也将包含其他对象。这些真实的观察结果都转化为面向对象编程的世界。</p>
-<p><img src="https://docs.oracle.com/javase/tutorial/figures/java/concepts-object.gif" alt="软件中的对象"></p>
-<h2 id="语言基础"><a href="#语言基础" class="headerlink" title="语言基础"></a>语言基础</h2><h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><h2 id="接口和继承"><a href="#接口和继承" class="headerlink" title="接口和继承"></a>接口和继承</h2><h2 id="Numbers和Strings"><a href="#Numbers和Strings" class="headerlink" title="Numbers和Strings"></a>Numbers和Strings</h2><h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><h2 id="包"><a href="#包" class="headerlink" title="包"></a>包</h2><h1 id="基本Java类"><a href="#基本Java类" class="headerlink" title="基本Java类"></a>基本Java类</h1><p>有关异常，基本输入/输出，并发，正则表达式和平台环境的课程。</p>
-<p><strong>高级</strong></p>
-<p>准备深入研究该技术了吗？请参阅以下主题：</p>
-<ul>
-<li>集合-有关使用和扩展Java集合框架的课程。</li>
-<li>Lambda表达式：了解如何以及为什么在应用程序中使用Lambda表达式。</li>
-<li>聚合操作：探索聚合操作，流和Lambda表达式如何协同工作以提供强大的过滤功能。</li>
-<li>在JAR文件中打包程序–创建和签名JAR文件的课程。</li>
-<li>国际化–设计软件的简介，以便可以轻松地将其修改（本地化）为各种语言和地区。</li>
-<li>反射–表示（“反射”）当前Java虚拟机中的类，接口和对象的API。</li>
-<li>安全性– Java平台功能可帮助保护应用程序免受恶意软件的侵害。</li>
-<li>JavaBeans – Java平台的组件技术。</li>
-<li>扩展机制–如何使自定义API对Java平台上运行的所有应用程序可用。</li>
-<li>泛型–类型系统的增强，它支持对各种类型的对象进行操作，同时提供编译时类型安全。</li>
-</ul>
-<h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><h1 id="Lambda表达式"><a href="#Lambda表达式" class="headerlink" title="Lambda表达式"></a>Lambda表达式</h1><h1 id="聚合操作"><a href="#聚合操作" class="headerlink" title="聚合操作"></a>聚合操作</h1><h1 id="在JAR文件中打包程序"><a href="#在JAR文件中打包程序" class="headerlink" title="在JAR文件中打包程序"></a>在JAR文件中打包程序</h1><h1 id="国际化"><a href="#国际化" class="headerlink" title="国际化"></a>国际化</h1><h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><h1 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h1><h1 id="JavaBeans"><a href="#JavaBeans" class="headerlink" title="JavaBeans"></a>JavaBeans</h1><h1 id="扩展机制"><a href="#扩展机制" class="headerlink" title="扩展机制"></a>扩展机制</h1><h1 id="泛型-1"><a href="#泛型-1" class="headerlink" title="泛型"></a>泛型</h1>
+          <p>基于Java8翻译</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/09/24/Java-Tutorials/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
