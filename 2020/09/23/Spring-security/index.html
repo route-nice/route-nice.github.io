@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/authentication/unpwd/basicauthenticationentrypoint.png">
 <meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/authentication/unpwd/basicauthenticationfilter.png">
 <meta property="article:published_time" content="2020-09-23T07:33:08.000Z">
-<meta property="article:modified_time" content="2020-09-27T07:27:47.787Z">
+<meta property="article:modified_time" content="2020-09-27T07:38:45.808Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringSecurity">
 <meta name="twitter:card" content="summary">
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-27 15:27:47" itemprop="dateModified" datetime="2020-09-27T15:27:47+08:00">2020-09-27</time>
+                <time title="修改时间：2020-09-27 15:38:45" itemprop="dateModified" datetime="2020-09-27T15:38:45+08:00">2020-09-27</time>
               </span>
 
           
@@ -1316,7 +1316,7 @@
 </li>
 <li><p><code>HttpServletRequest</code>保存在<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/web/savedrequest/RequestCache.html">RequestCache</a>中。 用户成功进行身份验证后，将使用<code>RequestCache</code>重播原始请求。</p>
 </li>
-<li><p>AuthenticationEntryPoint<code>用于从客户端请求凭据。 例如，它可能重定向到登录页面或发送</code>WWW-Authenticate`标头。</p>
+<li><p><code>AuthenticationEntryPoint</code>用于从客户端请求凭据。 例如，它可能重定向到登录页面或发送<code>WWW-Authenticate</code>标头。</p>
 </li>
 </ul>
 </li>
@@ -1374,8 +1374,8 @@
 <li>最后，我们在SecurityContextHolder上设置SecurityContext。<br>Spring Security将使用此信息进行授权。<br>如果希望获取有关已验证主体的信息，可以通过访问SecurityContextHolder来获得。</li>
 </ol>
 <p>例子54.访问当前认证的用户</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SecurityContext context &#x3D; SecurityContextHolder.getContext();</span><br><span class="line">Authentication authentication &#x3D; context.getAuthentication();</span><br><span class="line">String username &#x3D; authentication.getName();</span><br><span class="line">Object principal &#x3D; authentication.getPrincipal();</span><br><span class="line">Collection&lt;? extends GrantedAuthority&gt; authorities &#x3D; authentication.getAuthorities();</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val context &#x3D; SecurityContextHolder.getContext()</span><br><span class="line">val authentication &#x3D; context.authentication</span><br><span class="line">val username &#x3D; authentication.name</span><br><span class="line">val principal &#x3D; authentication.principal</span><br><span class="line">val authorities &#x3D; authentication.authorities</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SecurityContext context = SecurityContextHolder.getContext();</span><br><span class="line">Authentication authentication = context.getAuthentication();</span><br><span class="line">String username = authentication.getName();</span><br><span class="line">Object principal = authentication.getPrincipal();</span><br><span class="line">Collection&lt;? extends GrantedAuthority&gt; authorities = authentication.getAuthorities();</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> context = SecurityContextHolder.getContext()</span><br><span class="line"><span class="keyword">val</span> authentication = context.authentication</span><br><span class="line"><span class="keyword">val</span> username = authentication.name</span><br><span class="line"><span class="keyword">val</span> principal = authentication.principal</span><br><span class="line"><span class="keyword">val</span> authorities = authentication.authorities</span><br></pre></td></tr></table></figure>
 <p>默认情况下，<code>SecurityContextHolder</code>使用<code>ThreadLocal</code>存储这些详细信息，这意味着即使没有将<code>SecurityContext</code>作为这些方法的参数显式传递，<code>SecurityContext</code>始终可用于同一线程中的方法。如果在处理当前委托人的请求之后要清除线程，则以这种方式使用ThreadLocal是非常安全的。 Spring Security的<a href="#servlet-filterchainproxy">FilterChainProxy</a>确保始终清除<code>SecurityContext</code>。</p>
 <p>由于某些应用程序使用线程的特定方式，因此它们并不完全适合使用<code>ThreadLocal</code>。例如，Swing客户端可能希望Java虚拟机中的所有线程都使用相同的安全上下文。可以在启动时为SecurityContextHolder配置策略，以指定您希望如何存储上下文。对于独立的应用程序，您将使用<code>SecurityContextHolder.MODE_GLOBAL</code>策略。其他应用程序可能希望让安全线程产生的线程也采用相同的安全身份。这可以通过使用<code>SecurityContextHolder.MODE_INHERITABLETHREADLOCAL</code>来实现。您可以通过两种方式从默认的SecurityContextHolder.MODE_THREADLOCAL更改模式。第一个是设置系统属性，第二个是在<code>SecurityContextHolder</code>上调用静态方法。大多数应用程序不需要更改默认值，但是如果需要，请查看JavaDoc for SecurityContextHolder以了解更多信息。</p>
 <p><span id="servlet-authentication-securitycontext"></span></p>
