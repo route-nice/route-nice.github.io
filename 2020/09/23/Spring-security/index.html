@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/multi-securityfilterchain.png">
 <meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/exceptiontranslationfilter.png">
 <meta property="article:published_time" content="2020-09-23T07:33:08.000Z">
-<meta property="article:modified_time" content="2020-09-24T09:01:50.856Z">
+<meta property="article:modified_time" content="2020-09-27T00:13:11.103Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringSecurity">
 <meta name="twitter:card" content="summary">
@@ -212,7 +212,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-24 17:01:50" itemprop="dateModified" datetime="2020-09-24T17:01:50+08:00">2020-09-24</time>
+                <time title="修改时间：2020-09-27 08:13:11" itemprop="dateModified" datetime="2020-09-27T08:13:11+08:00">2020-09-27</time>
               </span>
 
           
@@ -393,6 +393,7 @@
 <p>例子19.创建自定义DelegatingPasswordEncoder</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">String idForEncode &#x3D; &quot;bcrypt&quot;;</span><br><span class="line">Map encoders &#x3D; new HashMap&lt;&gt;();</span><br><span class="line">encoders.put(idForEncode, new BCryptPasswordEncoder());</span><br><span class="line">encoders.put(&quot;noop&quot;, NoOpPasswordEncoder.getInstance());</span><br><span class="line">encoders.put(&quot;pbkdf2&quot;, new Pbkdf2PasswordEncoder());</span><br><span class="line">encoders.put(&quot;scrypt&quot;, new SCryptPasswordEncoder());</span><br><span class="line">encoders.put(&quot;sha256&quot;, new StandardPasswordEncoder());</span><br><span class="line"></span><br><span class="line">PasswordEncoder passwordEncoder &#x3D;</span><br><span class="line">    new DelegatingPasswordEncoder(idForEncode, encoders);</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">val idForEncode &#x3D; &quot;bcrypt&quot;</span><br><span class="line">val encoders: MutableMap&lt;String, PasswordEncoder&gt; &#x3D; mutableMapOf()</span><br><span class="line">encoders[idForEncode] &#x3D; BCryptPasswordEncoder()</span><br><span class="line">encoders[&quot;noop&quot;] &#x3D; NoOpPasswordEncoder.getInstance()</span><br><span class="line">encoders[&quot;pbkdf2&quot;] &#x3D; Pbkdf2PasswordEncoder()</span><br><span class="line">encoders[&quot;scrypt&quot;] &#x3D; SCryptPasswordEncoder()</span><br><span class="line">encoders[&quot;sha256&quot;] &#x3D; StandardPasswordEncoder()</span><br><span class="line"></span><br><span class="line">val passwordEncoder: PasswordEncoder &#x3D; DelegatingPasswordEncoder(idForEncode, encoders)</span><br></pre></td></tr></table></figure>
+<p><span id="authentication-password-storage-dpe-format"></span></p>
 <h5 id="密码存储格式"><a href="#密码存储格式" class="headerlink" title="密码存储格式"></a>密码存储格式</h5><p>密码的一般格式为：</p>
 <p>例子20. DelegatingPasswordEncoder存储格式</p>
 <figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;id&#125;encodedPassword</span><br></pre></td></tr></table></figure>
@@ -454,6 +455,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Create an encoder with all the defaults</span><br><span class="line">SCryptPasswordEncoder encoder &#x3D; new SCryptPasswordEncoder();</span><br><span class="line">String result &#x3D; encoder.encode(&quot;myPassword&quot;);</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result));</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Create an encoder with all the defaults</span><br><span class="line">val encoder &#x3D; SCryptPasswordEncoder()</span><br><span class="line">val result: String &#x3D; encoder.encode(&quot;myPassword&quot;)</span><br><span class="line">assertTrue(encoder.matches(&quot;myPassword&quot;, result))</span><br></pre></td></tr></table></figure>
 <h4 id="其他密码编码器"><a href="#其他密码编码器" class="headerlink" title="其他密码编码器"></a>其他密码编码器</h4><p>还有许多其他的<code>PasswordEncoder</code>实现完全是为了向后兼容而存在的。 不推荐使用它们，以表明它们不再被视为安全。 但是，由于很难迁移现有的旧系统，因此没有删除它们的计划。</p>
+<p><span id="authentication-password-storage-configuration"></span></p>
 <h4 id="密码存储配置"><a href="#密码存储配置" class="headerlink" title="密码存储配置"></a>密码存储配置</h4><p>Spring Security默认使用<a href="#authentication-password-storage-dpe">DelegatingPasswordEncoder</a>。 但是，可以通过将<code>PasswordEncoder</code>公开为Spring bean来对其进行自定义。</p>
 <p>如果您是从Spring Security 4.2.x迁移的，则可以通过公开<code>NoOpPasswordEncoder</code> bean恢复到以前的行为。</p>
 <blockquote>
