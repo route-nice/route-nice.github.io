@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/authentication/unpwd/basicauthenticationentrypoint.png">
 <meta property="og:image" content="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/authentication/unpwd/basicauthenticationfilter.png">
 <meta property="article:published_time" content="2020-09-23T07:33:08.000Z">
-<meta property="article:modified_time" content="2020-09-27T05:52:34.382Z">
+<meta property="article:modified_time" content="2020-09-27T07:27:47.787Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringSecurity">
 <meta name="twitter:card" content="summary">
@@ -221,7 +221,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-27 13:52:34" itemprop="dateModified" datetime="2020-09-27T13:52:34+08:00">2020-09-27</time>
+                <time title="修改时间：2020-09-27 15:27:47" itemprop="dateModified" datetime="2020-09-27T15:27:47+08:00">2020-09-27</time>
               </span>
 
           
@@ -527,7 +527,7 @@
 <p>提交HTTP请求时，服务器必须查找预期的CSRF令牌，并将其与HTTP请求中的实际CSRF令牌进行比较。如果值不匹配，则应拒绝HTTP请求。</p>
 <p>这项工作的关键是，实际的CSRF令牌应该位于浏览器不会自动包含的HTTP请求的一部分中。例如，在HTTP参数或HTTP标头中要求实际的CSRF令牌将防止CSRF攻击。在cookie中要求实际CSRF令牌不起作用，因为浏览器会自动将cookie包含在HTTP请求中。</p>
 <p>我们可以放宽期望，仅对每个更新应用程序状态的HTTP请求仅要求实际的CSRF令牌。为此，我们的应用程序必须确保<a href="#csrf-protection-idempotent">安全的HTTP方法是幂等的</a>。因为我们希望允许使用外部站点的链接来链接到我们的网站，所以这提高了可用性。另外，我们不想在HTTP GET中包含随机令牌，因为这可能导致令牌泄漏。</p>
-<p>让我们看一下使用<a href="#csrf-explained">同步令牌模式</a>时示例将如何变化。假设实际的CSRF令牌必须位于名为_csrf的HTTP参数中。我们应用程序的转帐表格如下：</p>
+<p>让我们看一下使用<a href="#csrf-explained">同步令牌模式</a>时示例将如何变化。假设实际的CSRF令牌必须位于名为_csrf的HTTP参数中。我们应用程序的转帐表单如下：</p>
 <p>例子34.同步器令牌形式</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span> <span class="attr">action</span>=<span class="string">&quot;/transfer&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;_csrf&quot;</span> <span class="attr">value</span>=<span class="string">&quot;4bfd1575-3ad1-4d21-96c7-4ef2d9f86721&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;amount&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;routingNumber&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;account&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Transfer&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>现在，该表单包含具有CSRF令牌值的隐藏输入。 外部站点无法读取CSRF令牌，因为相同的来源策略可确保恶意站点无法读取响应。</p>
@@ -562,7 +562,7 @@
 <p>另一个明显的考虑因素是，为了使<code>SameSite</code>属性能够保护用户，浏览器必须支持<code>SameSite</code>属性。大多数现代浏览器都<a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/headers/Set-Cookie#Browser_compatibility">支持SameSite属性</a>。但是，可能仍未使用较旧的浏览器。</p>
 <p>因此，通常建议将<code>SameSite</code>属性用作深度防御，而不是针对CSRF攻击的唯一防护。</p>
 <h4 id="何时使用CSRF保护"><a href="#何时使用CSRF保护" class="headerlink" title="何时使用CSRF保护"></a>何时使用CSRF保护</h4><p>什么时候应该使用CSRF保护？我们的建议是对普通用户可能由浏览器处理的任何请求使用CSRF保护。如果仅创建非浏览器客户端使用的服务，则可能需要禁用CSRF保护。</p>
-<h4 id="CSRF保护和JSON"><a href="#CSRF保护和JSON" class="headerlink" title="CSRF保护和JSON"></a>CSRF保护和JSON</h4><p>一个常见的问题是“我需要保护由javascript发出的JSON请求吗？”简短的答案是，这取决于。但是，您必须非常小心，因为有些CSRF漏洞会影响JSON请求。例如，恶意用户可以使用以下<a target="_blank" rel="noopener" href="http://blog.opensecurityresearch.com/2012/02/json-csrf-with-parameter-padding.html">格式使用JSON创建CSRF</a>：</p>
+<h4 id="CSRF保护和JSON"><a href="#CSRF保护和JSON" class="headerlink" title="CSRF保护和JSON"></a>CSRF保护和JSON</h4><p>一个常见的问题是“我需要保护由javascript发出的JSON请求吗？”简短的答案是，这视情况而定。但是，您必须非常小心，因为有些CSRF漏洞会影响JSON请求。例如，恶意用户可以使用以下<a target="_blank" rel="noopener" href="http://blog.opensecurityresearch.com/2012/02/json-csrf-with-parameter-padding.html">格式使用JSON创建CSRF</a>：</p>
 <p>例子37. CSRF和JSON形式</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;https://bank.example.com/transfer&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span> <span class="attr">enctype</span>=<span class="string">&quot;text/plain&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">&#x27;&#123;&quot;amount&quot;:100,&quot;routingNumber&quot;:&quot;evilsRoutingNumber&quot;,&quot;account&quot;:&quot;evilsAccountNumber&quot;, &quot;ignore_me&quot;:&quot;&#x27;</span> <span class="attr">value</span>=<span class="string">&#x27;test&quot;&#125;&#x27;</span> <span class="attr">type</span>=<span class="string">&#x27;hidden&#x27;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">value</span>=<span class="string">&quot;Win Money!&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这将产生以下JSON结构</p>
@@ -604,7 +604,7 @@
 <h6 id="分段（文件上传）"><a href="#分段（文件上传）" class="headerlink" title="分段（文件上传）"></a>分段（文件上传）</h6><p>保护分段请求（文件上传）免受CSRF攻击会导致<a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Chicken_or_the_egg">鸡和蛋</a>的问题。为了防止发生CSRF攻击，必须读取HTTP请求的正文以获得实际的CSRF令牌。但是，读取正文表示文件将被上传，这意味着外部站点可以上传文件。</p>
 <p>将CSRF保护与multipart / form-data一起使用有两种选择。每个选项都有其取舍。</p>
 <ul>
-<li>将CSRF令牌放入身体</li>
+<li>将CSRF令牌放入Body</li>
 </ul>
 <ul>
 <li>将CSRF令牌放入URL</li>
@@ -613,15 +613,15 @@
 <p>Note</p>
 <p>在将Spring Security的CSRF保护与分段文件上传集成之前，请确保您可以首先在没有CSRF保护的情况下进行上传。有关在Spring中使用多部分表单的更多信息，请参见Spring参考的<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-Servlet-Stack%E4%B8%8A%E7%9A%84Web/#Multipart解析器">Multipart Resolver部分</a>和<a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.2.x/javadoc-api/org/springframework/web/multipart/support/MultipartFilter.html">MultidocFilter javadoc</a>。</p>
 </blockquote>
-<p>将CSRF令牌放入身体<br>第一种选择是在请求正文中包含实际的CSRF令牌。通过将CSRF令牌放入正文中，将在执行授权之前读取正文。这意味着任何人都可以在您的服务器上放置临时文件。但是，只有授权用户才能提交由您的应用程序处理的文件。通常，这是推荐的方法，因为临时文件上传对大多数服务器的影响可以忽略不计。</p>
+<p>将CSRF令牌放入Body<br>第一种选择是在请求正文中包含实际的CSRF令牌。通过将CSRF令牌放入正文中，将在执行授权之前读取正文。这意味着任何人都可以在您的服务器上放置临时文件。但是，只有授权用户才能提交由您的应用程序处理的文件。通常，这是推荐的方法，因为临时文件上传对大多数服务器的影响可以忽略不计。</p>
 <p>在网址中包含CSRF令牌<br>如果不允许未经授权的用户上传临时文件，则可以选择将预期的CSRF令牌作为查询参数包含在表单的action属性中。这种方法的缺点是查询参数可能会泄漏。更一般而言，将敏感数据放置在正文或标题中以确保不泄漏是最佳实践。可以在<a target="_blank" rel="noopener" href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec15.html#sec15.1.3">RFC 2616第15.1.3节“在URI中编码敏感信息”</a>中找到其他信息。</p>
 <p>HiddenHttpMethodFilter<br>在某些应用程序中，可以使用form参数来覆盖HTTP方法。例如，下面的表格可用于将HTTP方法视为删除而不是发布。</p>
-<p>例子40. CSRF隐藏的HTTP方法表格</p>
+<p>例子40. CSRF隐藏的HTTP方法表单</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/process&quot;</span> <span class="attr">method</span>=<span class="string">&quot;post&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- ... --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;hidden&quot;</span> <span class="attr">name</span>=<span class="string">&quot;_method&quot;</span> <span class="attr">value</span>=<span class="string">&quot;delete&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>覆盖HTTP方法在过滤器中进行。该过滤器必须放在Spring Security支持之前。请注意，覆盖仅发生在<code>POST</code>上，因此实际上不太可能引起任何实际问题。但是，仍然最好的方法是确保将其放置在Spring Security的过滤器之前。</p>
 <h3 id="安全HTTP响应标头"><a href="#安全HTTP响应标头" class="headerlink" title="安全HTTP响应标头"></a>安全HTTP响应标头</h3><blockquote>
 <p>Note</p>
-<p>文档的此部分讨论安全HTTP响应标头的一般主题。有关安全HTTP响应标头Servlet和基于WebFlux的应用程序的特定信息，请参阅相关部分。</p>
+<p>文档的此部分讨论安全HTTP响应标头的一般主题。有关安全HTTP响应标头<a href="##servlet-headers">Servlet</a>和基于<a href="##webflux-headers">WebFlux</a>的应用程序的特定信息，请参阅相关部分。</p>
 </blockquote>
 <p>有许多<a target="_blank" rel="noopener" href="https://www.owasp.org/index.php/OWASP_Secure_Headers_Project#tab=Headers">HTTP响应标头</a>可用于提高Web应用程序的安全性。本节专门介绍Spring Security提供显式支持的各种HTTP响应标头。如有必要，还可以将Spring Security配置为提供<a href="#headers-custom">自定义标头</a>。</p>
 <h4 id="默认安全Headers"><a href="#默认安全Headers" class="headerlink" title="默认安全Headers"></a>默认安全Headers</h4><blockquote>
@@ -683,7 +683,7 @@
 </blockquote>
 <p>将站点标记为HSTS主机的一种方法是将主机预加载到浏览器中。另一个是将<code>Strict-Transport-Security</code>标头添加到响应中。例如，Spring Security的默认行为是添加以下标头，该标头指示浏览器将域视为一年的HSTS主机（一年大约31536000秒）：</p>
 <p>例子44.严格的传输安全HTTP响应头</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Strict-Transport-Security: max-age&#x3D;31536000 ; includeSubDomains ; preload</span><br></pre></td></tr></table></figure>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">Strict-Transport-Security</span>: max-age=31536000 ; includeSubDomains ; preload</span><br></pre></td></tr></table></figure>
 <p>可选的<code>includeSubDomains</code>指令可指示浏览器子域（例如secure.mybank.example.com）也应被视为HSTS域。</p>
 <p>可选的preload指令指示浏览器将域作为HSTS域预加载到浏览器中。有关HSTS预加载的更多详细信息，请参见<a target="_blank" rel="noopener" href="https://hstspreload.org">https://hstspreload.org</a>。</p>
 <p><span id="headers-hpkp"></span></p>
@@ -1205,7 +1205,8 @@
 </li>
 <li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cross-site_request_forgery">CSRF攻击</a>预防</p>
 </li>
-<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Session_fixation">会话固定</a>保护</li>
+<li><p><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Session_fixation">会话固定</a>保护</p>
+</li>
 <li><p>安全Header集成</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/HTTP_Strict_Transport_Security">HTTP严格传输安全性</a>用于安全请求</li>
@@ -1252,7 +1253,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">fun doFilter(request: ServletRequest, response: ServletResponse, chain: FilterChain) &#123;</span><br><span class="line">    &#x2F;&#x2F; Lazily get Filter that was registered as a Spring Bean</span><br><span class="line">    &#x2F;&#x2F; For the example in DelegatingFilterProxy delegate is an instance of Bean Filter0</span><br><span class="line">    val delegate: Filter &#x3D; getFilterBean(someBeanName)</span><br><span class="line">    &#x2F;&#x2F; delegate work to the Spring Bean</span><br><span class="line">    delegate.doFilter(request, response)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>DelegatingFilterProxy</code>的另一个好处是它允许延迟查找Filter bean实例。 这很重要，因为容器需要在启动容器之前注册Filter实例。 但是，Spring通常使用<code>ContextLoaderListener</code>加载Spring Bean，直到需要注册Filter实例之后才可以加载。</p>
 <p><span id="servlet-filterchainproxy"></span></p>
-<h2 id="FilterChainProxy"><a href="#FilterChainProxy" class="headerlink" title="FilterChainProxy"></a>FilterChainProxy</h2><p>Spring Security的Servlet支持包含在<code>FilterChainProxy</code>中。 FilterChainProxy是Spring Security提供的特殊过滤器，允许通过<a href="#servlet-securityfilterchain">SecurityFilterChain</a>委派许多过滤器实例。 由于FilterChainProxy是Bean，因此通常将其包装在<a href="#servlet-delegatingfilterproxy">DelegatingFilterProxy</a>中。</p>
+<h2 id="FilterChainProxy"><a href="#FilterChainProxy" class="headerlink" title="FilterChainProxy"></a>FilterChainProxy</h2><p>Spring Security的Servlet支持包含在<code>FilterChainProxy</code>中。 FilterChainProxy是Spring Security提供的特殊过滤器，允许通过<a href="#servlet-securityfilterchain">SecurityFilterChain</a>委派许多过滤器实例。 由于<code>FilterChainProxy</code>是Bean，因此通常将其包装在<a href="#servlet-delegatingfilterproxy">DelegatingFilterProxy</a>中。</p>
 <p><img src="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/filterchainproxy.png" alt=""></p>
 <p><span id="servlet-securityfilterchain"></span></p>
 <h2 id="SecurityFilterChain"><a href="#SecurityFilterChain" class="headerlink" title="SecurityFilterChain"></a>SecurityFilterChain</h2><p>FilterChainProxy使用<a href="#servlet-filterchainproxy">SecurityFilterChain</a>来确定应对此请求调用哪些Spring Security过滤器。</p>
@@ -1266,8 +1267,8 @@
 <p>在“<a href="#servlet-multi-securityfilterchain-figure">多个SecurityFilterChain</a>”图中，<code>FilterChainProxy</code>决定应使用哪个<code>SecurityFilterChain</code>。仅匹配的第一个<code>SecurityFilterChain</code>将被调用。如果请求的URL是<code>/api/messages/</code>，则它将首先与<code>SecurityFilterChain0</code>的<code>/api/**</code> 模式匹配，因此即使<code>SecurityFilterChain0</code>也与<code>SecurityFilterChainn</code>匹配，也只会调用<code>SecurityFilterChain0</code>。如果请求的URL是<code>/messages/</code>，则与<code>SecurityFilterChain0</code>的<code>/api/**</code>模式不匹配，因此<code>FilterChainProxy</code>将继续尝试每个<code>SecurityFilterChain</code>。假设没有其他匹配<code>SecurityFilterChainn</code>的<code>SecurityFilterChain</code>实例将被调用。</p>
 <p>请注意，<code>SecurityFilterChain0</code>仅配置了三个安全筛选器实例。但是，<code>SecurityFilterChainn</code>配置了四个安全筛选器。重要的是要注意，每个<code>SecurityFilterChain</code>可以是唯一的，并且可以独立配置。实际上，如果应用程序希望Spring Security忽略某些请求，则<code>SecurityFilterChain</code>可能具有零个安全过滤器。</p>
 <p><span id="servlet-security-filters"></span></p>
-<h2 id="Security-Filters"><a href="#Security-Filters" class="headerlink" title="Security Filters"></a>Security Filters</h2><p>安全过滤器通过SecurityFilterChain API插入到<a href="#servlet-filterchainproxy">FilterChainProxy</a>中。 <a href="#servlet-filters-review">过滤器的顺序</a>很重要。 通常不必知道Spring Security的过滤器的顺序。 但是，有时候知道订购是有益的</p>
-<p>以下是Spring Security过滤器订购的完整列表：</p>
+<h2 id="Security-Filters"><a href="#Security-Filters" class="headerlink" title="Security Filters"></a>Security Filters</h2><p>安全过滤器通过SecurityFilterChain API插入到<a href="#servlet-filterchainproxy">FilterChainProxy</a>中。 <a href="#servlet-filters-review">过滤器的顺序</a>很重要。 通常不必知道Spring Security的过滤器的顺序。 但是，有时候知道顺序是有益的</p>
+<p>以下是Spring Security过滤器顺序的完整列表：</p>
 <ul>
 <li>ChannelProcessingFilter</li>
 <li>WebAsyncManagerIntegrationFilter</li>
@@ -1306,20 +1307,22 @@
 <h2 id="Handling-Security-Exceptions"><a href="#Handling-Security-Exceptions" class="headerlink" title="Handling Security Exceptions"></a>Handling Security Exceptions</h2><p><a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/web/access/ExceptionTranslationFilter.html">ExceptionTranslationFilter</a>允许将<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/access/AccessDeniedException.html">AccessDeniedException</a>和<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api//org/springframework/security/core/AuthenticationException.html">AuthenticationException</a>转换为HTTP响应。</p>
 <p><code>ExceptionTranslationFilter</code>作为<a href="#servlet-security-filters">安全筛选器</a>之一插入到<a href="#servlet-filterchainproxy">FilterChainProxy</a>中。</p>
 <p><img src="https://docs.spring.io/spring-security/site/docs/5.4.0/reference/html5/images/servlet/architecture/exceptiontranslationfilter.png" alt=""></p>
-<ul>
-<li>首先，<code>ExceptionTranslationFilter</code>调用<code>FilterChain.doFilter(request，response)</code>来调用应用程序的其余部分。</li>
-</ul>
-<ul>
+<ol>
+<li><p>首先，<code>ExceptionTranslationFilter</code>调用<code>FilterChain.doFilter(request，response)</code>来调用应用程序的其余部分。</p>
+</li>
 <li><p>如果用户未通过身份验证或它是<code>AuthenticationException</code>，则启动身份验证。</p>
 <ul>
-<li>已清除<a href="#servlet-authentication-securitycontextholder">SecurityContextHolder</a></li>
-<li><code>HttpServletRequest</code>保存在<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/web/savedrequest/RequestCache.html">RequestCache</a>中。 用户成功进行身份验证后，将使用<code>RequestCache</code>重播原始请求。</li>
-<li><code>AuthenticationEntryPoint</code>用于从客户端请求凭据。 例如，它可能重定向到登录页面或发送<code>WWW-Authenticate</code>标头。</li>
+<li><p>已清除<a href="#servlet-authentication-securitycontextholder">SecurityContextHolder</a></p>
+</li>
+<li><p><code>HttpServletRequest</code>保存在<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/web/savedrequest/RequestCache.html">RequestCache</a>中。 用户成功进行身份验证后，将使用<code>RequestCache</code>重播原始请求。</p>
+</li>
+<li><p>AuthenticationEntryPoint<code>用于从客户端请求凭据。 例如，它可能重定向到登录页面或发送</code>WWW-Authenticate`标头。</p>
+</li>
 </ul>
 </li>
 <li><p>否则，如果它是<code>AccessDeniedException</code>，则拒绝访问。 调用<code>AccessDeniedHandler</code>以处理拒绝的访问。</p>
 </li>
-</ul>
+</ol>
 <blockquote>
 <p>如果应用程序未引发<code>AccessDeniedException</code>或<code>AuthenticationException</code>，则<code>ExceptionTranslationFilter</code>不执行任何操作。</p>
 </blockquote>
