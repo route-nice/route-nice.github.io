@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="前言Spring Data JPA为Java Persistence API（JPA）提供了存储库支持。 它简化了需要访问JPA数据源的应用程序的开发。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring-Data">
+<meta property="og:url" content="http://yoursite.com/2020/09/28/Spring-Data/index.html">
+<meta property="og:site_name" content="Route-nice">
+<meta property="og:description" content="前言Spring Data JPA为Java Persistence API（JPA）提供了存储库支持。 它简化了需要访问JPA数据源的应用程序的开发。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-28T05:39:16.000Z">
+<meta property="article:modified_time" content="2020-09-28T07:48:31.703Z">
+<meta property="article:author" content="Route-nice">
+<meta property="article:tag" content="Spring-Data">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/09/28/Spring-Data/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Spring-Data | Route-nice</title>
+  
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8b3aabf954a120e5a2920d31f3600013";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Route-nice</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/09/28/Spring-Data/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Route-nice">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Route-nice">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring-Data
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-28 13:39:16 / 修改时间：15:48:31" itemprop="dateCreated datePublished" datetime="2020-09-28T13:39:16+08:00">2020-09-28</time>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/09/28/Spring-Data/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/09/28/Spring-Data/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><strong>前言</strong><br>Spring Data JPA为Java Persistence API（JPA）提供了存储库支持。 它简化了需要访问JPA数据源的应用程序的开发。</p>
+<a id="more"></a>
+<p><span id="project"></span></p>
+<h1 id="项目元数据"><a href="#项目元数据" class="headerlink" title="项目元数据"></a>项目元数据</h1><ul>
+<li>版本控制-<a target="_blank" rel="noopener" href="https://github.com/spring-projects/spring-data-jpa">https://github.com/spring-projects/spring-data-jpa</a></li>
+<li>Bugtracker-<a target="_blank" rel="noopener" href="https://jira.spring.io/browse/DATAJPA">https://jira.spring.io/browse/DATAJPA</a></li>
+<li>发布存储库-<a target="_blank" rel="noopener" href="https://repo.spring.io/libs-release">https://repo.spring.io/libs-release</a></li>
+<li>里程碑资料库-<a target="_blank" rel="noopener" href="https://repo.spring.io/libs-milestone">https://repo.spring.io/libs-milestone</a></li>
+<li>快照存储库-<a target="_blank" rel="noopener" href="https://repo.spring.io/libs-snapshot">https://repo.spring.io/libs-snapshot</a></li>
+</ul>
+<p><span id="jpa.repositories"></span></p>
+<h1 id="JPA-Repositories"><a href="#JPA-Repositories" class="headerlink" title="JPA Repositories"></a>JPA Repositories</h1><p>本章指出了JPA信息库支持的特长。 这基于“使用Spring数据存储库”中解释的核心存储库支持。 确保您对此处介绍的基本概念有很好的理解。</p>
+<p><span id="jpa.introduction"></span></p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>本节介绍通过以下两种方式配置Spring Data JPA的基础知识：</p>
+<p><a href="#jpa.namespace">“ Spring命名空间”</a>（XML配置）</p>
+<p><a href="#jpa.java-config">“基于注解的配置”</a>（Java配置）</p>
+<p><span id="jpa.namespace"></span></p>
+<h3 id="Spring命名空间"><a href="#Spring命名空间" class="headerlink" title="Spring命名空间"></a>Spring命名空间</h3><p>Spring Data的JPA模块包含一个允许定义存储库bean的自定义名称空间。 它还包含JPA特有的某些功能和元素属性。 通常，可以通过使用repositories元素来设置JPA存储库，如以下示例所示：</p>
+<p>例子54.使用命名空间设置JPA存储库</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xmlns:jpa</span>=<span class="string">&quot;http://www.springframework.org/schema/data/jpa&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">    https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">    http://www.springframework.org/schema/data/jpa</span></span></span><br><span class="line"><span class="tag"><span class="string">    https://www.springframework.org/schema/data/jpa/spring-jpa.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">jpa:repositories</span> <span class="attr">base-package</span>=<span class="string">&quot;com.acme.repositories&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>repositories</code>元素可按<a href="#repositories.create-instances">“创建存储库实例”</a>中所述查找Spring Data存储库。 除此之外，它还为所有使用<code>@Repository</code>注解的bean激活持久性异常转换，以使JPA持久性提供程序引发的异常转换为Spring的<code>DataAccessException</code>层次结构。</p>
+<p><strong>自定义命名空间属性</strong><br>除了<code>repositories</code>元素的默认属性，JPA命名空间还提供了其他属性，使您可以更详细地控制存储库的设置：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th><code>entity-manager-factory-ref</code></th>
+<th>明确地将<code>EntityManagerFactory</code>与要使用的<code>repositories</code>元素检测到的存储库关联。 通常在应用程序中使用多个<code>EntityManagerFactory</code> bean时使用。 如果未配置，Spring Data会在<code>ApplicationContext</code>中自动查找名称为<code>EntityManagerFactory</code>的<code>EntityManagerFactory</code> bean。</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>transaction-manager-ref</code></td>
+<td>明确地将<code>PlatformTransactionManager</code>与要使用的<code>repositories</code>元素所检测到的存储库进行连线。 通常仅在配置了多个事务管理器或<code>EntityManagerFactory</code> bean时才需要。 默认为当前<code>ApplicationContext</code>中单个定义的<code>PlatformTransactionManager</code>。</td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>Note</p>
+<p>如果未定义显式的<code>transaction-manager-ref</code>，Spring Data JPA要求提供一个名为<code>transactionManager</code>的<code>PlatformTransactionManager</code> bean。</p>
+</blockquote>
+<p><span id="jpa.java-config"></span></p>
+<h3 id="基于注解的配置"><a href="#基于注解的配置" class="headerlink" title="基于注解的配置"></a>基于注解的配置</h3><p>Spring Data JPA存储库支持不仅可以通过XML名称空间来激活，还可以通过JavaConfig使用注解来激活，如以下示例所示：</p>
+<p>例子55.使用JavaConfig的Spring Data JPA存储库</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableJpaRepositories</span></span><br><span class="line"><span class="meta">@EnableTransactionManagement</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApplicationConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> DataSource <span class="title">dataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    EmbeddedDatabaseBuilder builder = <span class="keyword">new</span> EmbeddedDatabaseBuilder();</span><br><span class="line">    <span class="keyword">return</span> builder.setType(EmbeddedDatabaseType.HSQL).build();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> LocalContainerEntityManagerFactoryBean <span class="title">entityManagerFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    HibernateJpaVendorAdapter vendorAdapter = <span class="keyword">new</span> HibernateJpaVendorAdapter();</span><br><span class="line">    vendorAdapter.setGenerateDdl(<span class="keyword">true</span>);</span><br><span class="line"></span><br><span class="line">    LocalContainerEntityManagerFactoryBean factory = <span class="keyword">new</span> LocalContainerEntityManagerFactoryBean();</span><br><span class="line">    factory.setJpaVendorAdapter(vendorAdapter);</span><br><span class="line">    factory.setPackagesToScan(<span class="string">&quot;com.acme.domain&quot;</span>);</span><br><span class="line">    factory.setDataSource(dataSource());</span><br><span class="line">    <span class="keyword">return</span> factory;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> PlatformTransactionManager <span class="title">transactionManager</span><span class="params">(EntityManagerFactory entityManagerFactory)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    JpaTransactionManager txManager = <span class="keyword">new</span> JpaTransactionManager();</span><br><span class="line">    txManager.setEntityManagerFactory(entityManagerFactory);</span><br><span class="line">    <span class="keyword">return</span> txManager;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note</p>
+<p>您必须直接创建<code>LocalContainerEntityManagerFactoryBean</code>而不是<code>EntityManagerFactory</code>，因为前者除了创建<code>EntityManagerFactory</code>之外，还参与异常转换机制。</p>
+</blockquote>
+<p>前面的配置类通过使用<code>spring-jdbc</code>的<code>EmbeddedDatabaseBuilder</code> API来设置嵌入式HSQL数据库。然后，Spring Data会建立一个<code>EntityManagerFactory</code>并将<code>Hibernate</code>用作示例持久性提供程序。在此声明的最后一个基础结构组件是JpaTransactionManager。最后，该示例通过使用`@EnableJpaRepositories注解来激活Spring Data JPA仓库，该批注实质上具有与XML名称空间相同的属性。如果未配置任何基本程序包，它将使用配置类所在的程序包。</p>
+<p><span id="jpa.bootstrap-mode"></span></p>
+<h3 id="引导模式"><a href="#引导模式" class="headerlink" title="引导模式"></a>引导模式</h3><p>默认情况下，Spring Data JPA存储库是默认的Spring Bean。它们是单例作用域的，并且急切地初始化。在启动期间，它们已经与JPA <code>EntityManager</code>进行交互，以进行验证和元数据分析。 Spring框架在后台线程中支持JPA <code>EntityManagerFactory</code>的初始化，因为该过程通常在Spring应用程序中占用大量启动时间。为了有效地利用该后台初始化，我们需要确保JPA存储库尽可能早地初始化。</p>
+<p>从Spring Data JPA 2.1开始，您现在可以配置<code>BootstrapMode</code>（通过`@EnableJpaRepositories注解或XML名称空间），它采用以下值：</p>
+<ul>
+<li><code>DEFAULT</code>（默认值）-急切地实例化存储库，除非使用<code>@Lazy</code>显式注解。仅当没有客户机Bean需要存储库实例时，lazification才有效，因为这将需要初始化存储库bean。</li>
+<li><code>LAZY</code>-隐式地将所有存储库bean声明为lazy，并且还导致创建懒惰的初始化代理以将其注入到客户端bean中。这意味着，如果客户端bean仅将实例存储在字段中并且在初始化期间不使用存储库，则不会实例化存储库。首次与存储库交互时，将初始化和验证存储库实例。</li>
+<li><code>DEFERRED</code> —与<code>LAZY</code>基本相同的操作模式，但是响应<code>ContextRefreshedEvent</code>触发存储库初始化，以便在应用程序完全启动之前验证存储库。</li>
+</ul>
+<p><strong>推荐建议</strong><br>如果您不使用默认引导模式的异步JPA引导棒。</p>
+<p>如果您以异步方式引导JPA，则<code>DEFERRED</code>是一个合理的默认值，因为它可以确保Spring Data JPA引导仅在其花费比初始化所有其他应用程序组件更长的时间时才等待<code>EntityManagerFactory</code>安装。 尽管如此，它仍可以确保在应用程序发出信号之前，对存储库进行了正确的初始化和验证。</p>
+<p><code>LAZY</code>是测试方案和本地开发的不错选择。 一旦确定了存储库将正确引导后，或者在测试应用程序的其他部分的情况下，对所有存储库执行验证可能只会不必要地增加启动时间。 这同样适用于本地开发，在本地开发中，您仅访问应用程序的某些部分，而这些部分可能只需要初始化一个存储库即可。</p>
+<p><span id="jpa.entity-persistence"></span></p>
+<h2 id="持久化实体"><a href="#持久化实体" class="headerlink" title="持久化实体"></a>持久化实体</h2><p>本节描述了如何使用Spring Data JPA持久化（保存）实体。</p>
+<p><span id="jpa.entity-persistence.saving-entites"></span></p>
+<h3 id="保存实体"><a href="#保存实体" class="headerlink" title="保存实体"></a>保存实体</h3><p>可以使用<code>CrudRepository.save(...)</code>方法执行保存实体。 它使用基础JPA <code>EntityManager</code>持久化或合并给定实体。 如果该实体尚未持久化，Spring Data JPA会通过调用<code>entityManager.persist(...)</code>方法来保存该实体。 否则，它将调用<code>entityManager.merge(...)</code>方法。</p>
+<p><span id="jpa.entity-persistence.saving-entites.strategies"></span></p>
+<h4 id="实体状态检测策略"><a href="#实体状态检测策略" class="headerlink" title="实体状态检测策略"></a>实体状态检测策略</h4><p>Spring Data JPA提供以下策略来检测实体是否为新实体：</p>
+<ol>
+<li><p>Version-Property和Id-Property检查（default）：默认情况下，Spring Data JPA首先检查是否存在非基本类型的Version-property。如果存在，则将该实体视为新实体（如果该值为null）。没有这样的版本属性，Spring Data JPA会检查给定实体的标识符属性。如果标识符属性为<code>null</code>，则假定该实体为新实体。否则，假定它不是新的。</p>
+</li>
+<li><p>实现<code>Persistable</code>：如果实体实现<code>Persistable</code>，则Spring Data JPA将新检测委托给该实体的<code>isNew(...)</code>方法。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-data/data-commons/docs/current/api/index.html?org/springframework/data/domain/Persistable.html">JavaDoc</a>。</p>
+</li>
+<li><p>实现<code>EntityInformation</code>：通过创建<code>JpaRepositoryFactory</code>的子类并相应地重写<code>getEntityInformation(...)</code>方法，可以自定义<code>SimpleJpaRepository</code>实现中使用的<code>EntityInformation</code>抽象。然后，您必须将<code>JpaRepositoryFactory</code>的自定义实现注册为Spring bean。请注意，这几乎没有必要。有关详细信息，请参见<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-data/data-jpa/docs/current/api/index.html?org/springframework/data/jpa/repository/support/JpaRepositoryFactory.html">JavaDoc</a>。</p>
+</li>
+</ol>
+<p>对于使用手动分配的标识符的实体，选项1不是选项，因为标识符将始终为非<code>null</code>。在这种情况下，一种常见的模式是使用一个公共基类，该基类的过渡标志默认表示一个新实例，并使用JPA生命周期回调在持久性操作上翻转该标志：</p>
+<p>例子56.具有手动分配的标识符的实体的基类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MappedSuperclass</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractEntity</span>&lt;<span class="title">ID</span>&gt; <span class="keyword">implements</span> <span class="title">Persistable</span>&lt;<span class="title">ID</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Transient</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">boolean</span> isNew = <span class="keyword">true</span>; <span class="number">1</span></span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">isNew</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> isNew; <span class="number">2</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@PrePersist</span> <span class="number">3</span></span><br><span class="line">  <span class="meta">@PostLoad</span></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">markNotNew</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.isNew = <span class="keyword">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// More code…</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>声明一个标志以保持新状态。 暂时的，因此它不会持久化到数据库中。</li>
+<li>在<code>Persistable.isNew()</code>的实现中返回标志，以便Spring Data存储库知道是调用<code>EntityManager.persist()</code>还是<code>….merge()</code>。</li>
+<li>声明使用JPA实体回调的方法，以便在存储库调用<code>save(...)</code>或持久性提供程序创建实例之后，将标志切换为指示现有实体。</li>
+</ol>
+<p><span id="jpa.query-methods"></span></p>
+<h2 id="查询方法"><a href="#查询方法" class="headerlink" title="查询方法"></a>查询方法</h2><p>本节描述了使用Spring Data JPA创建查询的各种方法。</p>
+<p><span id="jpa.sample-app.finders.strategies"></span></p>
+<h3 id="查询查找策略"><a href="#查询查找策略" class="headerlink" title="查询查找策略"></a>查询查找策略</h3><p>JPA模块支持手动将查询定义为String或从方法名称派生查询。</p>
+<p>谓词为<code>IsStartingWith</code>，<code>StartingWith</code>，<code>StartsWith</code>，<code>IsEndingWith</code>，<code>EndingWith</code>，<code>EndsWith</code>，<code>IsNotContaining</code>，NotContaining，<code>NotContains</code>，<code>IsContaining</code>，<code>Containing</code>的派生查询将包含这些查询的各自参数。这意味着，如果参数实际上包含LIKE识别为通配符的字符，则这些字符将被转义，因此它们仅作为文字匹配。可以通过设置<code>@EnableJpaRepositories</code>注解的<code>escapeCharacter</code>来配置使用的转义字符。与<a href="#jpa.query.spel-expressions">使用SpEL表达式</a>进行比较。</p>
+<p><strong>声明查询</strong><br>尽管从方法名派生一个查询很方便，但可能会遇到这样一种情况，即方法名解析器不支持一个人想使用的关键字，或者方法名不必要地变得丑陋。因此，您可以通过命名约定使用JPA命名查询（有关更多信息，请参见<a href="#jpa.query-methods.named-queries">使用JPA命名查询</a>），或者通过<code>@Query</code>注解您的查询方法（有关详细信息，请参阅<a href="#jpa.query-methods.at-query">使用@Query</a>）。</p>
+<p><span id="jpa.query-methods.query-creation"></span></p>
+<h3 id="查询创建"><a href="#查询创建" class="headerlink" title="查询创建"></a>查询创建</h3><p>通常，JPA的查询创建机制按<a href="#repositories.query-methods">“查询方法”</a>中所述运行。 以下示例显示了JPA查询方法转换为的内容：</p>
+<p>例子57.从方法名查询创建</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">Repository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function">List&lt;User&gt; <span class="title">findByEmailAddressAndLastname</span><span class="params">(String emailAddress, String lastname)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们从中使用JPA标准API创建查询，但是从本质上讲，这将转换为以下查询：<code>select u from User u where u.emailAddress = ?1 and u.lastname = ?2</code> 如<a href="#repositories.query-methods.query-property-expressions">“属性表达式”</a>中所述，Spring Data JPA进行属性检查并遍历嵌套的属性。</p>
+<p>下表描述了JPA支持的关键字以及包含该关键字的方法所转换的含义：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Keyword</th>
+<th style="text-align:left">Sample</th>
+<th style="text-align:left">JPQL snippet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>And</code></td>
+<td style="text-align:left"><code>findByLastnameAndFirstname</code></td>
+<td style="text-align:left"><code>… where x.lastname = ?1 and x.firstname = ?2</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Or</code></td>
+<td style="text-align:left"><code>findByLastnameOrFirstname</code></td>
+<td style="text-align:left"><code>… where x.lastname = ?1 or x.firstname = ?2</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Is</code>, <code>Equals</code></td>
+<td style="text-align:left"><code>findByFirstname</code>,<code>findByFirstnameIs</code>,<code>findByFirstnameEquals</code></td>
+<td style="text-align:left"><code>… where x.firstname = ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Between</code></td>
+<td style="text-align:left"><code>findByStartDateBetween</code></td>
+<td style="text-align:left"><code>… where x.startDate between ?1 and ?2</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>LessThan</code></td>
+<td style="text-align:left"><code>findByAgeLessThan</code></td>
+<td style="text-align:left"><code>… where x.age &lt; ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>LessThanEqual</code></td>
+<td style="text-align:left"><code>findByAgeLessThanEqual</code></td>
+<td style="text-align:left"><code>… where x.age &lt;= ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>GreaterThan</code></td>
+<td style="text-align:left"><code>findByAgeGreaterThan</code></td>
+<td style="text-align:left"><code>… where x.age &gt; ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>GreaterThanEqual</code></td>
+<td style="text-align:left"><code>findByAgeGreaterThanEqual</code></td>
+<td style="text-align:left"><code>… where x.age &gt;= ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>After</code></td>
+<td style="text-align:left"><code>findByStartDateAfter</code></td>
+<td style="text-align:left"><code>… where x.startDate &gt; ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Before</code></td>
+<td style="text-align:left"><code>findByStartDateBefore</code></td>
+<td style="text-align:left"><code>… where x.startDate &lt; ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>IsNull</code>, <code>Null</code></td>
+<td style="text-align:left"><code>findByAge(Is)Null</code></td>
+<td style="text-align:left"><code>… where x.age is null</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>IsNotNull</code>, <code>NotNull</code></td>
+<td style="text-align:left"><code>findByAge(Is)NotNull</code></td>
+<td style="text-align:left"><code>… where x.age not null</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Like</code></td>
+<td style="text-align:left"><code>findByFirstnameLike</code></td>
+<td style="text-align:left"><code>… where x.firstname like ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>NotLike</code></td>
+<td style="text-align:left"><code>findByFirstnameNotLike</code></td>
+<td style="text-align:left"><code>… where x.firstname not like ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>StartingWith</code></td>
+<td style="text-align:left"><code>findByFirstnameStartingWith</code></td>
+<td style="text-align:left"><code>… where x.firstname like ?1</code> (parameter bound with appended <code>%</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>EndingWith</code></td>
+<td style="text-align:left"><code>findByFirstnameEndingWith</code></td>
+<td style="text-align:left"><code>… where x.firstname like ?1</code> (parameter bound with prepended <code>%</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Containing</code></td>
+<td style="text-align:left"><code>findByFirstnameContaining</code></td>
+<td style="text-align:left"><code>… where x.firstname like ?1</code> (parameter bound wrapped in <code>%</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>OrderBy</code></td>
+<td style="text-align:left"><code>findByAgeOrderByLastnameDesc</code></td>
+<td style="text-align:left"><code>… where x.age = ?1 order by x.lastname desc</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>Not</code></td>
+<td style="text-align:left"><code>findByLastnameNot</code></td>
+<td style="text-align:left"><code>… where x.lastname &lt;&gt; ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>In</code></td>
+<td style="text-align:left"><code>findByAgeIn(Collection&lt;Age&gt; ages)</code></td>
+<td style="text-align:left"><code>… where x.age in ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>NotIn</code></td>
+<td style="text-align:left"><code>findByAgeNotIn(Collection&lt;Age&gt; ages)</code></td>
+<td style="text-align:left"><code>… where x.age not in ?1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>True</code></td>
+<td style="text-align:left"><code>findByActiveTrue()</code></td>
+<td style="text-align:left"><code>… where x.active = true</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>False</code></td>
+<td style="text-align:left"><code>findByActiveFalse()</code></td>
+<td style="text-align:left"><code>… where x.active = false</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>IgnoreCase</code></td>
+<td style="text-align:left"><code>findByFirstnameIgnoreCase</code></td>
+<td style="text-align:left"><code>… where UPPER(x.firstame) = UPPER(?1)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<p>Note</p>
+<p><code>In</code>和<code>NotIn</code>也将<code>Collection</code>的任何子类作为参数以及varargs的数组。 对于同一逻辑运算符的其他语法版本，请选中<a href="#repository-query-keywords">“存储库查询关键字”</a>。</p>
+</blockquote>
+<p><span id="jpa.query-methods.named-queries"></span></p>
+<h3 id="使用JPA命名查询"><a href="#使用JPA命名查询" class="headerlink" title="使用JPA命名查询"></a>使用JPA命名查询</h3><blockquote>
+<p>Note</p>
+<p>这些示例使用<code>&lt;named-query/&gt;</code>元素和<code>@NamedQuery</code>注解。 这些配置元素的查询必须用JPA查询语言定义。 当然，您也可以使用<code>&lt;named-native-query /&gt;</code>或<code>@NamedNativeQuery</code>。 这些元素使您可以通过失去数据库平台独立性来在本机SQL中定义查询。</p>
+</blockquote>
+<p><strong>XML命名查询定义</strong><br>要使用XML配置，请将必要的<named-query />元素添加到位于类路径的META-INF文件夹中的orm.xml JPA配置文件中。 通过使用一些定义的命名约定，可以自动调用命名查询。 有关更多详细信息，请参见下文。</p>
+<p>例子58. XML命名查询配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">named-query</span> <span class="attr">name</span>=<span class="string">&quot;User.findByLastname&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">query</span>&gt;</span>select u from User u where u.lastname = ?1<span class="tag">&lt;/<span class="name">query</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">named-query</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>该查询具有一个特殊名称，该名称用于在运行时解析它。</p>
+<p><strong>基于注解的配置</strong><br>基于注解的配置的优点是不需要编辑另一个配置文件，从而减少了维护工作。 您需要为每个新的查询声明重新编译域类，从而为此付出了代价。</p>
+<p>例子59.基于注释的命名查询配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@NamedQuery(name = &quot;User.findByEmailAddress&quot;,</span></span><br><span class="line"><span class="meta">  query = &quot;select u from User u where u.emailAddress = ?1&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>声明接口</strong><br>要允许执行这些命名查询，请按以下方式指定<code>UserRepository</code>：</p>
+<p>例子60. UserRepository中的查询方法声明</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function">List&lt;User&gt; <span class="title">findByLastname</span><span class="params">(String lastname)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="function">User <span class="title">findByEmailAddress</span><span class="params">(String emailAddress)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring Data尝试将对这些方法的调用解析为对命名查询的调用，从已配置的域类的简单名称开始，然后是由句点分隔的方法名称。 因此，前面的示例将使用在示例中定义的命名查询，而不是尝试从方法名称创建查询。</p>
+<p><span id="jpa.query-methods.at-query"></span></p>
+<h3 id="使用-Query"><a href="#使用-Query" class="headerlink" title="使用@Query"></a>使用@Query</h3><p>使用命名查询声明对实体的查询是一种有效的方法，并且对于少量查询也可以正常工作。 由于查询本身与执行它们的Java方法相关联，因此您实际上可以通过使用Spring Data JPA <code>@Query</code>注解直接绑定它们，而不是将它们注解到域类。 这样可以将域类从持久性特定的信息中释放出来，并将查询放置在存储库接口中。</p>
+<p>注解查询方法的查询优先于使用<code>@NamedQuery</code>定义的查询或在<code>orm.xml</code>中声明的命名查询。</p>
+<p>以下示例显示使用<code>@Query</code>注解创建的查询：</p>
+<p>例子61.使用<code>@Query</code>在查询方法中声明查询</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(&quot;select u from User u where u.emailAddress = ?1&quot;)</span></span><br><span class="line">  <span class="function">User <span class="title">findByEmailAddress</span><span class="params">(String emailAddress)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>使用高级<code>LIKE</code>表达式</strong><br>使用<code>@Query</code>创建的手动定义查询的查询执行机制允许在查询定义中定义高级<code>LIKE</code>表达式，如以下示例所示：</p>
+<p>例子62. <code>@Query</code>中的高级<code>like</code>表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(&quot;select u from User u where u.firstname like %?1&quot;)</span></span><br><span class="line">  <span class="function">List&lt;User&gt; <span class="title">findByFirstnameEndsWith</span><span class="params">(String firstname)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在前面的示例中，识别了<code>LIKE</code>分隔符（<code>％</code>），并将查询转换为有效的JPQL查询（删除了<code>％</code>）。 查询执行后，传递给方法调用的参数将使用先前识别的<code>LIKE</code>模式进行扩充。</p>
+<p><strong>本地查询</strong><br><code>@Query</code>注解允许通过将nativeQuery标志设置为true来运行本地查询，如以下示例所示：</p>
+<p>例子63.使用@Query在查询方法中声明一个本地查询</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(value = &quot;SELECT * FROM USERS WHERE EMAIL_ADDRESS = ?1&quot;, nativeQuery = true)</span></span><br><span class="line">  <span class="function">User <span class="title">findByEmailAddress</span><span class="params">(String emailAddress)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring Data JPA当前不支持对本机查询进行动态排序，因为它必须操纵声明的实际查询，而这对于本机SQL无法可靠地完成。 但是，您可以通过自己指定count查询来使用本机查询进行分页，如以下示例所示：<br>例子64.使用@Query在查询方法中声明本地计数查询的分页</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(value = &quot;SELECT * FROM USERS WHERE LASTNAME = ?1&quot;,</span></span><br><span class="line"><span class="meta">    countQuery = &quot;SELECT count(*) FROM USERS WHERE LASTNAME = ?1&quot;,</span></span><br><span class="line"><span class="meta">    nativeQuery = true)</span></span><br><span class="line">  <span class="function">Page&lt;User&gt; <span class="title">findByLastname</span><span class="params">(String lastname, Pageable pageable)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过将<code>.count</code>后缀添加到查询的副本中，类似的方法也可用于命名本机查询。 不过，您可能需要为计数查询注册结果集映射。</p>
+<p><span id="jpa.query-methods.sorting"></span></p>
+<h3 id="使用Sort"><a href="#使用Sort" class="headerlink" title="使用Sort"></a>使用Sort</h3><p>可以通过提供<code>PageRequest</code>或直接使用<code>Sort</code>来完成排序。 在<code>Sort</code>的<code>Order</code>实例中实际使用的属性需要与您的域模型匹配，这意味着它们需要解析为查询中使用的属性或别名。 JPQL将此定义为状态字段路径表达式。</p>
+<blockquote>
+<p>Note</p>
+<p>使用任何不可引用的路径表达式都会导致<code>Exception</code>。</p>
+</blockquote>
+<p>但是，将<code>Sort</code>与<a href="#jpa.query-methods.at-query">@Query</a>一起使用，可以让您潜入包含<code>ORDER BY</code>子句中的函数的未经路径检查的Order实例。 这是可能的，因为<code>Order</code>附加到给定的查询字符串中。 默认情况下，Spring Data JPA拒绝任何包含函数调用的<code>Order</code>实例，但是您可以使用<code>JpaSort.unsafe</code>添加可能不安全的排序。</p>
+<p>以下示例使用<code>Sort</code>和<code>JpaSort</code>，在JpaSort上包括一个不安全的选项：</p>
+<p>例子65.使用排序和JpaSort</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(&quot;select u from User u where u.lastname like ?1%&quot;)</span></span><br><span class="line">  <span class="function">List&lt;User&gt; <span class="title">findByAndSort</span><span class="params">(String lastname, Sort sort)</span></span>;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(&quot;select u.id, LENGTH(u.firstname) as fn_len from User u where u.lastname like ?1%&quot;)</span></span><br><span class="line">  List&lt;Object[]&gt; findByAsArrayAndSort(String lastname, Sort sort);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">repo.findByAndSort(<span class="string">&quot;lannister&quot;</span>, <span class="keyword">new</span> Sort(<span class="string">&quot;firstname&quot;</span>));     <span class="number">1</span>          </span><br><span class="line">repo.findByAndSort(<span class="string">&quot;stark&quot;</span>, <span class="keyword">new</span> Sort(<span class="string">&quot;LENGTH(firstname)&quot;</span>));        <span class="number">2</span>   </span><br><span class="line">repo.findByAndSort(<span class="string">&quot;targaryen&quot;</span>, JpaSort.unsafe(<span class="string">&quot;LENGTH(firstname)&quot;</span>)); <span class="number">3</span></span><br><span class="line">repo.findByAsArrayAndSort(<span class="string">&quot;bolton&quot;</span>, <span class="keyword">new</span> Sort(<span class="string">&quot;fn_len&quot;</span>));         <span class="number">4</span>     </span><br></pre></td></tr></table></figure>
+<ol>
+<li>指向域模型中属性的有效Sort表达式。</li>
+<li>包含函数调用的无效排序。 Thows异常。</li>
+<li>有效排序包含明显不安全的订单。</li>
+<li>指向别名函数的有效Sort表达式。</li>
+</ol>
+<p><span id="jpa.named-parameters"></span></p>
+<h3 id="使用命名参数"><a href="#使用命名参数" class="headerlink" title="使用命名参数"></a>使用命名参数</h3><p>默认情况下，Spring Data JPA使用基于位置的参数绑定，如前面所有示例中所述。 当重构有关参数位置的查询时，这会使查询方法容易出错。 要解决此问题，可以使用<code>@Param</code>注解为方法参数指定一个具体名称，然后在查询中绑定该名称，如以下示例所示：</p>
+<p>例子66.使用命名参数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(&quot;select u from User u where u.firstname = :firstname or u.lastname = :lastname&quot;)</span></span><br><span class="line">  <span class="function">User <span class="title">findByLastnameOrFirstname</span><span class="params">(<span class="meta">@Param(&quot;lastname&quot;)</span> String lastname,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 <span class="meta">@Param(&quot;firstname&quot;)</span> String firstname)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Note</p>
+<p>方法参数根据它们在定义的查询中的顺序进行切换。</p>
+<p>从版本4开始，Spring完全支持基于<code>-parameters</code>编译器标志的Java 8参数名称发现。 通过在构建中使用此标志作为调试信息的替代方法，可以省略<code>@Param</code>注解的命名参数。</p>
+</blockquote>
+<p><span id="jpa.query.spel-expressions"></span></p>
+<h3 id="使用SpEL表达式"><a href="#使用SpEL表达式" class="headerlink" title="使用SpEL表达式"></a>使用SpEL表达式</h3><p>从Spring Data JPA 1.4版开始，我们支持在使用<code>@Query</code>定义的手动定义的查询中使用受限的SpEL模板表达式。 查询执行后，将根据一组预定义的变量对这些表达式进行求值。 Spring Data JPA支持一个名为<code>entityName</code>的变量。 它的用法是<code>select x from #&#123;#entityName&#125; x</code>。 它插入与给定存储库关联的域类型的<code>entityName</code>。 实体名称的解析如下：如果域类型已在<code>@Entity</code>注解上设置了名称属性，则将其使用。 否则，将使用域类型的简单类名。</p>
+<p>以下示例演示了查询字符串中<code>＃&#123;＃entityName&#125;</code>表达式的一种用例，您想在其中使用查询方法和手动定义的查询来定义存储库接口：</p>
+<p>例67.在存储库查询方法中使用SpEL表达式-entityName</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Id</span></span><br><span class="line">  <span class="meta">@GeneratedValue</span></span><br><span class="line">  Long id;</span><br><span class="line"></span><br><span class="line">  String lastname;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>,<span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(&quot;select u from #&#123;#entityName&#125; u where u.lastname = ?1&quot;)</span></span><br><span class="line">  <span class="function">List&lt;User&gt; <span class="title">findByLastname</span><span class="params">(String lastname)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了避免在<code>@Query</code>注解的查询字符串中声明实际的实体名称，可以使用＃{＃entityName}变量。</p>
+<p>可以使用<code>@Entity</code>注解来自定义<code>entityName</code>。 SpEL表达式不支持orm.xml中的自定义。<br>当然，您可能只是在查询声明中直接使用了User，但这也需要您更改查询。对<code>#entityName</code>的引用将User类将来可能的重新映射选择为另一个实体名称（例如，通过使用<code>@Entity（name =“ MyUser”）</code>）。</p>
+<p>查询字符串中<code>＃&#123;＃entityName&#125;</code>表达式的另一个用例是，是否要为特定域类型定义带有专用存储库接口的通用存储库接口。要不在具体接口上重复定义自定义查询方法，可以在通用存储库接口的<code>@Query</code>注解的查询字符串中使用实体名称表达式，如以下示例所示：</p>
+<p>例子68.在仓库查询方法中使用SpEL表达式-具有继承的entityName</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MappedSuperclass</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AbstractMappedType</span> </span>&#123;</span><br><span class="line">  …</span><br><span class="line">  String attribute</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcreteType</span> <span class="keyword">extends</span> <span class="title">AbstractMappedType</span> </span>&#123; … &#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@NoRepositoryBean</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">MappedTypeRepository</span>&lt;<span class="title">T</span> <span class="keyword">extends</span> <span class="title">AbstractMappedType</span>&gt;</span></span><br><span class="line"><span class="class">  <span class="keyword">extends</span> <span class="title">Repository</span>&lt;<span class="title">T</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(&quot;select t from #&#123;#entityName&#125; t where t.attribute = ?1&quot;)</span></span><br><span class="line">  <span class="function">List&lt;T&gt; <span class="title">findAllByAttribute</span><span class="params">(String attribute)</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ConcreteRepository</span></span></span><br><span class="line"><span class="class">  <span class="keyword">extends</span> <span class="title">MappedTypeRepository</span>&lt;<span class="title">ConcreteType</span>&gt; </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
+<p>在前面的示例中，<code>MappedTypeRepository</code>接口是扩展<code>AbstractMappedType</code>的一些域类型的公共父接口。 它还定义了通用的<code>findAllByAttribute（…）</code>方法，该方法可用于专用存储库接口的实例。 如果现在在<code>ConcreteRepository</code>上调用<code>findByAllAttribute（…）</code>，则查询<code>select t from ConcreteType t where t.attribute = ?1</code>。</p>
+<p>SpEL表达式用于操作参数，也可以用于操作方法参数。 在这些SpEL表达式中，实体名称不可用，但自变量可用。 可以通过名称或索引访问它们，如以下示例所示。</p>
+<p>示例69.在存储库查询方法中使用SpEL表达式-访问参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(&quot;select u from User u where u.firstname = ?1 and u.firstname=?#&#123;[0]&#125; and u.emailAddress = ?#&#123;principal.emailAddress&#125;&quot;)</span></span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findByFirstnameAndCurrentUserWithCustomQuery</span><span class="params">(String firstname)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>对于<code>LIKE</code>条件，通常需要将<code>％</code>附加到String值参数的开头或结尾。 这可以通过将绑定参数标记或SpEL表达式附加或前缀为<code>％</code>来完成。 以下示例再次说明了这一点。</p>
+<p>例子70.在仓库查询方法中使用SpEL表达式-通配符快捷方式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(&quot;select u from User u where u.lastname like %:#&#123;[0]&#125;% and u.lastname like %:lastname%&quot;)</span></span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findByLastnameWithSpelExpression</span><span class="params">(<span class="meta">@Param(&quot;lastname&quot;)</span> String lastname)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>如果使用类似条件的值来自不安全来源，则应清除这些值，以使它们不能包含任何通配符，从而使攻击者可以选择比其应有的能力更多的数据。 为此，在SpEL上下文中可以使用<code>escape（String）</code>方法。 它在第一个参数中的<code>_</code>和<code>％</code>的所有实例之前加上第二个参数中的单个字符。 与JPQL中提供的<code>like</code>表达式的<code>escape</code>子句和标准SQL结合使用，可以轻松清除绑定参数。</p>
+<p>示例71.在存储库查询方法中使用SpEL表达式-清理输入值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(&quot;select u from User u where u.firstname like %?#&#123;escape([0])&#125;% escape ?#&#123;escapeCharacter()&#125;&quot;)</span></span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findContainingEscaped</span><span class="params">(String namePart)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><span id="jpa.modifying-queries"></span></p>
+<h3 id="修改查询"><a href="#修改查询" class="headerlink" title="修改查询"></a>修改查询</h3><p><span id="jpa.query-hints"></span></p>
+<h3 id="应用查询提示"><a href="#应用查询提示" class="headerlink" title="应用查询提示"></a>应用查询提示</h3><p><span id="jpa.entity-graph"></span></p>
+<h3 id="配置Fetch-和LoadGraphs"><a href="#配置Fetch-和LoadGraphs" class="headerlink" title="配置Fetch-和LoadGraphs"></a>配置Fetch-和LoadGraphs</h3><p><span id="projections"></span></p>
+<h3 id="Projections"><a href="#Projections" class="headerlink" title="Projections"></a>Projections</h3><p><span id=""></span></p>
+<p><span id=""></span></p>
+<p><span id="jpa.stored-procedures"></span></p>
+<h2 id="存储过程"><a href="#存储过程" class="headerlink" title="存储过程"></a>存储过程</h2><p><span id="specifications"></span></p>
+<h2 id="技术指标"><a href="#技术指标" class="headerlink" title="技术指标"></a>技术指标</h2><p><span id="query-by-example"></span></p>
+<h2 id="实例查询"><a href="#实例查询" class="headerlink" title="实例查询"></a>实例查询</h2><p><span id="query-by-example.introduction"></span></p>
+<h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p><span id="query-by-example.usage"></span></p>
+<h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p><span id="query-by-example.matchers"></span></p>
+<h3 id="示例匹配器"><a href="#示例匹配器" class="headerlink" title="示例匹配器"></a>示例匹配器</h3><p><span id="query-by-example.execution"></span></p>
+<h3 id="查询案例"><a href="#查询案例" class="headerlink" title="查询案例"></a>查询案例</h3><p><span id="transactions"></span></p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>默认情况下，存储库实例上的CRUD方法是事务性的。 对于读取操作，事务配置readOnly标志设置为true。 所有其他文件都配置有简单的@Transactional，以便应用默认事务配置。 有关详细信息，请参见SimpleJpaRepository的JavaDoc。 如果需要调整在存储库中声明的方法之一的事务配置，请在存储库接口中重新声明该方法，如下所示：</p>
+<p>例子106. CRUD的自定义事务配置</p>
+<p><span id="transactional-query-methods"></span></p>
+<h3 id="带事务的查询方法"><a href="#带事务的查询方法" class="headerlink" title="带事务的查询方法"></a>带事务的查询方法</h3><p><span id="locking"></span></p>
+<h2 id="Locking"><a href="#Locking" class="headerlink" title="Locking"></a>Locking</h2><p><span id="auditing"></span></p>
+<h2 id="Auditing"><a href="#Auditing" class="headerlink" title="Auditing"></a>Auditing</h2><p><span id="auditing.basics"></span></p>
+<h3 id="基本"><a href="#基本" class="headerlink" title="基本"></a>基本</h3><p><span id="jpa.auditing"></span></p>
+<h3 id="JPA-Auditing"><a href="#JPA-Auditing" class="headerlink" title="JPA Auditing"></a>JPA Auditing</h3><p><span id="jpa.misc"></span></p>
+<h2 id="其他注意事项"><a href="#其他注意事项" class="headerlink" title="其他注意事项"></a>其他注意事项</h2><p><span id="appendix"></span></p>
+<h1 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h1><p><span id="repositories.namespace-reference"></span></p>
+<h2 id="命名空间参考"><a href="#命名空间参考" class="headerlink" title="命名空间参考"></a>命名空间参考</h2><p><span id="populator.namespace-dao-config"></span></p>
+<h3 id="The-lt-repositories-gt-Element"><a href="#The-lt-repositories-gt-Element" class="headerlink" title="The &lt;repositories /&gt; Element"></a>The <code>&lt;repositories /&gt;</code> Element</h3><p><span id="populator.namespace-reference"></span></p>
+<h2 id="Populators-namespace-reference"><a href="#Populators-namespace-reference" class="headerlink" title="Populators namespace reference"></a>Populators namespace reference</h2><p><span id="namespace-dao-config"></span></p>
+<h3 id="The-element"><a href="#The-element" class="headerlink" title="The  element"></a>The <populator/> element</h3><p><span id="repository-query-keywords"></span></p>
+<h2 id="Repository查询关键字"><a href="#Repository查询关键字" class="headerlink" title="Repository查询关键字"></a>Repository查询关键字</h2><p><span id="repository-query-return-types"></span></p>
+<h2 id="Repository查询返回类型"><a href="#Repository查询返回类型" class="headerlink" title="Repository查询返回类型"></a>Repository查询返回类型</h2><p><span id="faq"></span></p>
+<h2 id="经常问的问题"><a href="#经常问的问题" class="headerlink" title="经常问的问题"></a>经常问的问题</h2><p><span id="glossary"></span></p>
+<h2 id="词汇表"><a href="#词汇表" class="headerlink" title="词汇表"></a>词汇表</h2>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Spring-Data/" rel="tag"># Spring-Data</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/09/24/Java-Tutorials/" rel="prev" title="Java-Tutorials">
+      <i class="fa fa-chevron-left"></i> Java-Tutorials
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%85%83%E6%95%B0%E6%8D%AE"><span class="nav-number">1.</span> <span class="nav-text">项目元数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JPA-Repositories"><span class="nav-number">2.</span> <span class="nav-text">JPA Repositories</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4"><span class="nav-number">2.1.1.</span> <span class="nav-text">Spring命名空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%B3%A8%E8%A7%A3%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.2.</span> <span class="nav-text">基于注解的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E5%AF%BC%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.1.3.</span> <span class="nav-text">引导模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E5%AE%9E%E4%BD%93"><span class="nav-number">2.2.</span> <span class="nav-text">持久化实体</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E5%AE%9E%E4%BD%93"><span class="nav-number">2.2.1.</span> <span class="nav-text">保存实体</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E7%8A%B6%E6%80%81%E6%A3%80%E6%B5%8B%E7%AD%96%E7%95%A5"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">实体状态检测策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">查询方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%9F%A5%E6%89%BE%E7%AD%96%E7%95%A5"><span class="nav-number">2.3.1.</span> <span class="nav-text">查询查找策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E5%88%9B%E5%BB%BA"><span class="nav-number">2.3.2.</span> <span class="nav-text">查询创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8JPA%E5%91%BD%E5%90%8D%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.3.3.</span> <span class="nav-text">使用JPA命名查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Query"><span class="nav-number">2.3.4.</span> <span class="nav-text">使用@Query</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Sort"><span class="nav-number">2.3.5.</span> <span class="nav-text">使用Sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%91%BD%E5%90%8D%E5%8F%82%E6%95%B0"><span class="nav-number">2.3.6.</span> <span class="nav-text">使用命名参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8SpEL%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">2.3.7.</span> <span class="nav-text">使用SpEL表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.3.8.</span> <span class="nav-text">修改查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E6%9F%A5%E8%AF%A2%E6%8F%90%E7%A4%BA"><span class="nav-number">2.3.9.</span> <span class="nav-text">应用查询提示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEFetch-%E5%92%8CLoadGraphs"><span class="nav-number">2.3.10.</span> <span class="nav-text">配置Fetch-和LoadGraphs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Projections"><span class="nav-number">2.3.11.</span> <span class="nav-text">Projections</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">存储过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%80%E6%9C%AF%E6%8C%87%E6%A0%87"><span class="nav-number">2.5.</span> <span class="nav-text">技术指标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E6%9F%A5%E8%AF%A2"><span class="nav-number">2.6.</span> <span class="nav-text">实例查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D-1"><span class="nav-number">2.6.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%B3%95"><span class="nav-number">2.6.2.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E5%8C%B9%E9%85%8D%E5%99%A8"><span class="nav-number">2.6.3.</span> <span class="nav-text">示例匹配器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%A1%88%E4%BE%8B"><span class="nav-number">2.6.4.</span> <span class="nav-text">查询案例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8B%E5%8A%A1"><span class="nav-number">2.7.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%96%B9%E6%B3%95"><span class="nav-number">2.7.1.</span> <span class="nav-text">带事务的查询方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Locking"><span class="nav-number">2.8.</span> <span class="nav-text">Locking</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Auditing"><span class="nav-number">2.9.</span> <span class="nav-text">Auditing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC"><span class="nav-number">2.9.1.</span> <span class="nav-text">基本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JPA-Auditing"><span class="nav-number">2.9.2.</span> <span class="nav-text">JPA Auditing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">2.10.</span> <span class="nav-text">其他注意事项</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%84%E5%BD%95"><span class="nav-number">3.</span> <span class="nav-text">附录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E5%90%8D%E7%A9%BA%E9%97%B4%E5%8F%82%E8%80%83"><span class="nav-number">3.1.</span> <span class="nav-text">命名空间参考</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-lt-repositories-gt-Element"><span class="nav-number">3.1.1.</span> <span class="nav-text">The &lt;repositories &#x2F;&gt; Element</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Populators-namespace-reference"><span class="nav-number">3.2.</span> <span class="nav-text">Populators namespace reference</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-element"><span class="nav-number">3.2.1.</span> <span class="nav-text">The  element</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repository%E6%9F%A5%E8%AF%A2%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">3.3.</span> <span class="nav-text">Repository查询关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Repository%E6%9F%A5%E8%AF%A2%E8%BF%94%E5%9B%9E%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.4.</span> <span class="nav-text">Repository查询返回类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%8F%E5%B8%B8%E9%97%AE%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.5.</span> <span class="nav-text">经常问的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%8D%E6%B1%87%E8%A1%A8"><span class="nav-number">3.6.</span> <span class="nav-text">词汇表</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Route-nice"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Route-nice</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/route-nice" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;route-nice" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:route.lvy.roman@gmail.com" title="E-Mail → mailto:route.lvy.roman@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Route-nice</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://route-nice.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "http://yoursite.com/2020/09/28/Spring-Data/";
+    this.page.identifier = "2020/09/28/Spring-Data/";
+    this.page.title = "Spring-Data";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://route-nice.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>
