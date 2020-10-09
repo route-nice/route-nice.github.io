@@ -22,13 +22,13 @@
 
   <meta name="description" content="前言Spring Data JPA为Java Persistence API（JPA）提供了存储库支持。 它简化了需要访问JPA数据源的应用程序的开发。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Spring-Data">
+<meta property="og:title" content="Spring-Data-JPA">
 <meta property="og:url" content="http://yoursite.com/2020/09/28/Spring-Data-JPA/index.html">
 <meta property="og:site_name" content="Route-nice">
 <meta property="og:description" content="前言Spring Data JPA为Java Persistence API（JPA）提供了存储库支持。 它简化了需要访问JPA数据源的应用程序的开发。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-28T05:39:16.000Z">
-<meta property="article:modified_time" content="2020-10-09T08:55:15.292Z">
+<meta property="article:modified_time" content="2020-10-09T09:08:49.780Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="Spring-Data">
 <meta name="twitter:card" content="summary">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Spring-Data | Route-nice</title>
+  <title>Spring-Data-JPA | Route-nice</title>
   
 
 
@@ -188,7 +188,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Spring-Data
+          Spring-Data-JPA
         </h1>
 
         <div class="post-meta">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-09 16:55:15" itemprop="dateModified" datetime="2020-10-09T16:55:15+08:00">2020-10-09</time>
+                <time title="修改时间：2020-10-09 17:08:49" itemprop="dateModified" datetime="2020-10-09T17:08:49+08:00">2020-10-09</time>
               </span>
 
           
@@ -313,24 +313,18 @@
 <li><p>在接口上声明查询方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">PersonRepository</span> <span class="keyword">extends</span> <span class="title">Repository</span>&lt;<span class="title">Person</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">  <span class="function">List&lt;Person&gt; <span class="title">findByLastname</span><span class="params">(String lastname)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<ol>
 <li><p>设置Spring以使用<a href="#repositories.create-instances.java-config">JavaConfig</a>或<a href="#repositories.create-instances">XML配置</a>为这些接口创建代理实例。</p>
 <ol>
 <li><p>要使用Java配置，请创建类似于以下内容的类：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.data.jpa.repository.config.EnableJpaRepositories;</span><br><span class="line"></span><br><span class="line"><span class="meta">@EnableJpaRepositories</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Config</span> </span>&#123; … &#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-</li>
-</ol>
-<ol>
 <li><p>要使用XML配置，请定义类似于以下内容的bean：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xmlns:jpa</span>=<span class="string">&quot;http://www.springframework.org/schema/data/jpa&quot;</span></span></span><br><span class="line"><span class="tag">   <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">     https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">     http://www.springframework.org/schema/data/jpa</span></span></span><br><span class="line"><span class="tag"><span class="string">     https://www.springframework.org/schema/data/jpa/spring-jpa.xsd&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">   <span class="tag">&lt;<span class="name">jpa:repositories</span> <span class="attr">base-package</span>=<span class="string">&quot;com.acme.repositories&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://www.springframework.org/schema/beans&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xmlns:jpa</span>=<span class="string">&quot;http://www.springframework.org/schema/data/jpa&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://www.springframework.org/schema/beans</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">        http://www.springframework.org/schema/data/jpa</span></span></span><br><span class="line"><span class="tag"><span class="string">        https://www.springframework.org/schema/data/jpa/spring-jpa.xsd&quot;</span>&gt;</span></span><br><span class="line">   </span><br><span class="line">      <span class="tag">&lt;<span class="name">jpa:repositories</span> <span class="attr">base-package</span>=<span class="string">&quot;com.acme.repositories&quot;</span>/&gt;</span></span><br><span class="line">   </span><br><span class="line">   <span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>在此示例中使用了JPA命名空间。 如果将存储库抽象用于任何其他商店，则需要将其更改为商店模块的适当名称空间声明。 换句话说，您应该将<code>jpa</code>换成<code>mongodb</code>。</p>
 <p>+另外，请注意，JavaConfig变量不会显式配置程序包，因为默认情况下使用带注释的类的程序包。 要自定义要扫描的包，请使用特定于数据存储的存储库的<code>@Enable$&#123;store&#125;Repositories</code>-annotation的<code>basePackage…</code>属性之一。</p>
 </li>
 </ol>
-<ol>
+</li>
 <li><p>注入存储库实例并使用它，如以下示例所示：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> PersonRepository repository;</span><br><span class="line"></span><br><span class="line">  SomeClient(PersonRepository repository) &#123;</span><br><span class="line">    <span class="keyword">this</span>.repository = repository;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">doSomething</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    List&lt;Person&gt; persons = repository.findByLastname(<span class="string">&quot;Matthews&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
@@ -1180,7 +1174,7 @@
   var disqus_config = function() {
     this.page.url = "http://yoursite.com/2020/09/28/Spring-Data-JPA/";
     this.page.identifier = "2020/09/28/Spring-Data-JPA/";
-    this.page.title = "Spring-Data";
+    this.page.title = "Spring-Data-JPA";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
