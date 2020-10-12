@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://www.docs4dev.com/images/spring-framework/5.1.3.RELEASE/aop-proxy-plain-pojo-call.jpg">
 <meta property="og:image" content="https://www.docs4dev.com/images/spring-framework/5.1.3.RELEASE/aop-proxy-call.jpg">
 <meta property="article:published_time" content="2020-08-24T06:34:27.000Z">
-<meta property="article:modified_time" content="2020-09-22T08:20:24.820Z">
+<meta property="article:modified_time" content="2020-10-12T06:29:19.818Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="SpringFramework">
 <meta name="twitter:card" content="summary">
@@ -211,7 +211,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-22 16:20:24" itemprop="dateModified" datetime="2020-09-22T16:20:24+08:00">2020-09-22</time>
+                <time title="修改时间：2020-10-12 14:29:19" itemprop="dateModified" datetime="2020-10-12T14:29:19+08:00">2020-10-12</time>
               </span>
 
           
@@ -1157,7 +1157,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleMovieLister</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> MovieFinder movieFinder;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Required</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setMovieFinder</span><span class="params">(MovieFinder movieFinder)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.movieFinder = movieFinder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>此 annotation 指示必须在 configuration time，bean 定义中的显式 property value 或通过自动装配填充受影响的 bean property。如果尚未填充受影响的 bean property，则容器会抛出 exception。这允许急切和明确的失败，以后避免<code>NullPointerException</code>实例等。我们仍然建议您将断言放入 bean class 本身(对于 example，放入 init 方法)。即使在容器外部使用 class，这样做也会强制执行那些必需的 references 和值。</p>
 <h3 id="使用Autowired注解"><a href="#使用Autowired注解" class="headerlink" title="使用Autowired注解"></a>使用Autowired注解</h3><blockquote>
-<p>在本节所包含的示例中，可以使用 JSR 330 的<code>@Inject</code> annotation 代替 Spring 的<code>@Autowired</code> annotation。有关详细信息，请参阅<a href="#mvc-servlet">这里</a>。</p>
+<p>在本节所包含的示例中，可以使用 JSR 330 的<code>@Inject</code> annotation 代替 Spring 的<code>@Autowired</code> annotation。有关详细信息，请参阅<a href="#beans-standard-annotations">这里</a>。</p>
 </blockquote>
 <p>您可以将<code>@Autowired</code> annotation 应用于构造函数，如以下 example 所示：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MovieRecommender</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> CustomerPreferenceDao customerPreferenceDao;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MovieRecommender</span><span class="params">(CustomerPreferenceDao customerPreferenceDao)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.customerPreferenceDao = customerPreferenceDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1508,6 +1508,7 @@
 <p>在 IDE 中使用此模式时，必须将<code>spring-context-indexer</code>注册为 annotation 处理器，以确保在更新候选组件时索引为 up-to-date。</p>
 <p>在 classpath 上找到<code>META-INF/spring.components</code>时，将自动启用索引。如果索引部分可用于某些 libraries(或用例)但无法为整个 application 构建，则可以通过将<code>spring.index.ignore</code>设置为<code>true</code>来回退到常规 classpath 排列(就好像根本没有索引)系统 property 或 classpath 根目录下的<code>spring.properties</code>文件。</p>
 </blockquote>
+<p><span id="beans-standard-annotations"></span></p>
 <h2 id="使用JSR330标准注解"><a href="#使用JSR330标准注解" class="headerlink" title="使用JSR330标准注解"></a>使用JSR330标准注解</h2><p>从 Spring 3.0 开始，Spring 支持 JSR-330 standard annotations(依赖注入)。这些注释的扫描方式与 Spring annotations 相同。要使用它们，您需要在 classpath 中包含相关的 jars。</p>
 <blockquote>
 <p>如果使用 Maven，则<code>javax.inject</code> artifact 在标准 <a href="[http://repo1.maven.org/maven2/javax/inject/javax.inject/1/](https://repo1.maven.org/maven2/javax/inject/javax.inject/1/">Maven repository</a>)中可用。您可以将以下依赖项添加到文件 pom.xml：</p>

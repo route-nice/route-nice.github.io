@@ -28,7 +28,7 @@
 <meta property="og:description" content="version 2.3.4.RELEASE 前言Spring Data JPA为Java Persistence API（JPA）提供了存储库支持。 它简化了需要访问JPA数据源的应用程序的开发。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-28T05:39:16.000Z">
-<meta property="article:modified_time" content="2020-10-12T05:44:00.410Z">
+<meta property="article:modified_time" content="2020-10-12T08:04:57.766Z">
 <meta property="article:author" content="Route-nice">
 <meta property="article:tag" content="Spring-Data">
 <meta name="twitter:card" content="summary">
@@ -205,7 +205,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-12 13:44:00" itemprop="dateModified" datetime="2020-10-12T13:44:00+08:00">2020-10-12</time>
+                <time title="修改时间：2020-10-12 16:04:57" itemprop="dateModified" datetime="2020-10-12T16:04:57+08:00">2020-10-12</time>
               </span>
 
           
@@ -393,7 +393,7 @@
 <h3 id="查询查找策略"><a href="#查询查找策略" class="headerlink" title="查询查找策略"></a>查询查找策略</h3><p>以下策略可用于存储库基础结构来解决查询。使用XML配置，您可以通过<code>query-lookup-strategy</code>属性在名称空间中配置策略。对于Java配置，可以使用<code>Enable$&#123;store&#125;Repositories</code>注解的<code>queryLookupStrategy</code>属性。某些数据存储可能不支持某些策略。</p>
 <ul>
 <li><code>CREATE</code>尝试从查询方法名称构造特定于存储的查询。通用方法是从方法名称中删除一组给定的众所周知的前缀，然后解析该方法的其余部分。您可以在<a href="#repositories.query-methods.query-creation">“查询创建”</a>中阅读有关查询构造的更多信息。</li>
-<li><code>USE_DECLARED_QUERY</code>尝试查找已声明的查询，如果找不到则抛出异常。该查询可以通过某处的注解定义，也可以通过其他方式声明。请查阅特定存储的文档以找到该商店的可用选项。如果存储库基础结构在引导时找不到该方法的声明查询，则它将失败。</li>
+<li><code>USE_DECLARED_QUERY</code>尝试查找已声明的查询，如果找不到则抛出异常。该查询可以通过某处的注解定义，也可以通过其他方式声明。请查阅特定存储的文档以找到该存储的可用选项。如果存储库基础结构在引导时找不到该方法的声明查询，则它将失败。</li>
 <li><code>CREATE_IF_NOT_FOUND</code>（默认）结合了<code>CREATE</code>和<code>USE_DECLARED_QUERY</code>。它首先查找一个声明的查询，如果找不到声明的查询，它将创建一个基于名称的自定义方法查询。这是默认的查找策略，因此，如果未显式配置任何内容，则使用该策略。它允许通过方法名称快速定义查询，还可以通过根据需要引入已声明的查询来自定义调整这些查询。</li>
 </ul>
 <p><span id="repositories.query-methods.query-creation"></span></p>
@@ -404,7 +404,7 @@
 <ul>
 <li><p>表达式通常是属性遍历，并带有可串联的运算符。您可以将属性表达式与<code>AND</code>和<code>OR</code>结合使用。您还将获得属性表达式的支持，例如<code>between</code>，<code>LessThan</code>，<code>GreaterThan</code>和<code>Like</code>。支持的运算符可能因数据存储而异，因此请参考参考文档的相应部分。</p>
 </li>
-<li><p>方法解析器支持为单个属性（例如，<code>findByLastnameIgnoreCase（…）</code>）或支持忽略大小写的类型的所有属性（通常为String实例，例如，<code>findByLastnameAndFirstnameAllIgnoreCase(...)</code>）设置<code>IgnoreCase</code>标志。是否支持忽略大小写可能因商店而异，因此请参考参考文档中有关存储特定查询方法的相关部分。</p>
+<li><p>方法解析器支持为单个属性（例如，<code>findByLastnameIgnoreCase（…）</code>）或支持忽略大小写的类型的所有属性（通常为String实例，例如，<code>findByLastnameAndFirstnameAllIgnoreCase(...)</code>）设置<code>IgnoreCase</code>标志。是否支持忽略大小写可能因存储而异，因此请参考参考文档中有关存储特定查询方法的相关部分。</p>
 </li>
 <li><p>您可以通过将<code>OrderBy</code>子句附加到引用属性的查询方法并提供排序方向（<code>Asc</code>或<code>Desc</code>）来应用静态排序。要创建支持动态排序的查询方法，请参见<a href="#repositories.special-parameters">“特殊参数处理”</a>。</p>
 </li>
@@ -424,7 +424,7 @@
 <blockquote>
 <p>采用<code>Sort</code>和<code>Pageable</code>的API期望将非<code>null</code>值传递到方法中。如果您不想应用任何排序或分页，请使用<code>Sort.unsorted()</code>和<code>Pageable.unpaged()</code>。</p>
 </blockquote>
-<p>第一种方法使您可以将<code>org.springframework.data.domain.Pageable</code>实例传递给查询方法，以将分页动态添加到静态定义的查询中。页面了解可用元素和页面的总数。它是通过基础结构触发计数查询来计算总数来实现的。由于这可能很昂贵（取决于所使用的商店），因此您可以改为返回<code>Slice</code>。切片仅知道下一个切片是否可用，当遍历较大的结果集时这可能就足够了。</p>
+<p>第一种方法使您可以将<code>org.springframework.data.domain.Pageable</code>实例传递给查询方法，以将分页动态添加到静态定义的查询中。页面了解可用元素和页面的总数。它是通过基础结构触发计数查询来计算总数来实现的。由于这可能很昂贵（取决于所使用的存储），因此您可以改为返回<code>Slice</code>。切片仅知道下一个切片是否可用，当遍历较大的结果集时这可能就足够了。</p>
 <p>排序选项也通过<code>Pageable</code>实例处理。如果只需要排序，则将<code>org.springframework.data.domain.Sort</code>参数添加到您的方法中。如您所见，返回列表也是可能的。在这种情况下，将不会创建构建实际的<code>Page</code>实例所需的其他元数据（这反过来意味着不会发出本来必要的其他计数查询）。而是，它将查询限制为仅查找给定范围的实体。</p>
 <blockquote>
 <p>要查明整个查询可获得多少页，您必须触发另一个计数查询。默认情况下，此查询源自您实际触发的查询。</p>
@@ -437,7 +437,7 @@
 <p>例子16.使用类型安全的API定义排序表达式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">TypedSort&lt;Person&gt; person = Sort.sort(Person.class);</span><br><span class="line"></span><br><span class="line">Sort sort = person.by(Person::getFirstname).ascending()</span><br><span class="line">  .and(person.by(Person::getLastname).descending());</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>TypedSort.by（…）通常通过使用CGlib来使用运行时代理，当使用Graal VM Native等工具时，CGlib可能会干扰本机映像的编译。<br>如果您的商店实现支持Querydsl，则还可以使用生成的元模型类型来定义排序表达式：</p>
+<p>TypedSort.by（…）通常通过使用CGlib来使用运行时代理，当使用Graal VM Native等工具时，CGlib可能会干扰本机映像的编译。<br>如果您的存储实现支持Querydsl，则还可以使用生成的元模型类型来定义排序表达式：</p>
 </blockquote>
 <p>例子17.使用Querydsl API定义排序表达式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">QSort sort = QSort.by(QPerson.firstname.asc())</span><br><span class="line">  .and(QSort.by(QPerson.lastname.desc()));</span><br></pre></td></tr></table></figure>
@@ -546,7 +546,7 @@
 <p>当前，并非所有的Spring Data模块都支持Stream <T>作为返回类型。</p>
 </blockquote>
 <p><span id="repositories.query-async"></span></p>
-<h3 id="异步查询结果"><a href="#异步查询结果" class="headerlink" title="异步查询结果"></a>异步查询结果</h3><p>使用<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E9%9B%86%E6%88%90/#任务执行和调度">Spring的异步方法执行功能</a>，可以异步运行存储库查询。 这意味着该方法在调用时立即返回，而实际查询执行发生在已提交给Spring <code>TaskExecutor</code>的任务中。 异步查询执行与反应式查询执行不同，因此不应混为一谈。 有关响应式支持的更多详细信息，请参阅商店特定的文档。 以下示例显示了许多异步查询：</p>
+<h3 id="异步查询结果"><a href="#异步查询结果" class="headerlink" title="异步查询结果"></a>异步查询结果</h3><p>使用<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/25/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E9%9B%86%E6%88%90/#任务执行和调度">Spring的异步方法执行功能</a>，可以异步运行存储库查询。 这意味着该方法在调用时立即返回，而实际查询执行发生在已提交给Spring <code>TaskExecutor</code>的任务中。 异步查询执行与反应式查询执行不同，因此不应混为一谈。 有关响应式支持的更多详细信息，请参阅存储特定的文档。 以下示例显示了许多异步查询：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Async</span></span><br><span class="line"><span class="function">Future&lt;User&gt; <span class="title">findByFirstname</span><span class="params">(String firstname)</span></span>;               </span><br><span class="line"></span><br><span class="line"><span class="meta">@Async</span></span><br><span class="line"><span class="function">CompletableFuture&lt;User&gt; <span class="title">findOneByFirstname</span><span class="params">(String firstname)</span></span>; </span><br><span class="line"></span><br><span class="line"><span class="meta">@Async</span></span><br><span class="line"><span class="function">ListenableFuture&lt;User&gt; <span class="title">findOneByLastname</span><span class="params">(String lastname)</span></span>;    </span><br></pre></td></tr></table></figure>
 <ol>
 <li>使用<code>java.util.concurrent.Future</code>作为返回类型。</li>
@@ -571,10 +571,10 @@
 <p><span id="repositories.create-instances.java-config"></span></p>
 <h3 id="Java配置"><a href="#Java配置" class="headerlink" title="Java配置"></a>Java配置</h3><p>还可以通过在JavaConfig类上使用特定于商店的<code>@Enable$&#123;store&#125;Repositories</code>注解来触发存储库基础结构。 有关Spring容器的基于Java的配置的介绍，请参见<a target="_blank" rel="noopener" href="https://route-nice.github.io/2020/08/24/SpringFramework%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3%E7%BF%BB%E8%AF%91-%E6%A0%B8%E5%BF%83/#基于Java的容器配置">Spring参考文档中的JavaConfig</a>。</p>
 <p>启用Spring数据存储库的示例配置类似于以下内容：</p>
-<p>例子27.基于样本注释的存储库配置</p>
+<p>例子27.基于样本注解的存储库配置</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableJpaRepositories(&quot;com.acme.repositories&quot;)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ApplicationConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Bean</span></span><br><span class="line">  <span class="function">EntityManagerFactory <span class="title">entityManagerFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// …</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>前面的示例使用特定于JPA的注解，您将根据实际使用的商店模块对其进行更改。 这同样适用于<code>EntityManagerFactory</code> bean的定义。 请参阅有关商店特定配置的部分。</p>
+<p>前面的示例使用特定于JPA的注解，您将根据实际使用的商店模块对其进行更改。 这同样适用于<code>EntityManagerFactory</code> bean的定义。 请参阅有关存储特定配置的部分。</p>
 </blockquote>
 <p><span id="repositories.create-instances.standalone"></span></p>
 <h3 id="独立使用"><a href="#独立使用" class="headerlink" title="独立使用"></a>独立使用</h3><p>您还可以在Spring容器之外使用存储库基础结构，例如在CDI环境中。 您的类路径中仍然需要一些Spring库，但是，通常，您也可以通过编程方式来设置存储库。 提供存储库支持的Spring Data模块附带了特定于持久性技术的RepositoryFactory，您可以按以下方式使用它：</p>
@@ -1031,7 +1031,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">named-query</span> <span class="attr">name</span>=<span class="string">&quot;User.findByLastname&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">query</span>&gt;</span>select u from User u where u.lastname = ?1<span class="tag">&lt;/<span class="name">query</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">named-query</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>该查询具有一个特殊名称，该名称用于在运行时解析它。</p>
 <p><strong>基于注解的配置</strong><br>基于注解的配置的优点是不需要编辑另一个配置文件，从而减少了维护工作。 您需要为每个新的查询声明重新编译域类，从而为此付出了代价。</p>
-<p>例子59.基于注释的命名查询配置</p>
+<p>例子59.基于注解的命名查询配置</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@NamedQuery(name = &quot;User.findByEmailAddress&quot;,</span></span><br><span class="line"><span class="meta">  query = &quot;select u from User u where u.emailAddress = ?1&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>声明接口</strong><br>要允许执行这些命名查询，请按以下方式指定<code>UserRepository</code>：</p>
 <p>例子60. UserRepository中的查询方法声明</p>
@@ -1047,12 +1047,12 @@
 <p>例子62. <code>@Query</code>中的高级<code>like</code>表达式</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(&quot;select u from User u where u.firstname like %?1&quot;)</span></span><br><span class="line">  <span class="function">List&lt;User&gt; <span class="title">findByFirstnameEndsWith</span><span class="params">(String firstname)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在前面的示例中，识别了<code>LIKE</code>分隔符（<code>％</code>），并将查询转换为有效的JPQL查询（删除了<code>％</code>）。 查询执行后，传递给方法调用的参数将使用先前识别的<code>LIKE</code>模式进行扩充。</p>
-<p><strong>本地查询</strong><br><code>@Query</code>注解允许通过将nativeQuery标志设置为true来运行本地查询，如以下示例所示：</p>
-<p>例子63.使用@Query在查询方法中声明一个本地查询</p>
+<p><strong>原生查询</strong><br><code>@Query</code>注解允许通过将nativeQuery标志设置为true来运行原生查询，如以下示例所示：</p>
+<p>例子63.使用@Query在查询方法中声明一个原生查询</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(value = &quot;SELECT * FROM USERS WHERE EMAIL_ADDRESS = ?1&quot;, nativeQuery = true)</span></span><br><span class="line">  <span class="function">User <span class="title">findByEmailAddress</span><span class="params">(String emailAddress)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>Spring Data JPA当前不支持对本机查询进行动态排序，因为它必须操纵声明的实际查询，而这对于本机SQL无法可靠地完成。 但是，您可以通过自己指定count查询来使用本机查询进行分页，如以下示例所示：<br>例子64.使用@Query在查询方法中声明本地计数查询的分页</p>
+<p>Spring Data JPA当前不支持对原生查询进行动态排序，因为它必须操纵声明的实际查询，而这对于本机SQL无法可靠地完成。 但是，您可以通过自己指定count查询来使用原生查询进行分页，如以下示例所示：<br>例子64.使用@Query在查询方法中声明原生计数查询的分页</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Query(value = &quot;SELECT * FROM USERS WHERE LASTNAME = ?1&quot;,</span></span><br><span class="line"><span class="meta">    countQuery = &quot;SELECT count(*) FROM USERS WHERE LASTNAME = ?1&quot;,</span></span><br><span class="line"><span class="meta">    nativeQuery = true)</span></span><br><span class="line">  <span class="function">Page&lt;User&gt; <span class="title">findByLastname</span><span class="params">(String lastname, Pageable pageable)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过将<code>.count</code>后缀添加到查询的副本中，类似的方法也可用于命名本机查询。 不过，您可能需要为计数查询注册结果集映射。</p>
+<p>通过将<code>.count</code>后缀添加到查询的副本中，类似的方法也可用于命名原生查询。 不过，您可能需要为计数查询注册结果集映射。</p>
 <p><span id="jpa.query-methods.sorting"></span></p>
 <h3 id="使用Sort"><a href="#使用Sort" class="headerlink" title="使用Sort"></a>使用Sort</h3><p>可以通过提供<code>PageRequest</code>或直接使用<code>Sort</code>来完成排序。 在<code>Sort</code>的<code>Order</code>实例中实际使用的属性需要与您的域模型匹配，这意味着它们需要解析为查询中使用的属性或别名。 JPQL将此定义为状态字段路径表达式。</p>
 <blockquote>
@@ -1227,7 +1227,7 @@
 <p><span id="query-by-example"></span></p>
 <h2 id="实例查询"><a href="#实例查询" class="headerlink" title="实例查询"></a>实例查询</h2><p><span id="query-by-example.introduction"></span></p>
 <h3 id="介绍-1"><a href="#介绍-1" class="headerlink" title="介绍"></a>介绍</h3><p>本章对“示例查询”进行了介绍，并说明了如何使用它。</p>
-<p>示例查询（QBE）是一种具有简单界面的用户友好查询技术。 它允许动态查询创建，并且不需要您编写包含字段名称的查询。 实际上，“示例查询”根本不需要您使用商店特定的查询语言编写查询。</p>
+<p>示例查询（QBE）是一种具有简单界面的用户友好查询技术。 它允许动态查询创建，并且不需要您编写包含字段名称的查询。 实际上，“示例查询”根本不需要您使用存储特定的查询语言编写查询。</p>
 <p><span id="query-by-example.usage"></span></p>
 <h3 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h3><p>按示例查询API包含三部分：</p>
 <ul>
